@@ -22,11 +22,6 @@ public class RatController : MonoBehaviour
     public Animator animator;
     private bool isSliding;
 
-    //private Vector3 targetPosition;
-
-    //public GameObject player;
-    public Transform LeftPath;
-
     private float targetXPosition = 0;
 
     private bool isMoving = false;
@@ -36,8 +31,6 @@ public class RatController : MonoBehaviour
     { 
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-
-        //targetPosition = transform.position;
     }
 
 
@@ -56,7 +49,7 @@ public class RatController : MonoBehaviour
 
 
 
-        if (Input.GetKeyUp(KeyCode.RightArrow))
+        if (Input.GetKeyUp(KeyCode.RightArrow) && !isMoving)
         {
             // Move to the right path
             desiredPath++;
@@ -64,33 +57,28 @@ public class RatController : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.LeftArrow) && !isMoving)
         {
-            Debug.Log("LeftArrow Detected");
             // Move to the left path
             desiredPath--;
             if (desiredPath <= -1) desiredPath = 0;
-
-            targetXPosition = -5.0f;
-            StartCoroutine(MoveToTargetPosition());
-
-            //transform.position = Vector3.Lerp(transform.position, LeftPath.position, moveSpeed*Time.deltaTime);
-
-
-
         }
-
-        //if (desiredPath == 0) { targetPosition += Vector3.left * pathDistance; }
-        //else if (desiredPath == 2) { targetPosition += Vector3.right * pathDistance; }
 
         if(desiredPath == 0)
         {
-            Debug.Log("Antes de Lerp:" + transform.position.x);
-            
-            Debug.Log("Despues de Lerp:" + transform.position.x);
+            targetXPosition = -5.0f;
+            StartCoroutine(MoveToTargetPosition());
         }
-        
-        //transform.position = Vector3.Lerp(transform.position, LeftPath.position, moveSpeed * Time.deltaTime);
-        
-        //transform.position = targetPosition;
+        if(desiredPath == 1)
+        {
+            targetXPosition = 0f;
+            StartCoroutine(MoveToTargetPosition());
+        }
+        if (desiredPath == 2)
+        {
+            targetXPosition = 5f;
+            StartCoroutine(MoveToTargetPosition());
+        }
+
+        Debug.Log(isMoving);
     }
 
     //private void FixedUpdate() { controller.Move(direction * Time.fixedDeltaTime); }
@@ -104,33 +92,38 @@ public class RatController : MonoBehaviour
         // Slide turn on
         isSliding = true;
 
-        float slideDuration = 0.5f;
-        float elapsedTime = 0;
-        Vector3 startPos = transform.position;
-
-        while (elapsedTime < slideDuration)
+        if(!isMoving) 
         {
-            float slideAmount = Mathf.Lerp(0, -1.1f, elapsedTime / slideDuration);
-            transform.position = new Vector3(transform.position.x, startPos.y + slideAmount, transform.position.z);
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            float slideDuration = 0.5f;
+            float elapsedTime = 0;
+            Vector3 startPos = transform.position;
+
+            while (elapsedTime < slideDuration)
+            {
+                float slideAmount = Mathf.Lerp(0, -1.1f, elapsedTime / slideDuration);
+                transform.position = new Vector3(transform.position.x, startPos.y + slideAmount, transform.position.z);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            // Slide turn off
+            isSliding = false;
+            elapsedTime = 0;
+            while (elapsedTime < slideDuration)
+            {
+                float slideAmount = Mathf.Lerp(0, 0.025f, elapsedTime / slideDuration);
+                transform.position = new Vector3(transform.position.x, startPos.y + slideAmount, transform.position.z);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
         }
 
-        // Slide turn off
-        isSliding = false;
-        elapsedTime = 0;
-        while(elapsedTime < slideDuration)
-        {
-            float slideAmount = Mathf.Lerp(0, 0.025f, elapsedTime/ slideDuration);
-            transform.position = new Vector3(transform.position.x, startPos.y + slideAmount, transform.position.z);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+        transform.position = new Vector3(transform.position.x, 5.13f, transform.position.z);
+        
     }
 
     private IEnumerator MoveToTargetPosition()
     {
-        Debug.Log(targetXPosition);
         isMoving = true;
         Vector3 startPos = transform.position;
         Vector3 targetPos = new Vector3(targetXPosition, transform.position.y, transform.position.z);
@@ -149,13 +142,4 @@ public class RatController : MonoBehaviour
 
         isMoving = false;
     }
-
-    //private IEnumerator TurnLeft(GameObject goA, GameObject goB)
-    //{
-    //    while(goA.transform.position != goB.transform.position)
-    //    {
-    //        goA.transform.position = Vector3.MoveTowards(goA.transform.position, goB.transform.position, moveSpeed * Time.deltaTime);
-    //        yield return null;
-    //    }
-    //}
 }
