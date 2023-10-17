@@ -22,7 +22,14 @@ public class RatController : MonoBehaviour
     public Animator animator;
     private bool isSliding;
 
-    private Vector3 targetPosition;
+    //private Vector3 targetPosition;
+
+    //public GameObject player;
+    public Transform LeftPath;
+
+    private float targetXPosition = 0;
+
+    private bool isMoving = false;
 
     // METHODS
     void Start() 
@@ -30,20 +37,13 @@ public class RatController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
 
-        targetPosition = transform.position;
+        //targetPosition = transform.position;
     }
 
 
     // TO MOVE
     void Update()
     {
-        //animator.SetBool("turningLeft", false);
-
-        if (transform.position.y < 4.0f)
-        {
-            transform.position = new Vector3(0, 5.13f, 0);
-        }
-
         // if the character is in the ground, you can jump
         if (controller.isGrounded)
         {
@@ -54,7 +54,7 @@ public class RatController : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.DownArrow) && !isSliding) { StartCoroutine(Slide()); }
 
-        
+
 
         if (Input.GetKeyUp(KeyCode.RightArrow))
         {
@@ -62,28 +62,38 @@ public class RatController : MonoBehaviour
             desiredPath++;
             if (desiredPath >= 3) desiredPath = 2;
         }
-        else if (Input.GetKeyUp(KeyCode.LeftArrow))
+        else if (Input.GetKeyUp(KeyCode.LeftArrow) && !isMoving)
         {
+            Debug.Log("LeftArrow Detected");
             // Move to the left path
             desiredPath--;
             if (desiredPath <= -1) desiredPath = 0;
 
-            animator.SetBool("turningLeft", true);
+            targetXPosition = -5.0f;
+            StartCoroutine(MoveToTargetPosition());
+
+            //transform.position = Vector3.Lerp(transform.position, LeftPath.position, moveSpeed*Time.deltaTime);
+
+
+
         }
 
         //if (desiredPath == 0) { targetPosition += Vector3.left * pathDistance; }
         //else if (desiredPath == 2) { targetPosition += Vector3.right * pathDistance; }
 
-        if (transform.position.x == -5f)
+        if(desiredPath == 0)
         {
-            animator.SetBool("turningLeft", false);
-            targetPosition.x = -5f;
+            Debug.Log("Antes de Lerp:" + transform.position.x);
+            
+            Debug.Log("Despues de Lerp:" + transform.position.x);
         }
-
-        transform.position = targetPosition;
+        
+        //transform.position = Vector3.Lerp(transform.position, LeftPath.position, moveSpeed * Time.deltaTime);
+        
+        //transform.position = targetPosition;
     }
 
-    private void FixedUpdate() { controller.Move(direction * Time.fixedDeltaTime); }
+    //private void FixedUpdate() { controller.Move(direction * Time.fixedDeltaTime); }
 
     // TO JUMP
     private void Jump() { direction.y = jumpForce; }
@@ -117,4 +127,35 @@ public class RatController : MonoBehaviour
             yield return null;
         }
     }
+
+    private IEnumerator MoveToTargetPosition()
+    {
+        Debug.Log(targetXPosition);
+        isMoving = true;
+        Vector3 startPos = transform.position;
+        Vector3 targetPos = new Vector3(targetXPosition, transform.position.y, transform.position.z);
+
+        float journeyLenght = Vector3.Distance(startPos, targetPos);
+        float startTime = Time.time;
+
+        while(transform.position != targetPos)
+        {
+            float distanceCovered = (Time.time - startTime) * moveSpeed;
+            float journeyFraction = distanceCovered / journeyLenght;
+
+            transform.position = Vector3.Lerp(startPos, targetPos, journeyFraction);
+            yield return null;
+        }
+
+        isMoving = false;
+    }
+
+    //private IEnumerator TurnLeft(GameObject goA, GameObject goB)
+    //{
+    //    while(goA.transform.position != goB.transform.position)
+    //    {
+    //        goA.transform.position = Vector3.MoveTowards(goA.transform.position, goB.transform.position, moveSpeed * Time.deltaTime);
+    //        yield return null;
+    //    }
+    //}
 }
