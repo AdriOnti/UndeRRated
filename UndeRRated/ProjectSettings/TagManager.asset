@@ -4,6 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - ObstacleN
+  - ObstacleT
+  - ObstacleS
+  - ObstacleBN
+  - ObstacleBT
+  - ObstacleHN
+  - ObstacleHT
   - RoadWay
   layers:
   - Default
