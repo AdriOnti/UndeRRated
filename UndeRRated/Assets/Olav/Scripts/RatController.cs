@@ -20,11 +20,11 @@ public class RatController : MonoBehaviour
     public float Gravity = -20;
 
     public Animator animator;
-    private bool isSliding;
+    public bool isSliding;
 
     private float targetXPosition = 0;
 
-    private bool isMoving = false;
+    public bool isMoving = false;
 
     // METHODS
     void Start() 
@@ -62,23 +62,27 @@ public class RatController : MonoBehaviour
             if (desiredPath <= -1) desiredPath = 0;
         }
 
-        if(desiredPath == 0)
+        if (!isSliding)
         {
-            targetXPosition = -5.0f;
-            StartCoroutine(MoveToTargetPosition());
-        }
-        if(desiredPath == 1)
-        {
-            targetXPosition = 0f;
-            StartCoroutine(MoveToTargetPosition());
-        }
-        if (desiredPath == 2)
-        {
-            targetXPosition = 5f;
-            StartCoroutine(MoveToTargetPosition());
+            if (desiredPath == 0)
+            {
+                targetXPosition = -5.0f;
+                StartCoroutine(MoveToTargetPosition());
+            }
+            if (desiredPath == 1)
+            {
+                targetXPosition = 0f;
+                StartCoroutine(MoveToTargetPosition());
+            }
+            if (desiredPath == 2)
+            {
+                targetXPosition = 5f;
+                StartCoroutine(MoveToTargetPosition());
+            }
         }
 
-        Debug.Log(isMoving);
+        Debug.Log("Mov: " + isMoving);
+        Debug.Log("Slide: " + isSliding);
     }
 
     //private void FixedUpdate() { controller.Move(direction * Time.fixedDeltaTime); }
@@ -92,7 +96,7 @@ public class RatController : MonoBehaviour
         // Slide turn on
         isSliding = true;
 
-        if(!isMoving) 
+        if(isMoving == false) 
         {
             float slideDuration = 0.5f;
             float elapsedTime = 0;
@@ -107,7 +111,6 @@ public class RatController : MonoBehaviour
             }
 
             // Slide turn off
-            isSliding = false;
             elapsedTime = 0;
             while (elapsedTime < slideDuration)
             {
@@ -116,30 +119,35 @@ public class RatController : MonoBehaviour
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
-        }
 
-        transform.position = new Vector3(transform.position.x, 5.13f, transform.position.z);
+            transform.position = new Vector3(transform.position.x, 5.13f, transform.position.z);
+
+            isSliding = false;
+        }
         
     }
 
     private IEnumerator MoveToTargetPosition()
     {
-        isMoving = true;
-        Vector3 startPos = transform.position;
-        Vector3 targetPos = new Vector3(targetXPosition, transform.position.y, transform.position.z);
-
-        float journeyLenght = Vector3.Distance(startPos, targetPos);
-        float startTime = Time.time;
-
-        while(transform.position != targetPos)
+        if (isSliding == false)
         {
-            float distanceCovered = (Time.time - startTime) * moveSpeed;
-            float journeyFraction = distanceCovered / journeyLenght;
+            isMoving = true;
+            Vector3 startPos = transform.position;
+            Vector3 targetPos = new Vector3(targetXPosition, transform.position.y, transform.position.z);
 
-            transform.position = Vector3.Lerp(startPos, targetPos, journeyFraction);
-            yield return null;
+            float journeyLenght = Vector3.Distance(startPos, targetPos);
+            float startTime = Time.time;
+
+            while (transform.position != targetPos)
+            {
+                float distanceCovered = (Time.time - startTime) * moveSpeed;
+                float journeyFraction = distanceCovered / journeyLenght;
+
+                transform.position = Vector3.Lerp(startPos, targetPos, journeyFraction);
+                yield return null;
+            }
+
+            isMoving = false;
         }
-
-        isMoving = false;
     }
 }
