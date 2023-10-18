@@ -4,6 +4,8 @@ using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
+using System.Timers;
+using System;
 
 public class RatController : MonoBehaviour
 {
@@ -20,34 +22,40 @@ public class RatController : MonoBehaviour
     public float Gravity = -20;
 
     public Animator animator;
-    public bool isSliding;
 
     private float targetXPosition = 0;
+    private float targetYPosition = 5.13f;
 
-    public bool isMoving = false;
+    public bool isMoving;
+    public bool isSliding;
+    public bool isJumping;
+
+    public float delta = 1.5f;  // Amount to move left and right from the start point
+    public float speed = 2.0f;
+    private Vector3 startPos;
 
     // METHODS
     void Start() 
     { 
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+
+        startPos = transform.position;
     }
 
 
     // TO MOVE
     void Update()
     {
-        // if the character is in the ground, you can jump
-        if (controller.isGrounded)
+        if (Input.GetKeyUp(KeyCode.UpArrow) && !isSliding && !isMoving && !isJumping) 
         {
-            direction.y = -1;
-            if (Input.GetKey(KeyCode.UpArrow)) { Jump(); }
+            targetYPosition += jumpForce;
+            StartCoroutine(Jump());
+
+            
         }
-        else { direction.y += Gravity * Time.deltaTime; }
 
         if (Input.GetKeyUp(KeyCode.DownArrow) && !isSliding) { StartCoroutine(Slide()); }
-
-
 
         if (Input.GetKeyUp(KeyCode.RightArrow) && !isMoving)
         {
@@ -80,15 +88,7 @@ public class RatController : MonoBehaviour
                 StartCoroutine(MoveToTargetPosition());
             }
         }
-
-        Debug.Log("Mov: " + isMoving);
-        Debug.Log("Slide: " + isSliding);
     }
-
-    //private void FixedUpdate() { controller.Move(direction * Time.fixedDeltaTime); }
-
-    // TO JUMP
-    private void Jump() { direction.y = jumpForce; }
 
     // TO SLIDE
     private IEnumerator Slide()
@@ -127,6 +127,7 @@ public class RatController : MonoBehaviour
         
     }
 
+    // SMOOTH MOVE IN THE X AXIS
     private IEnumerator MoveToTargetPosition()
     {
         if (isSliding == false)
@@ -148,6 +149,34 @@ public class RatController : MonoBehaviour
             }
 
             isMoving = false;
+        }
+    }
+
+    // TO JUMP
+    private IEnumerator Jump()
+    {
+        if (isSliding == false)
+        {
+            isJumping = true;
+            Vector3 startPos = transform.position;
+            Vector3 targetPos = new Vector3(transform.position.x, targetYPosition, transform.position.z);
+
+            float journeyLenght = Vector3.Distance(startPos, targetPos);
+            float startTime = Time.time;
+
+            while (transform.position != targetPos)
+            {
+                float distanceCovered = (Time.time - startTime) * moveSpeed;
+                float journeyFraction = distanceCovered / journeyLenght;
+
+                transform.position = Vector3.Lerp(startPos, targetPos, journeyFraction);
+                yield return null;
+            }            
+
+            targetYPosition -= jumpForce;
+            StartCoroutine(Slide());
+
+            isJumping = false;
         }
     }
 }

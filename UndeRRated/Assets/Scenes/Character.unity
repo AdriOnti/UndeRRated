@@ -339,11 +339,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathDistance: 5
   moveSpeed: 5
-  jumpForce: 10
+  jumpForce: 5
   Gravity: -20
   animator: {fileID: 1800170022}
-  isSliding: 0
   isMoving: 0
+  isSliding: 0
+  isJumping: 0
 --- !u!143 &1800170021
 CharacterController:
   m_ObjectHideFlags: 0
