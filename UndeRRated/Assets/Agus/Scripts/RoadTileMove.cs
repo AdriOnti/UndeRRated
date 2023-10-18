@@ -10,18 +10,14 @@ public class RoadTileMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        
+        rb = GetComponent<Rigidbody>();   
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        //We move in Z direction at a constant speed the rigidbody of the road
         rb.transform.Translate(new Vector3(0,0,speed));
     }
 
-    //public void React()
-    //{
-    //    this.transform.position = teleportTarget.transform.position;
-    //}
 }

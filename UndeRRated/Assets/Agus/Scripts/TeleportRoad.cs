@@ -12,6 +12,9 @@ public class TeleportRoad : MonoBehaviour
     //road3.position.z + 52.82955f
     void OnTriggerEnter(Collider other)
     {
+        // We move the roads that already passed the camera(the moment they hit the collider) to the end of the circuit
+        // so it generates the illusion of being an infinite road.
+
         if (other.gameObject.name == "RoadTile")
         {
             other.gameObject.transform.position = new Vector3(road3.position.x, road3.position.y, road3.position.z + road1.localScale.z);
