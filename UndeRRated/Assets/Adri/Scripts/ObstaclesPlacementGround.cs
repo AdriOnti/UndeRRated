@@ -28,12 +28,20 @@ public class ObstaclesPlacementGround : MonoBehaviour
                 continue;
             }
 
-            Transform a = selectedObject.transform;
+            Transform obstacle = selectedObject.transform;
 
             // Mover el objeto seleccionado y establecer la posición encima del objeto carretera
-            float randomX = Random.Range(roadObject.transform.position.x - roadObject.localScale.x / 2, roadObject.transform.position.x + roadObject.localScale.x/2);
-            float randomZ = Random.Range(roadObject.transform.position.z - roadObject.localScale.z / 2, roadObject.transform.position.z + roadObject.localScale.z/2);
-            selectedObject.transform.position = new Vector3(randomX, roadObject.transform.position.y + a.localScale.y/2, randomZ);
+            float randomX = Random.Range(roadObject.transform.position.x - roadObject.localScale.x / 2.5f, roadObject.transform.position.x + roadObject.localScale.x / 2.5f);
+            float randomZ = Random.Range(roadObject.transform.position.z - roadObject.localScale.z / 2.5f, roadObject.transform.position.z + roadObject.localScale.z / 2.5f);
+            if (obstacle.tag == "ObstacleHT")
+            {
+                selectedObject.transform.position = new Vector3(randomX, roadObject.transform.position.y + obstacle.localScale.y * 1.1f, randomZ);
+            }
+            else if (obstacle.tag == "ObstacleHN")
+            {
+                selectedObject.transform.position = new Vector3(randomX, roadObject.transform.position.y + obstacle.localScale.y * 2.5f, randomZ);
+            }
+            else selectedObject.transform.position = new Vector3(randomX, roadObject.transform.position.y + obstacle.localScale.y/2, randomZ);
             
             // Establecer el objeto carretera como padre del objeto movido
             selectedObject.transform.SetParent(roadObject);
