@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
         switch (path)
         {
             case 1: // Left (path 1)
-                targetPosition = new Vector3(-6.0f, transform.position.y, transform.position.z);
+                targetPosition = new Vector3(-8.0f, transform.position.y, transform.position.z);
                 transform.position = Vector3.Lerp(transform.position, targetPosition, 1);
                 break;
             case 2: // Middle (path 2)
@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
                 transform.position = Vector3.Lerp(transform.position, targetPosition, 1);
                 break;
             case 3: // Right (path 3)
-                targetPosition = new Vector3(6.0f, transform.position.y, transform.position.z);
+                targetPosition = new Vector3(8.0f, transform.position.y, transform.position.z);
 
                 transform.position = Vector3.Lerp(transform.position, targetPosition, 1);
                 break;
