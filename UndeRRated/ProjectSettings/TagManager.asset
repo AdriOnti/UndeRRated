@@ -12,6 +12,7 @@ TagManager:
   - ObstacleHN
   - ObstacleHT
   - RoadWay
+  - ObstacleGeneric
   layers:
   - Default
   - TransparentFX

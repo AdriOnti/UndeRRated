@@ -50,16 +50,16 @@ public class Player : MonoBehaviour
         {
             case 1: // Left (path 1)
                 targetPosition = new Vector3(-6.0f, transform.position.y, transform.position.z);
-                transform.position = Vector3.Lerp(transform.position, targetPosition, step);
+                transform.position = Vector3.Lerp(transform.position, targetPosition, 1);
                 break;
             case 2: // Middle (path 2)
                 targetPosition = new Vector3(0.0f, transform.position.y, transform.position.z);
-                transform.position = Vector3.Lerp(transform.position, targetPosition, step);
+                transform.position = Vector3.Lerp(transform.position, targetPosition, 1);
                 break;
             case 3: // Right (path 3)
                 targetPosition = new Vector3(6.0f, transform.position.y, transform.position.z);
 
-                transform.position = Vector3.Lerp(transform.position, targetPosition, step);
+                transform.position = Vector3.Lerp(transform.position, targetPosition, 1);
                 break;
         }
 
@@ -70,5 +70,14 @@ public class Player : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if ( other.CompareTag("ObstacleGeneric"))
+        {
+            Time.timeScale = 0f;
+        }
+    
     }
 }

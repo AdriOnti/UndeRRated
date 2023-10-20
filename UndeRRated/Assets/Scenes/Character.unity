@@ -233,7 +233,7 @@ GameObject:
   - component: {fileID: 1800170021}
   - component: {fileID: 1800170022}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: playerTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -345,6 +345,8 @@ MonoBehaviour:
   isMoving: 0
   isSliding: 0
   isJumping: 0
+  delta: 1.5
+  speed: 2
 --- !u!143 &1800170021
 CharacterController:
   m_ObjectHideFlags: 0
@@ -595,5 +597,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 1804817766}
   - {fileID: 754975317}
-  - {fileID: 2118796365}
   - {fileID: 1800170019}
+  - {fileID: 2118796365}
