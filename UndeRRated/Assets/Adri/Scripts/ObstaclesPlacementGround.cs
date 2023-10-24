@@ -16,12 +16,12 @@ public class ObstaclesPlacementGround : MonoBehaviour
         positionObsX[1] = roadObject.transform.position.x;
         positionObsX[2] = roadObject.transform.position.x + roadObject.localScale.x / 3;
 
-        positionObsZ[0] = roadObject.transform.position.z - roadObject.localScale.z / 3;
-        positionObsZ[1] = roadObject.transform.position.z - roadObject.localScale.z / 5;
-        positionObsZ[2] = roadObject.transform.position.z - roadObject.localScale.z / 4;
-        positionObsZ[3] = roadObject.transform.position.z + roadObject.localScale.z / 4;
-        positionObsZ[4] = roadObject.transform.position.z + roadObject.localScale.z / 5;
-        positionObsZ[5] = roadObject.transform.position.z + roadObject.localScale.z / 3;
+        positionObsZ[0] = roadObject.transform.position.z - roadObject.localScale.z / 2;
+        positionObsZ[1] = roadObject.transform.position.z - roadObject.localScale.z / 3.5f;
+        positionObsZ[2] = roadObject.transform.position.z - roadObject.localScale.z / 5;
+        positionObsZ[3] = roadObject.transform.position.z + roadObject.localScale.z / 5;
+        positionObsZ[4] = roadObject.transform.position.z + roadObject.localScale.z / 3.5f;
+        positionObsZ[5] = roadObject.transform.position.z + roadObject.localScale.z / 2;
 
         PlaceObjects1();
         PlaceObjects2();
