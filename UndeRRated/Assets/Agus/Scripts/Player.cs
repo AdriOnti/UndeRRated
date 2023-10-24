@@ -8,8 +8,14 @@ public class Player : MonoBehaviour
     public float jumpForce = 5.0f;
     private Rigidbody rb;
 
-    public float moveSpeed = 10.0f;
-    public Vector3 targetPosition;
+    [SerializeField] int desiredPath = 1;
+    [SerializeField] int pathDistance = 5;
+    private float targetXPosition = 0;
+
+    public bool isMoving;
+    public float groundedY;
+
+    public float moveSpeed = 5f;
 
 
     public int currentPath = 2; // 1 for left, 2 for middle, 3 for right
@@ -18,52 +24,44 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        targetPosition = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyUp(KeyCode.RightArrow) && !isMoving)
         {
-            currentPath += 1;
-            MoveToPath(currentPath); // Move 1 to the right
+            desiredPath++;
+            if (desiredPath >= 3) desiredPath = 2;
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Input.GetKeyUp(KeyCode.LeftArrow) && !isMoving)
         {
-            currentPath -= 1;
-            MoveToPath(currentPath); // Move to the left 
+            desiredPath--;
+            if (desiredPath <= -1) desiredPath = 0;
+        }
+
+        if (desiredPath == 0)
+        {
+            targetXPosition = -8.5f;
+            StartCoroutine(MoveToTargetPosition());
+        }
+        if (desiredPath == 1)
+        {
+            targetXPosition = 0;
+            StartCoroutine(MoveToTargetPosition());
+        }
+        if (desiredPath == 2)
+        {
+            targetXPosition = 8.5f;
+            StartCoroutine(MoveToTargetPosition());
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Jump();
+            if (transform.position.y == groundedY) Jump();
         }
     }
 
-    private void MoveToPath(int path)
-    {
-        float step = moveSpeed * Time.deltaTime;
-
-
-        switch (path)
-        {
-            case 1: // Left (path 1)
-                targetPosition = new Vector3(-8.0f, transform.position.y, transform.position.z);
-                transform.position = Vector3.Lerp(transform.position, targetPosition, 1);
-                break;
-            case 2: // Middle (path 2)
-                targetPosition = new Vector3(0.0f, transform.position.y, transform.position.z);
-                transform.position = Vector3.Lerp(transform.position, targetPosition, 1);
-                break;
-            case 3: // Right (path 3)
-                targetPosition = new Vector3(8.0f, transform.position.y, transform.position.z);
-
-                transform.position = Vector3.Lerp(transform.position, targetPosition, 1);
-                break;
-        }
-
-    }
     private void Jump()
     {
         if (rb != null)
@@ -79,5 +77,26 @@ public class Player : MonoBehaviour
             Time.timeScale = 0f;
         }
     
+    }
+
+    private IEnumerator MoveToTargetPosition()
+    {
+        isMoving = true;
+        Vector3 startPosition = transform.position;
+        Vector3 targetPosition = new Vector3(targetXPosition, transform.position.y, transform.position.z);
+
+        float journeyLenght = Vector3.Distance(startPosition, targetPosition);
+        float startTime = Time.time;
+
+        while (transform.position != targetPosition)
+        {
+            float distanceCovered = (Time.time - startTime) * moveSpeed;
+            float journeyFraction = distanceCovered / journeyLenght;
+
+            transform.position = Vector3.Lerp(startPosition, targetPosition, journeyFraction);
+            yield return null;
+        }
+
+        isMoving = false;
     }
 }
