@@ -1,70 +1,64 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 public class RatController : MonoBehaviour
 {
-    // Mathf.Sin:
-    //[SerializeField] Vector3 movementVector = new(10f, 0f, 0f);
-    //[SerializeField] float period = 2f;
-    //public bool isStop = false;
-    //public float movementFactor;
-    //Vector3 startingPos;
-
     [SerializeField] int desiredPath = 1;
-    [SerializeField] int pathDistance = 5;
     private float targetXPosition = 0;
-
+    public float pathDistance = 7.0f;
+    public float moveSpeed = 30f;
+    private Rigidbody rb; 
+    public float jumpForce = 5.0f;
     public bool isMoving;
-
-    public float moveSpeed = 5f;
+    public bool isJumping;
 
 
     void Start()
     {
-        //startingPos = transform.position; // Mathf.Sin
-        //rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        //if (period <= Mathf.Epsilon || isStop) { return; }
+        if(Input.GetKeyUp(KeyCode.UpArrow) && !isMoving && !isJumping)
+        {
+            Jump();
+        }
 
-        //float cycles = Time.time / period;
-
-        //const float tau = Mathf.PI * 2;
-        //float rawSinWave = Mathf.Sin(-180f * tau);
-
-        //movementFactor = rawSinWave;
-        //Vector3 offset = movementVector * movementFactor;
-        //transform.position = startingPos + offset;
-
-        if (Input.GetKeyUp(KeyCode.RightArrow) && !isMoving)
+        if (Input.GetKeyUp(KeyCode.RightArrow) && !isMoving && !isJumping)
         {
             desiredPath++;
             if (desiredPath >= 3) desiredPath = 2;
-        } else if(Input.GetKeyUp(KeyCode.LeftArrow) && !isMoving)
+        } 
+        else if(Input.GetKeyUp(KeyCode.LeftArrow) && !isMoving && !isJumping)
         {
             desiredPath--;
             if (desiredPath <= -1) desiredPath = 0;
         }
 
-        if(desiredPath == 0)
+        GoToPath();
+    }
+
+    private void Jump()
+    {
+        isJumping = true;
+        if (rb != null)
         {
-            targetXPosition = -7.0f;
-            StartCoroutine(MoveToTargetPosition());
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            //yield return null;
         }
-        if(desiredPath == 1)
-        {
-            targetXPosition = 0;
-            StartCoroutine(MoveToTargetPosition());
-        }
-        if(desiredPath == 2)
-        {
-            targetXPosition = 7.0f;
-            StartCoroutine(MoveToTargetPosition());
-        }
+        isJumping = false;
+    }
+
+    private void GoToPath()
+    {
+        if (desiredPath == 0) targetXPosition = pathDistance * -1;
+        if (desiredPath == 1) targetXPosition = 0;
+        if (desiredPath == 2) targetXPosition = pathDistance;
+        StartCoroutine(MoveToTargetPosition());
     }
 
     private IEnumerator MoveToTargetPosition()
