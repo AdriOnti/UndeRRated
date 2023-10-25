@@ -6,79 +6,80 @@ using UnityEngine.Rendering;
 
 public class RatController : MonoBehaviour
 {
-    [SerializeField] int desiredPath = 1;
-    private float targetXPosition = 0;
-    public float pathDistance = 7.0f;
-    public float moveSpeed = 30f;
-    private Rigidbody rb; 
-    public float jumpForce = 5.0f;
-    public bool isMoving;
-    public bool isJumping;
+    private CharacterController controller;
+    private Vector3 direction;
+    private int desiredPath = 1;
+    private Animator animator;
 
+    public float jumpForce;
+    public float pathDistance = 10;
+    public float Gravity;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        controller = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.UpArrow) && !isMoving && !isJumping)
-        {
-            Jump();
-        }
+        controller.Move(direction * Time.deltaTime);
 
-        if (Input.GetKeyUp(KeyCode.RightArrow) && !isMoving && !isJumping)
+        // JUMP
+        if(controller.isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))) Jump(); 
+        else direction.y += Gravity * 2 * Time.deltaTime;
+
+        // GO TO GROUND IN MIDDLE OF THE JUMP
+        if(!controller.isGrounded && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))) direction.y -= jumpForce;
+
+        // CALCULATE THE RIGHT PATH
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
         {
             desiredPath++;
             if (desiredPath >= 3) desiredPath = 2;
-        } 
-        else if(Input.GetKeyUp(KeyCode.LeftArrow) && !isMoving && !isJumping)
+        }
+
+        // CALCULATE THE LEFT PATH
+        if(Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
             desiredPath--;
-            if (desiredPath <= -1) desiredPath = 0;
+            if(desiredPath <= -1) desiredPath = 0;
         }
 
+        // MOVE TO THE PATH
         GoToPath();
+
+        // SLIDE
+        if (controller.isGrounded && (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S)))
+        {
+            animator.Play("slide");
+            StartCoroutine(StopAnimation());
+        }
+        
     }
 
-    private void Jump()
+    private void OnTriggerEnter(Collider other)
     {
-        isJumping = true;
-        if (rb != null)
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            //yield return null;
-        }
-        isJumping = false;
+        if (other.gameObject.CompareTag("ObstacleGeneric")) Time.timeScale = 0;
     }
+
+    private void Jump() { direction.y = jumpForce; }
 
     private void GoToPath()
     {
-        if (desiredPath == 0) targetXPosition = pathDistance * -1;
-        if (desiredPath == 1) targetXPosition = 0;
-        if (desiredPath == 2) targetXPosition = pathDistance;
-        StartCoroutine(MoveToTargetPosition());
+        Vector3 targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
+
+        if (desiredPath == 0) targetPosition += Vector3.left * pathDistance;
+        if (desiredPath == 2) targetPosition += Vector3.right * pathDistance;
+
+        transform.position = Vector3.Lerp(transform.position, targetPosition, 0.25f);
     }
 
-    private IEnumerator MoveToTargetPosition()
+    private IEnumerator StopAnimation()
     {
-        isMoving = true;
-        Vector3 startPosition = transform.position;
-        Vector3 targetPosition = new Vector3(targetXPosition, transform.position.y, transform.position.z);
-
-        float journeyLenght = Vector3.Distance(startPosition, targetPosition);
-        float startTime = Time.time;
-
-        while(transform.position != targetPosition)
-        {
-            float distanceCovered = (Time.time - startTime) * moveSpeed;
-            float journeyFraction = distanceCovered / journeyLenght;
-
-            transform.position = Vector3.Lerp(startPosition, targetPosition, journeyFraction);
-            yield return null;
-        }
-
-        isMoving = false;
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        animator.enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        animator.enabled = true;
     }
 }
