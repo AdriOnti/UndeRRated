@@ -11,7 +11,8 @@ public class Player : MonoBehaviour
     public float jumpForce;
 
     private int desiredLane = 1; //0:left 1:middle 2:right
-    public float laneDistance = 7; //Distane between two lanes
+    public float laneDistance = 10; //Distane between two lanes
+
     // Start is called before the first frame update
 
     public float Gravity;
@@ -28,15 +29,15 @@ public class Player : MonoBehaviour
 
         if (controller.isGrounded)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                Jump();
-            }
-        } else
-        {
-            direction.y += Gravity * Time.deltaTime;
+            if (Input.GetKeyDown(KeyCode.UpArrow)) Jump();
         }
-       
+        else direction.y += Gravity * Time.deltaTime;
+
+        if (!controller.isGrounded)
+        {
+            if(Input.GetKeyDown(KeyCode.DownArrow))
+            direction.y = -jumpForce;
+        }
         // Direction arrows
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
@@ -54,13 +55,10 @@ public class Player : MonoBehaviour
 
         Vector3 targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
 
-        if(desiredLane == 0)
-        {
-            targetPosition += Vector3.left * laneDistance;
-        } else if (desiredLane == 2)
-        {
-            targetPosition += Vector3.right * laneDistance;
-        }
+
+        if (desiredLane == 0) targetPosition += Vector3.left * laneDistance;
+        else if (desiredLane == 2) targetPosition += Vector3.right * laneDistance;
+
         transform.position = Vector3.Lerp(transform.position, targetPosition, 0.25f);
  
 
