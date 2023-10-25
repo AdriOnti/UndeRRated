@@ -1363,9 +1363,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feb62daabc146714db2d6a6bb05083b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpForce: 15
   laneDistance: 7
-  jumpForce: 10
-  Gravity: -20
+  Gravity: -30
 --- !u!54 &361021548
 Rigidbody:
   m_ObjectHideFlags: 0
