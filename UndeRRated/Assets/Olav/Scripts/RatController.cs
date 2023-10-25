@@ -1,90 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 public class RatController : MonoBehaviour
 {
-    // Mathf.Sin:
-    //[SerializeField] Vector3 movementVector = new(10f, 0f, 0f);
-    //[SerializeField] float period = 2f;
-    //public bool isStop = false;
-    //public float movementFactor;
-    //Vector3 startingPos;
-
-    [SerializeField] int desiredPath = 1;
-    [SerializeField] int pathDistance = 5;
-    private float targetXPosition = 0;
-
-    public bool isMoving;
-
-    public float moveSpeed = 5f;
+    private CharacterController controller;
+    private Vector3 direction;
+    private int desiredPath = 1;
+    public float jumpForce;
+    public float pathDistance = 10;
+    public float Gravity;
 
 
     void Start()
     {
-        //startingPos = transform.position; // Mathf.Sin
-        //rb = GetComponent<Rigidbody>();
+        controller = GetComponent<CharacterController>();
     }
 
     void Update()
     {
-        //if (period <= Mathf.Epsilon || isStop) { return; }
+        controller.Move(direction * Time.deltaTime);
 
-        //float cycles = Time.time / period;
+        if (controller.isGrounded && Input.GetKeyDown(KeyCode.UpArrow)) Jump();
+        else direction.y += Gravity*2 * Time.deltaTime;
 
-        //const float tau = Mathf.PI * 2;
-        //float rawSinWave = Mathf.Sin(-180f * tau);
+        if (!controller.isGrounded && Input.GetKeyDown(KeyCode.DownArrow)) direction.y -= jumpForce;
 
-        //movementFactor = rawSinWave;
-        //Vector3 offset = movementVector * movementFactor;
-        //transform.position = startingPos + offset;
-
-        if (Input.GetKeyUp(KeyCode.RightArrow) && !isMoving)
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             desiredPath++;
             if (desiredPath >= 3) desiredPath = 2;
-        } else if(Input.GetKeyUp(KeyCode.LeftArrow) && !isMoving)
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             desiredPath--;
             if (desiredPath <= -1) desiredPath = 0;
         }
 
-        if(desiredPath == 0)
-        {
-            targetXPosition = -7.0f;
-            StartCoroutine(MoveToTargetPosition());
-        }
-        if(desiredPath == 1)
-        {
-            targetXPosition = 0;
-            StartCoroutine(MoveToTargetPosition());
-        }
-        if(desiredPath == 2)
-        {
-            targetXPosition = 7.0f;
-            StartCoroutine(MoveToTargetPosition());
-        }
+        GoToPath();
+
     }
 
-    private IEnumerator MoveToTargetPosition()
+    private void OnTriggerEnter(Collider other)
     {
-        isMoving = true;
-        Vector3 startPosition = transform.position;
-        Vector3 targetPosition = new Vector3(targetXPosition, transform.position.y, transform.position.z);
+        if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("ObstacleHN") || other.gameObject.CompareTag("ObstacleHT")) Time.timeScale = 0;
+    }
 
-        float journeyLenght = Vector3.Distance(startPosition, targetPosition);
-        float startTime = Time.time;
+    private void Jump()
+    {
+        direction.y = jumpForce;
+    }
 
-        while(transform.position != targetPosition)
-        {
-            float distanceCovered = (Time.time - startTime) * moveSpeed;
-            float journeyFraction = distanceCovered / journeyLenght;
+    private void GoToPath()
+    {
+        Vector3 targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
 
-            transform.position = Vector3.Lerp(startPosition, targetPosition, journeyFraction);
-            yield return null;
-        }
+        if (desiredPath == 0) targetPosition += Vector3.left * pathDistance;
+        if (desiredPath == 2) targetPosition += Vector3.right * pathDistance;
 
-        isMoving = false;
+        transform.position = Vector3.Lerp(transform.position, targetPosition, 0.25f);
     }
 }
