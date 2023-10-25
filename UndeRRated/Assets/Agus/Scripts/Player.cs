@@ -4,80 +4,75 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
-    public float jumpForce = 5.0f;
-    private Rigidbody rb;
-
-    public float moveSpeed = 10.0f;
-    public Vector3 targetPosition;
+    CharacterController controller;
+    private Vector3 direction;
 
 
-    public int currentPath = 2; // 1 for left, 2 for middle, 3 for right
-
+    private int desiredLane = 1; //0:left 1:middle 2:right
+    public float laneDistance = 7; //Distane between two lanes
     // Start is called before the first frame update
+
+    public float jumpForce;
+    public float Gravity = -20;
+
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        targetPosition = transform.position;
+        controller = GetComponent<CharacterController>();   
     }
 
     // Update is called once per frame
     void Update()
     {
+        controller.Move(direction * Time.deltaTime);
+
+        if (controller.isGrounded)
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                Jump();
+            }
+        } else
+        {
+            direction.y += Gravity * Time.deltaTime;
+        }
+       
+        // Direction arrows
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            currentPath += 1;
-            MoveToPath(currentPath); // Move 1 to the right
+            desiredLane++;
+            if (desiredLane == 3) desiredLane = 2;
+
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            currentPath -= 1;
-            MoveToPath(currentPath); // Move to the left 
+            desiredLane--;
+            if (desiredLane == -1) desiredLane = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        //Calculate where will move the player
+
+        Vector3 targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
+
+        if(desiredLane == 0)
         {
-            Jump();
+            targetPosition += Vector3.left * laneDistance;
+        } else if (desiredLane == 2)
+        {
+            targetPosition += Vector3.right * laneDistance;
         }
+        transform.position = Vector3.Lerp(transform.position, targetPosition, 0.5f);
+ 
+
+
     }
-
-    private void MoveToPath(int path)
+    private void OnTriggerEnter(Collider other)
     {
-        float step = moveSpeed * Time.deltaTime;
-
-
-        switch (path)
-        {
-            case 1: // Left (path 1)
-                targetPosition = new Vector3(-8.0f, transform.position.y, transform.position.z);
-                transform.position = Vector3.Lerp(transform.position, targetPosition, 1);
-                break;
-            case 2: // Middle (path 2)
-                targetPosition = new Vector3(0.0f, transform.position.y, transform.position.z);
-                transform.position = Vector3.Lerp(transform.position, targetPosition, 1);
-                break;
-            case 3: // Right (path 3)
-                targetPosition = new Vector3(8.0f, transform.position.y, transform.position.z);
-
-                transform.position = Vector3.Lerp(transform.position, targetPosition, 1);
-                break;
-        }
-
+        if (other.gameObject.CompareTag("ObstacleGeneric")) Time.timeScale = 0;
     }
     private void Jump()
     {
-        if (rb != null)
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
+        direction.y = jumpForce;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if ( other.CompareTag("ObstacleGeneric"))
-        {
-            Time.timeScale = 0f;
-        }
-    
-    }
+
 }
