@@ -1,26 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class RatController : MonoBehaviour
 {
+    // PRIVATE PARAMETERS
     private CharacterController controller;
     private Vector3 direction;
     private int desiredPath = 1;
     private Animator animator;
 
+    // PUBLIC PARAMETERS
     public float jumpForce;
     public float pathDistance = 10;
     public float Gravity;
 
+    // METHOD START
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
     }
 
+    // METHOD UPDATE
     void Update()
     {
         controller.Move(direction * Time.deltaTime);
@@ -29,7 +30,7 @@ public class RatController : MonoBehaviour
         if(controller.isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))) Jump(); 
         else direction.y += Gravity * 2 * Time.deltaTime;
 
-        // GO TO GROUND IN MIDDLE OF THE JUMP
+        // FORCE TO GO TO THE GROUND IF IS JUMPING
         if(!controller.isGrounded && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))) direction.y -= jumpForce;
 
         // CALCULATE THE RIGHT PATH
@@ -55,16 +56,24 @@ public class RatController : MonoBehaviour
             animator.Play("slide");
             StartCoroutine(StopAnimation());
         }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            Shot();
+        }
         
     }
 
+    // STOP TIME IF PLAYER IMPACT WITH AN OBSTACLE
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("ObstacleGeneric")) Time.timeScale = 0;
     }
 
+    // JUMP FUNCTION
     private void Jump() { direction.y = jumpForce; }
 
+    // MOVEMENT TO THE DESIRED PATH FUNCTION
     private void GoToPath()
     {
         Vector3 targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
@@ -75,11 +84,18 @@ public class RatController : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, targetPosition, 0.25f);
     }
 
+    // STOP ANIMATION
     private IEnumerator StopAnimation()
     {
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         animator.enabled = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.01f);
         animator.enabled = true;
+    }
+
+    // SHOT
+    private void Shot()
+    {
+        Debug.Log("He disparado");
     }
 }
