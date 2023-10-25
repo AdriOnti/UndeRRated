@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
     CharacterController controller;
     private Vector3 direction;
 
+    public float jumpForce = 5.0f;
 
     private int desiredLane = 1; //0:left 1:middle 2:right
     public float laneDistance = 7; //Distane between two lanes
@@ -17,6 +19,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+
         controller = GetComponent<CharacterController>();   
     }
 
@@ -59,6 +62,7 @@ public class Player : MonoBehaviour
         } else if (desiredLane == 2)
         {
             targetPosition += Vector3.right * laneDistance;
+            if (transform.position.y == groundedY) Jump();
         }
         transform.position = Vector3.Lerp(transform.position, targetPosition, 0.5f);
  
@@ -73,6 +77,12 @@ public class Player : MonoBehaviour
     {
         direction.y = jumpForce;
     }
-
-
+    private void OnTriggerEnter(Collider other)
+    {
+        if ( other.CompareTag("ObstacleGeneric"))
+        {
+            Time.timeScale = 0f;
+        }
+    
+    }
 }
