@@ -67,7 +67,7 @@ public class RatController : MonoBehaviour
     // STOP TIME IF PLAYER IMPACT WITH AN OBSTACLE
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("ObstacleGeneric")) Time.timeScale = 0;
+        if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat")) Time.timeScale = 0;
     }
 
     // JUMP FUNCTION

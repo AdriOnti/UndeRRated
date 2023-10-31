@@ -13,6 +13,9 @@ TagManager:
   - ObstacleHT
   - RoadWay
   - ObstacleGeneric
+  - Bat
+  - AttackTrigger
+  - WarningTrigger
   layers:
   - Default
   - TransparentFX

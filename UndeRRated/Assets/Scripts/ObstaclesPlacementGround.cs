@@ -45,7 +45,7 @@ public class ObstaclesPlacementGround : MonoBehaviour
 
             // Mover el objeto seleccionado y establecer la posición encima del objeto carretera
             int randomZ = Random.Range(0, 3);
-            
+
             //if (obstacle.CompareTag("ObstacleHT"))
             //{
             //    selectedObject.transform.position = new Vector3(positionObsX[i], roadObject.transform.position.y + 10f, positionObsZ[randomZ]);
@@ -55,7 +55,11 @@ public class ObstaclesPlacementGround : MonoBehaviour
             //    selectedObject.transform.position = new Vector3(positionObsX[i], roadObject.transform.position.y + 5f, positionObsZ[randomZ]);
             //}
             //else
-            selectedObject.transform.position = new Vector3(positionObsX[i], roadObject.transform.position.y + obstacle.localScale.y / 2, positionObsZ[randomZ]);
+            if (obstacle.CompareTag("Bat"))
+            {
+                selectedObject.transform.position = new Vector3(positionObsX[i], roadObject.transform.position.y + 15f, positionObsZ[randomZ]);
+            }
+            else selectedObject.transform.position = new Vector3(positionObsX[i], roadObject.transform.position.y + obstacle.localScale.y / 2, positionObsZ[randomZ]);
 
             // Establecer el objeto carretera como padre del objeto movido
             selectedObject.transform.SetParent(roadObject);
@@ -86,7 +90,7 @@ public class ObstaclesPlacementGround : MonoBehaviour
 
             // Mover el objeto seleccionado y establecer la posición encima del objeto carretera
             int randomZ = Random.Range(3, 6);
-            
+
             //if (obstacle.tag == "ObstacleHT")
             //{
             //    selectedObject.transform.position = new Vector3(positionObsX[i], roadObject.transform.position.y + 10f, positionObsZ[randomZ]);
@@ -96,7 +100,12 @@ public class ObstaclesPlacementGround : MonoBehaviour
             //    selectedObject.transform.position = new Vector3(positionObsX[i], roadObject.transform.position.y + 5f, positionObsZ[randomZ]);
             //}
             //else
-            selectedObject.transform.position = new Vector3(positionObsX[i], roadObject.transform.position.y + obstacle.localScale.y / 2, positionObsZ[randomZ]);
+            if (obstacle.CompareTag("Bat"))
+            {
+                selectedObject.transform.position = new Vector3(positionObsX[i], roadObject.transform.position.y + 15f, positionObsZ[randomZ]);
+            }
+            else selectedObject.transform.position = new Vector3(positionObsX[i], roadObject.transform.position.y + obstacle.localScale.y / 2, positionObsZ[randomZ]);
+
 
             // Establecer el objeto carretera como padre del objeto movido
             selectedObject.transform.SetParent(roadObject);
