@@ -12,7 +12,6 @@ public class MovingBat : MonoBehaviour
     public int targetIndex;
    
     Light lightWarning;
-    float maxIntensity = 15f;
     float flashDuration = 0.5f;
     int flashNumber = 4;
 
