@@ -31,8 +31,10 @@ public class ObstaclesPlacementGround : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            int randomIndex = Random.Range(0, objectsToPlace.Length); // Seleccionar un índice aleatorio
-            GameObject selectedObject = objectsToPlace[randomIndex]; // Objeto seleccionado
+           // int randomIndex = Random.Range(0, objectsToPlace.Length); // Seleccionar un índice aleatorio
+            int randomIndex2 = Random.Range(37, objectsToPlace.Length); // Seleccionar un índice aleatorio
+
+            GameObject selectedObject = objectsToPlace[randomIndex2]; // Objeto seleccionado
 
             // Verificar si el objeto seleccionado ya ha sido movido previamente
             if (movedObjects.Contains(selectedObject))
