@@ -70,6 +70,7 @@ public class RatController : MonoBehaviour
         if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat")) Time.timeScale = 0;
     }
 
+
     // JUMP FUNCTION
     private void Jump() { direction.y = jumpForce; }
 

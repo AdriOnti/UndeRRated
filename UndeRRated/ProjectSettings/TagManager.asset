@@ -16,6 +16,7 @@ TagManager:
   - Bat
   - AttackTrigger
   - WarningTrigger
+  - Ground
   layers:
   - Default
   - TransparentFX

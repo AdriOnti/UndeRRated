@@ -25,12 +25,15 @@ public class MovingBat : MonoBehaviour
     {
         if (isMoving)
         {
-            transform.SetParent(parent);
+            //transform.SetParent(parent);
             transform.position = Vector3.MoveTowards(transform.position, attackingPositions[targetIndex].position, speed * Time.deltaTime);
+           
             if (Vector3.Distance(transform.position, attackingPositions[targetIndex].position) < 0.01f)
             {
+
                 isMoving = false;
-                transform.SetParent(parentRoad);
+               // transform.SetParent(parentRoad);
+
             }
         }   
     }
@@ -48,9 +51,18 @@ public class MovingBat : MonoBehaviour
             StartCoroutine(flashNow());
             lightWarning.enabled = false;
         }
-      
+        else if (other.CompareTag("Ground") || other.CompareTag("Player")/*other.CompareTag("RatBullet")*/)  
+        {
+            this.gameObject.SetActive(false);
+            
+        }
+        
     }
-    
+    private void OnCollisionEnter(Collision collision)
+    {
+        //Animation of death
+        
+    }
     public IEnumerator flashNow()
     {
         for(int i = 0; i < flashNumber; i++)

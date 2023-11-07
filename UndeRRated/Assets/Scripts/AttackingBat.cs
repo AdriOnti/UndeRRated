@@ -1,17 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class AttackingBat : MonoBehaviour
 {
 
     public GameObject projectile;
+
+
     public Transform parent;
     public Transform parentRoad;
     private bool isShooting;
     public Transform[] shootTargets = new Transform[3];
     private int targetIndex;
     private float speed = 150f;
+
+
+
+
     void Start()
     {
         projectile.transform.position = transform.position;
@@ -27,7 +32,7 @@ public class AttackingBat : MonoBehaviour
     {
         if (isShooting)
         {
-            projectile.transform.SetParent(parent);
+           // projectile.transform.SetParent(parent);
             projectile.transform.position = Vector3.MoveTowards(projectile.transform.position, shootTargets[targetIndex].position, speed * Time.deltaTime);
             if (Vector3.Distance(projectile.transform.position, shootTargets[targetIndex].position) < 0.01f)
             {
@@ -35,26 +40,35 @@ public class AttackingBat : MonoBehaviour
                 projectile.transform.SetParent(parentRoad);
             }
         }
-          
-        
-        //if (Vector3.Distance(projectile.transform.position, shootTargets[targetIndex].position) < 0.01f)
-        //{
-        //    isMoving = false;
-        //    transform.SetParent(parentRoad);
-        //}
-
-
-
-
     }
     private void OnTriggerEnter(Collider other)
     {
 
         if (other.CompareTag("AttackTrigger"))
         {
-            Debug.Log("DISPARA");
+            Shoot();
+        }
+
+    }
+    void Shoot()
+    {
+        projectile = ObjectsPool.instance.GetPooledPoisonBall();
+        projectile.transform.position = transform.position;
+
+        if (projectile != null)
+        {
+            projectile.SetActive(true);
             isShooting = true;
         }
 
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        //Llamar a la animación de muerte
+        //WaitForSeconds
+        this.gameObject.SetActive(false);
     }
 }
