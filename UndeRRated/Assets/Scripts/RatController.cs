@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RatController : MonoBehaviour
 {
@@ -67,7 +68,13 @@ public class RatController : MonoBehaviour
     // STOP TIME IF PLAYER IMPACT WITH AN OBSTACLE
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat")) Time.timeScale = 0;
+
+        if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat"))
+        {
+            Time.timeScale = 0;
+            Debug.Log(other.name);
+        }
+    
     }
 
 

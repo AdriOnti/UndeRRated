@@ -17,6 +17,7 @@ TagManager:
   - AttackTrigger
   - WarningTrigger
   - Ground
+  - Pool
   layers:
   - Default
   - TransparentFX

@@ -1,12 +1,11 @@
 
+using UnityEditor;
 using UnityEngine;
 
 public class AttackingBat : MonoBehaviour
 {
 
     public GameObject projectile;
-
-
     public Transform parent;
     public Transform parentRoad;
     private bool isShooting;
@@ -40,6 +39,17 @@ public class AttackingBat : MonoBehaviour
                 projectile.transform.SetParent(parentRoad);
             }
         }
+    }
+    private void OnBecameInvisible()
+    {
+        try
+        {
+            this.gameObject.transform.SetParent(parent);
+            this.gameObject.SetActive(false);
+        }
+        catch { }
+
+
     }
     private void OnTriggerEnter(Collider other)
     {

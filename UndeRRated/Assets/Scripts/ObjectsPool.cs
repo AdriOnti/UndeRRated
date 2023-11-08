@@ -56,20 +56,19 @@ public class ObjectsPool : MonoBehaviour
     }
     public GameObject GetPooledPoisonBall()
     {
-        for (int i = 0; i < pooledPoisonBalls.Count; i++)
+        int rndNum = rnd.Next(0, pooledPoisonBalls.Count);
+
+        if (!pooledPoisonBalls[rndNum].activeInHierarchy)
         {
-            if (!pooledPoisonBalls[i].activeInHierarchy)
-            {
-                return pooledPoisonBalls[i];
-            }
+            return pooledPoisonBalls[rndNum];
         }
-        return null;
+        else return GetPooledPoisonBall();
     }
 
     public GameObject GetPooledObstacle()
     {
-        Debug.Log(pooledObstacles.Count);
-        Debug.Log(obstacles.Length);
+        //Debug.Log(pooledObstacles.Count);
+        //Debug.Log(obstacles.Length);
         int rndNum = rnd.Next(0, pooledObstacles.Count);
 
         if (!pooledObstacles[rndNum].activeInHierarchy)

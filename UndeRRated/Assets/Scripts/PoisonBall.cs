@@ -1,15 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-public class PoisonBall : MonoBehaviour
+public class PoisonBall : ObstacleRespawner
 {
-    // Start is called before the first frame update
+    
     //private void OnTriggerEnter(Collider collision)
     //{
     //    if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Player"))
     //    {
-    //        gameObject.SetActive(false);
+
+         
     //    }
     //}
+    private void OnBecameInvisible()
+    {
+        try
+        {
+            this.gameObject.transform.SetParent(parent);
+            this.gameObject.SetActive(false);
+        }
+        catch { }
+    }
 }

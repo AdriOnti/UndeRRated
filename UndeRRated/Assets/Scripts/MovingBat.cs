@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
 public class MovingBat : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class MovingBat : MonoBehaviour
     public Transform parentRoad;
     private bool isMoving;
     private float speed = 150f;
-    public int targetIndex;
+    private int targetIndex;
    
     Light lightWarning;
     float flashDuration = 0.5f;
@@ -25,17 +26,27 @@ public class MovingBat : MonoBehaviour
     {
         if (isMoving)
         {
-            //transform.SetParent(parent);
+            transform.SetParent(parent);
             transform.position = Vector3.MoveTowards(transform.position, attackingPositions[targetIndex].position, speed * Time.deltaTime);
            
             if (Vector3.Distance(transform.position, attackingPositions[targetIndex].position) < 0.01f)
             {
 
                 isMoving = false;
-               // transform.SetParent(parentRoad);
+                transform.SetParent(parentRoad);
 
             }
-        }   
+        }
+       
+    }
+    private void OnBecameInvisible()
+    {
+        try
+        {
+            this.gameObject.transform.SetParent(parent);
+            this.gameObject.SetActive(false);
+        }
+        catch { }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -51,18 +62,18 @@ public class MovingBat : MonoBehaviour
             StartCoroutine(flashNow());
             lightWarning.enabled = false;
         }
-        else if (other.CompareTag("Ground") || other.CompareTag("Player")/*other.CompareTag("RatBullet")*/)  
+        else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player")/*other.CompareTag("RatBullet")*/)  
         {
-            this.gameObject.SetActive(false);
+           this.gameObject.SetActive(false);
             
         }
         
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        //Animation of death
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    //Animation of death
         
-    }
+    //}
     public IEnumerator flashNow()
     {
         for(int i = 0; i < flashNumber; i++)
