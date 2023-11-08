@@ -18,6 +18,7 @@ TagManager:
   - WarningTrigger
   - Ground
   - Pool
+  - Despawner
   layers:
   - Default
   - TransparentFX

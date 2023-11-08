@@ -7,11 +7,15 @@ public class ObstacleRespawner : MonoBehaviour
  
     public Transform parent;
     public static ObstacleRespawner Instance;
-    private void OnBecameInvisible()
+    private void OnTriggerEnter(Collider other)
     {
-        enabled = false;
-        this.gameObject.transform.SetParent(parent);
-    }
 
+        if (other.CompareTag("Despawner"))
+        {
+            gameObject.transform.SetParent(parent);
+            gameObject.SetActive(false);
+        }
+
+    }
 
 }

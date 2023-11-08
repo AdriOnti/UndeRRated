@@ -31,7 +31,7 @@ public class ObstaclesPlacementGround : MonoBehaviour
         positionObsZ[4] = positionObsZ[3] + 10f;
         positionObsZ[5] = positionObsZ[4] + 10f;
 
-        Debug.Log("Hola?");
+
         for (int i = 0; i < 3; i++)
         {
             GameObject selectedObject = ObjectsPool.instance.GetPooledObstacle();
@@ -67,7 +67,7 @@ public class ObstaclesPlacementGround : MonoBehaviour
         positionObsZ[4] = positionObsZ[3] + 10f;
         positionObsZ[5] = positionObsZ[4] + 10f;
 
-        Debug.Log("H?");
+
         for (int i = 0; i < 3; i++)
         {
             GameObject selectedObject = ObjectsPool.instance.GetPooledObstacle();

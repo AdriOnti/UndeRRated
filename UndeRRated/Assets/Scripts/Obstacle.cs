@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public class Obstacle : ObstacleRespawner
 {
-    private Transform parent;
     private void Update()
     {
         //Debug.Log(parent);
@@ -13,13 +12,5 @@ public class Obstacle : MonoBehaviour
     {
         parent = GameObject.FindGameObjectWithTag("Pool").transform;
     }
-    private void OnBecameInvisible()
-    {
-         try
-        {
-            this.gameObject.transform.SetParent(parent);
-            this.gameObject.SetActive(false);
-        }
-        catch { }
-    }
+  
 }

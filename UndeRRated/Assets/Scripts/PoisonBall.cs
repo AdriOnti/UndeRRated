@@ -12,13 +12,4 @@ public class PoisonBall : ObstacleRespawner
          
     //    }
     //}
-    private void OnBecameInvisible()
-    {
-        try
-        {
-            this.gameObject.transform.SetParent(parent);
-            this.gameObject.SetActive(false);
-        }
-        catch { }
-    }
 }

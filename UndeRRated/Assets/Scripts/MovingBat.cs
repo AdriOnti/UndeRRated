@@ -2,9 +2,8 @@ using UnityEngine;
 using System.Collections;
 using UnityEditor;
 
-public class MovingBat : MonoBehaviour
+public class MovingBat : ObstacleRespawner
 {
-    public Transform parent;
     public Transform[] attackingPositions = new Transform[3];
     public Transform parentRoad;
     private bool isMoving;
@@ -38,15 +37,6 @@ public class MovingBat : MonoBehaviour
             }
         }
        
-    }
-    private void OnBecameInvisible()
-    {
-        try
-        {
-            this.gameObject.transform.SetParent(parent);
-            this.gameObject.SetActive(false);
-        }
-        catch { }
     }
     private void OnTriggerEnter(Collider other)
     {

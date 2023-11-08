@@ -2,11 +2,10 @@
 using UnityEditor;
 using UnityEngine;
 
-public class AttackingBat : MonoBehaviour
+public class AttackingBat : ObstacleRespawner
 {
 
     public GameObject projectile;
-    public Transform parent;
     public Transform parentRoad;
     private bool isShooting;
     public Transform[] shootTargets = new Transform[3];
@@ -40,17 +39,7 @@ public class AttackingBat : MonoBehaviour
             }
         }
     }
-    private void OnBecameInvisible()
-    {
-        try
-        {
-            this.gameObject.transform.SetParent(parent);
-            this.gameObject.SetActive(false);
-        }
-        catch { }
-
-
-    }
+   
     private void OnTriggerEnter(Collider other)
     {
 
