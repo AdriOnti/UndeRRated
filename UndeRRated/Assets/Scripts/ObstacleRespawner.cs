@@ -2,7 +2,6 @@
 using UnityEngine;
 
 public class ObstacleRespawner : MonoBehaviour
-// Start is called before the first frame update
 {
  
     public Transform parent;
