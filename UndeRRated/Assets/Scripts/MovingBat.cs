@@ -25,22 +25,23 @@ public class MovingBat : ObstacleRespawner
     {
         if (isMoving)
         {
-            transform.SetParent(parent);
+            //transform.SetParent(parent);
             transform.position = Vector3.MoveTowards(transform.position, attackingPositions[targetIndex].position, speed * Time.deltaTime);
            
             if (Vector3.Distance(transform.position, attackingPositions[targetIndex].position) < 0.01f)
             {
 
                 isMoving = false;
-                transform.SetParent(parentRoad);
+                //transform.SetParent(parentRoad);
 
             }
         }
        
     }
-    private void OnTriggerEnter(Collider other)
+    public sealed override void OnTriggerEnter(Collider other)
     {
      
+        base.OnTriggerEnter(other);
         if (other.CompareTag("AttackTrigger"))
         {
             isMoving = true;
@@ -57,7 +58,8 @@ public class MovingBat : ObstacleRespawner
            this.gameObject.SetActive(false);
             
         }
-        
+       
+
     }
     //private void OnCollisionEnter(Collision collision)
     //{

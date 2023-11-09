@@ -7,7 +7,7 @@ public class ObstacleRespawner : MonoBehaviour
  
     public Transform parent;
     public static ObstacleRespawner Instance;
-    private void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
 
         if (other.CompareTag("Despawner"))

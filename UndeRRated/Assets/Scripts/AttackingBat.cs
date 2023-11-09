@@ -40,9 +40,9 @@ public class AttackingBat : ObstacleRespawner
         }
     }
    
-    private void OnTriggerEnter(Collider other)
+    public sealed override void OnTriggerEnter(Collider other)
     {
-
+        base.OnTriggerEnter(other);
         if (other.CompareTag("AttackTrigger"))
         {
             Shoot();

@@ -35,7 +35,7 @@ public class ObstaclesPlacementGround : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             GameObject selectedObject = ObjectsPool.instance.GetPooledObstacle();
-            selectedObject.SetActive(true);
+           
 
             // Mover el objeto seleccionado y establecer la posición encima del objeto carretera
             int randomZ = Random.Range(0, 3);
@@ -46,9 +46,10 @@ public class ObstaclesPlacementGround : MonoBehaviour
             }
             else selectedObject.transform.position = new Vector3(positionObsX[i], road.position.y + selectedObject.transform.localScale.y / 2, positionObsZ[randomZ]);
 
+            selectedObject.SetActive(true);
             // Establecer el objeto carretera como padre del objeto movido
             selectedObject.transform.SetParent(road);
-
+           
             //// Eliminar el objeto seleccionado del array
             //objectsToPlace = objectsToPlace.Where(obj => obj != selectedObject).ToArray();
         }
@@ -71,7 +72,7 @@ public class ObstaclesPlacementGround : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             GameObject selectedObject = ObjectsPool.instance.GetPooledObstacle();
-            selectedObject.SetActive(true);
+            
 
             // Mover el objeto seleccionado y establecer la posición encima del objeto carretera
             int randomZ = Random.Range(3, 6);
@@ -83,10 +84,10 @@ public class ObstaclesPlacementGround : MonoBehaviour
             }
             else selectedObject.transform.position = new Vector3(positionObsX[i], road.position.y + selectedObject.transform.localScale.y / 2, positionObsZ[randomZ]);
 
-
+            selectedObject.SetActive(true);
             // Establecer el objeto carretera como padre del objeto movido
             selectedObject.transform.SetParent(road);
-
+           
 
             // Eliminar el objeto seleccionado del array
             //objectsToPlace = objectsToPlace.Where(obj => obj != selectedObject).ToArray();
