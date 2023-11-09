@@ -13,6 +13,12 @@ TagManager:
   - ObstacleHT
   - RoadWay
   - ObstacleGeneric
+  - Bat
+  - AttackTrigger
+  - WarningTrigger
+  - Ground
+  - Pool
+  - Despawner
   layers:
   - Default
   - TransparentFX

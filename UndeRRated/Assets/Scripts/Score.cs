@@ -7,7 +7,7 @@ public class Score : MonoBehaviour
     public float scoreAmount;
     public float pointIncreastedPerSec;
     private int killPoints = 10;
-    private bool enemyKilled= true;
+    protected bool enemyKilled;
 
 
     // Start is called before the first frame update

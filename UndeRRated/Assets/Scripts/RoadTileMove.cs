@@ -18,6 +18,7 @@ public class RoadTileMove : MonoBehaviour
     {
         //We move in Z direction at a constant speed the rigidbody of the road
         rb.transform.Translate(new Vector3(0,0,speed));
+
     }
 
 }
