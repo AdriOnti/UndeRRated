@@ -20,7 +20,9 @@ public class RoadTileMove : MonoBehaviour
     }
     private void Update()
     {
-        speed -= 0.0000005f;
+        if ((Time.timeScale!=0)) Time.timeScale += 0.000005f;
+
     }
+       
 
 }
