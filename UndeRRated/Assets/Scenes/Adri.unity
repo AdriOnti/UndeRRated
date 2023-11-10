@@ -857,10 +857,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data:
-    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"TileSpeed","value":{"$content":-10.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
-      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
-    _objectReferences: []
 --- !u!64 &318044254
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2907,10 +2903,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data:
-    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"TileSpeed","value":{"$content":-10.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
-      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
-    _objectReferences: []
 --- !u!64 &827767715
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -6599,7 +6591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -7732,10 +7724,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data:
-    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"TileSpeed","value":{"$content":-10.0,"$type":"System.Single"},"typeHandle":{"Identification":"System.Single,
-      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
-    _objectReferences: []
 --- !u!64 &1609082992
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9688,42 +9676,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f353c9dac354144eb750c1034ef7609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsToPlace:
-  - {fileID: 943324115}
-  - {fileID: 1147129125}
-  - {fileID: 1963968292}
-  - {fileID: 918247289}
-  - {fileID: 461176009}
-  - {fileID: 1871433029}
-  - {fileID: 37239275}
-  - {fileID: 1488890525}
-  - {fileID: 972668754}
-  - {fileID: 684237523}
-  - {fileID: 893254709}
-  - {fileID: 1157928004}
-  - {fileID: 954546336}
-  - {fileID: 1143679073}
-  - {fileID: 1132886504}
-  - {fileID: 1265028943}
-  - {fileID: 1919011454}
-  - {fileID: 909517706}
-  - {fileID: 223389452}
-  - {fileID: 504685912}
-  - {fileID: 1290865742}
-  - {fileID: 1754953972}
-  - {fileID: 736560656}
-  - {fileID: 994914143}
-  - {fileID: 1514135055}
-  - {fileID: 1053060901}
-  - {fileID: 1325522596}
-  - {fileID: 2027332322}
-  - {fileID: 1895017960}
-  - {fileID: 1846797549}
-  - {fileID: 1622866783}
-  - {fileID: 1271426232}
-  - {fileID: 260474583}
-  movedObjects: []
-  roadObject: {fileID: 1609082988}
 --- !u!65 &1957952083
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10169,6 +10121,7 @@ MonoBehaviour:
   road1: {fileID: 318044257}
   road2: {fileID: 827767711}
   road3: {fileID: 1609082988}
+  objectPool: {fileID: 0}
 --- !u!114 &2004259832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10181,9 +10134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data:
-    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
-    _objectReferences: []
 --- !u!65 &2004259833
 BoxCollider:
   m_ObjectHideFlags: 0

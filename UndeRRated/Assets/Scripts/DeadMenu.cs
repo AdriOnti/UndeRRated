@@ -21,6 +21,7 @@ public class DeadMenu : MonoBehaviour
     /// </summary>
     public void Restart()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("UndeRRated");
     }
 }
