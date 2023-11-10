@@ -4,23 +4,31 @@ using UnityEditor;
 
 public class MovingBat : ObstacleRespawner
 {
+    // PARAMETERS
     public Transform[] attackingPositions = new Transform[3];
     public Transform parentRoad;
     private bool isMoving;
     private float speed = 150f;
     private int targetIndex;
-   
     Light lightWarning;
     float flashDuration = 0.5f;
     int flashNumber = 4;
 
 
-    // Start is called before the first frame update
+    // AWAKE FUNCTION
+    /// <summary>
+    /// Generamos un numero aleatorio que sera el punto al que atacara
+    /// </summary>
     void Awake()
     {
          System.Random rnd = new System.Random();
          targetIndex = rnd.Next(attackingPositions.Length); 
     }
+
+    // UPDATE FUNCTION
+    /// <summary>
+    /// Si el murciélago tiene su booleano de moverse en true, cada frame se ira moviendo poco a poco hasta llegar a una distancia minima
+    /// </summary>
     private void Update()
     {
         if (isMoving)
@@ -38,7 +46,13 @@ public class MovingBat : ObstacleRespawner
         }
        
     }
-    public sealed override void OnTriggerEnter(Collider other)
+
+    /// <summary>
+    /// Cuando el murciélago llegue al trigger collider con tag AttackTrigger, se pondra en movimiento.
+    /// Si interactua con el WarningTrigger la AttackingPositions seleccionada se convertira en la que avisara del ataque.
+    /// </summary>
+    /// <param name="other">Trigger que tendra que comparar para saber si ejecutar una funcion o no</param>
+    public override void OnTriggerEnter(Collider other)
     {
      
         base.OnTriggerEnter(other);
@@ -48,7 +62,6 @@ public class MovingBat : ObstacleRespawner
         }
         else if (other.CompareTag("WarningTrigger"))
         {
-
             lightWarning = attackingPositions[targetIndex].GetComponent<Light>();
             StartCoroutine(flashNow());
             lightWarning.enabled = false;
@@ -66,6 +79,12 @@ public class MovingBat : ObstacleRespawner
     //    //Animation of death
         
     //}
+
+    // EXECUTE FLASH
+    /// <summary>
+    /// Cuando se ejecute esta Corrutina encendera y apagara la luz durante lo que indique la variable flashNumber
+    /// </summary>
+    /// <returns>Devuelve un WaitForSeconds</returns>
     public IEnumerator flashNow()
     {
         for(int i = 0; i < flashNumber; i++)
@@ -74,7 +93,6 @@ public class MovingBat : ObstacleRespawner
             yield return new WaitForSeconds(flashDuration / 2);
             lightWarning.enabled = false;
             yield return new WaitForSeconds(flashDuration / 2);
-
         }
     }
 

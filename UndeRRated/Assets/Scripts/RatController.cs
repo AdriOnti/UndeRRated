@@ -71,8 +71,9 @@ public class RatController : MonoBehaviour
 
         if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat"))
         {
-            Time.timeScale = 0;
-            Debug.Log(other.name);
+            //Time.timeScale = 0;
+            //Debug.Log(other.name);
+            SceneManager.LoadScene("Muelte");
         }
     
     }
