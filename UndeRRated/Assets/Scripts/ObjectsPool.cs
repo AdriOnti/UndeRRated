@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 
 public class ObjectsPool : MonoBehaviour
 {
+    // Static Reference
     public static ObjectsPool instance;
 
     //Poison Balls
