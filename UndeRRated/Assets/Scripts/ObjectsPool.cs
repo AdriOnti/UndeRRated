@@ -42,9 +42,9 @@ public class ObjectsPool : MonoBehaviour
             obj.transform.SetParent(instance.transform);
             pooledPoisonBalls.Add(obj);
         }
-        for (int i = 0; i < amountOfObstaclesofTheSameType; i++)
+        for (int i = 0; i < obstacles.Length; i++)
         {
-            for (int j = 0; j < obstacles.Length; j++)
+            for (int j = 0; j < amountOfObstaclesofTheSameType; j++)
             {
                 GameObject obj = Instantiate(obstacles[i]);
                 obj.SetActive(false);
@@ -68,12 +68,13 @@ public class ObjectsPool : MonoBehaviour
 
     public GameObject GetPooledObstacle()
     {
-        //Debug.Log(pooledObstacles.Count);
+        Debug.Log(pooledObstacles.Count);
         //Debug.Log(obstacles.Length);
         int rndNum = rnd.Next(0, pooledObstacles.Count);
 
         if (!pooledObstacles[rndNum].activeInHierarchy)
         {
+            Debug.Log(rndNum);
             return pooledObstacles[rndNum];
         }
         else return GetPooledObstacle();
