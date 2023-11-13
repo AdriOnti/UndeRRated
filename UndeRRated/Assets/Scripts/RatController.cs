@@ -10,6 +10,12 @@ public class RatController : MonoBehaviour
     private int desiredPath = 1;
     private Animator animator;
 
+    // RAT BULLET PARAMETERS
+    public GameObject bullet;
+    public Transform[] shootTargets = new Transform[3];
+    public int bulletSpeed;
+    private Transform shootTarget;
+
     // PUBLIC PARAMETERS
     public float jumpForce;
     public float pathDistance = 10;
@@ -20,6 +26,7 @@ public class RatController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        bullet.transform.position = transform.position;
     }
 
     // METHOD UPDATE
@@ -58,11 +65,7 @@ public class RatController : MonoBehaviour
             StartCoroutine(StopAnimation());
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            Shot();
-        }
-        
+        if (Input.GetKeyUp(KeyCode.Space)) { Shot(); }        
     }
 
     // STOP TIME IF PLAYER IMPACT WITH AN OBSTACLE
@@ -105,6 +108,28 @@ public class RatController : MonoBehaviour
     // SHOT
     private void Shot()
     {
-        Debug.Log("He disparado");
+        //Debug.Log("He disparado");
+        bullet = ObjectsPool.instance.GetPooledRatBullet();
+        bullet.transform.position = transform.position;
+
+        if (bullet != null)
+        {
+            bullet.SetActive(true);
+            BulletMove();
+        }
+    }
+
+    private void BulletMove()
+    {
+        if(desiredPath == 0) shootTarget = shootTargets[0];
+        if(desiredPath == 1) shootTarget = shootTargets[1];
+        if(desiredPath == 2) shootTarget = shootTargets[2];
+
+        // bullet.transform.SetParent(parent);
+        bullet.transform.position = Vector3.MoveTowards(bullet.transform.position, shootTarget.position, bulletSpeed * Time.deltaTime);
+        if (Vector3.Distance(bullet.transform.position, shootTarget.position) < 0.01f)
+        {
+            //bullet.transform.SetParent(parentRoad);
+        }
     }
 }

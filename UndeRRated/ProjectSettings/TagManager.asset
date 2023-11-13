@@ -19,6 +19,7 @@ TagManager:
   - Ground
   - Pool
   - Despawner
+  - RatBullet
   layers:
   - Default
   - TransparentFX

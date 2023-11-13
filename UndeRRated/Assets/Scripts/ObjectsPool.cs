@@ -20,6 +20,11 @@ public class ObjectsPool : MonoBehaviour
     private int amountOfObstaclesofTheSameType = 4;
     [SerializeField] public GameObject[] obstacles = new GameObject[7];
 
+    //Rat Bullets
+    private List<GameObject> pooledRatBullets = new List<GameObject>();
+    private int amountOfRatBullets = 5;
+    [SerializeField] public GameObject ratBullet;
+
     System.Random rnd = new System.Random();
 
     private void Awake()
@@ -34,7 +39,7 @@ public class ObjectsPool : MonoBehaviour
     void Start()
     {
 
-
+        // POISION BALLS
         for (int i = 0; i < amountOfPoisonBalls; i++)
         {
             GameObject obj = Instantiate(poisonBall);
@@ -42,6 +47,8 @@ public class ObjectsPool : MonoBehaviour
             obj.transform.SetParent(instance.transform);
             pooledPoisonBalls.Add(obj);
         }
+
+        // OBSTACLES
         for (int i = 0; i < obstacles.Length; i++)
         {
             for (int j = 0; j < amountOfObstaclesofTheSameType; j++)
@@ -52,6 +59,15 @@ public class ObjectsPool : MonoBehaviour
                 pooledObstacles.Add(obj);
             }
 
+        }
+
+        // RAT BULLETS
+        for(int i = 0;i < amountOfRatBullets; i++)
+        {
+            GameObject obj = Instantiate(ratBullet);
+            obj.SetActive(false);
+            obj.transform.SetParent(instance.transform);
+            pooledRatBullets.Add(obj);
         }
 
     }
@@ -68,7 +84,7 @@ public class ObjectsPool : MonoBehaviour
 
     public GameObject GetPooledObstacle()
     {
-        Debug.Log(pooledObstacles.Count);
+        //Debug.Log(pooledObstacles.Count);
         //Debug.Log(obstacles.Length);
         int rndNum = rnd.Next(0, pooledObstacles.Count);
 
@@ -81,16 +97,16 @@ public class ObjectsPool : MonoBehaviour
 
     }
 
-    /*public GameObject GetPooledRatBullet()
+    public GameObject GetPooledRatBullet()
     {
-        for (int i = 0; i < pooledPoisonBalls.Count; i++)
+        for (int i = 0; i < pooledRatBullets.Count; i++)
         {
-            if (!pooledPoisonBalls[i].activeInHierarchy)
+            if (!pooledRatBullets[i].activeInHierarchy)
             {
-                return pooledPoisonBalls[i];
+                return pooledRatBullets[i];
             }
         }
-        return null;
+        return GetPooledRatBullet();
     }
-    */
+
 }
