@@ -12,7 +12,7 @@ public class RatController : MonoBehaviour
 
     // PUBLIC PARAMETERS
     public float jumpForce;
-    public float pathDistance = 10;
+    public float pathDistance = 9;
     public float Gravity;
 
     // METHOD START
@@ -25,7 +25,7 @@ public class RatController : MonoBehaviour
     // METHOD UPDATE
     void Update()
     {
-        controller.Move(direction * Time.deltaTime);
+        //controller.Move(direction * Time.deltaTime);
 
         // JUMP
         if(controller.isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))) Jump(); 
