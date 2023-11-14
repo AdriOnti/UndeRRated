@@ -61,6 +61,11 @@ public class AttackingBat : ObstacleRespawner
         {
             Shoot();
         }
+        else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player") || other.CompareTag("RatBullet"))
+        {
+            this.gameObject.SetActive(false);
+            projectile.SetActive(false);
+        }
 
     }
 

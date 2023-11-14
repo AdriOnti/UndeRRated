@@ -1,8 +1,19 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class DeadMenu : MonoBehaviour
 {
+    public static DeadMenu instance;
+    public List<GameObject> canvas;
+    public GameObject rat;
+
+    private void Start()
+    {
+        rat.GetComponent<RatController>().enabled = false;
+    }
+
+
     // RESPAWN FUNCTION
     /// <summary>
     /// FUNCION EN PROCESO.
@@ -11,8 +22,11 @@ public class DeadMenu : MonoBehaviour
     /// </summary>
     public void Respawn()
     {
-        Debug.Log("EN MANTENIMIENTO");
-        Debug.LogWarning("MANTENIMENT IN PROCESS");
+        Debug.LogWarning("FALTA AÑADIRLE EL COSTE");
+        canvas[0].SetActive(false);
+        canvas[1].SetActive(true);
+        Time.timeScale = 1.0f;
+        rat.GetComponent<RatController>().enabled = true;
     }
 
     // RESTART FUNCTION
@@ -22,6 +36,7 @@ public class DeadMenu : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("UndeRRated");
+        if (SceneManager.GetActiveScene().name != "UndeRRated") SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        else SceneManager.LoadScene("UndeRRated");
     }
 }

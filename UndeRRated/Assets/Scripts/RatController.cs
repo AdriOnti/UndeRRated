@@ -1,6 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class RatController : MonoBehaviour
 {
@@ -9,17 +10,21 @@ public class RatController : MonoBehaviour
     private Vector3 direction;
     private int desiredPath = 1;
     private Animator animator;
+    private bool isShooting;
 
     // RAT BULLET PARAMETERS
     public GameObject bullet;
     public Transform[] shootTargets = new Transform[3];
-    public int bulletSpeed;
     private Transform shootTarget;
+    public float shootForce = 150f;
 
     // PUBLIC PARAMETERS
     public float jumpForce;
     public float pathDistance = 10;
     public float Gravity;
+
+    // CANVAS
+    public List<GameObject> canvas;
 
     // METHOD START
     void Start()
@@ -65,7 +70,18 @@ public class RatController : MonoBehaviour
             StartCoroutine(StopAnimation());
         }
 
-        if (Input.GetKeyUp(KeyCode.Space)) { Shot(); }        
+        if (Input.GetKeyUp(KeyCode.Space)) { Shot(); }
+
+        if (isShooting)
+        {
+            // projectile.transform.SetParent(parent);
+            bullet.transform.position = Vector3.MoveTowards(bullet.transform.position, shootTarget.position, shootForce * Time.deltaTime);
+            if (Vector3.Distance(bullet.transform.position, shootTarget.position) < 0.01f)
+            {
+                isShooting = false;
+                //bullet.transform.SetParent(parentRoad);
+            }
+        }
     }
 
     // STOP TIME IF PLAYER IMPACT WITH AN OBSTACLE
@@ -74,9 +90,9 @@ public class RatController : MonoBehaviour
 
         if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat"))
         {
-            //Time.timeScale = 0;
-            //Debug.Log(other.name);
-            SceneManager.LoadScene("Muelte");
+            Time.timeScale = 0;
+            canvas[0].SetActive(true);
+            canvas[1].SetActive(false);
         }
     
     }
@@ -108,28 +124,24 @@ public class RatController : MonoBehaviour
     // SHOT
     private void Shot()
     {
-        //Debug.Log("He disparado");
+        shootTarget = ShotTarget();
         bullet = ObjectsPool.instance.GetPooledRatBullet();
-        bullet.transform.position = transform.position;
 
         if (bullet != null)
         {
+            bullet.transform.position = shootTarget.position;
             bullet.SetActive(true);
-            BulletMove();
+
+            //bullet.GetComponent<RatBullet>().StartMovement(shootTarget.position, shootForce);
+            isShooting= true;
         }
     }
 
-    private void BulletMove()
+    private Transform ShotTarget()
     {
-        if(desiredPath == 0) shootTarget = shootTargets[0];
-        if(desiredPath == 1) shootTarget = shootTargets[1];
-        if(desiredPath == 2) shootTarget = shootTargets[2];
-
-        // bullet.transform.SetParent(parent);
-        bullet.transform.position = Vector3.MoveTowards(bullet.transform.position, shootTarget.position, bulletSpeed * Time.deltaTime);
-        if (Vector3.Distance(bullet.transform.position, shootTarget.position) < 0.01f)
-        {
-            //bullet.transform.SetParent(parentRoad);
-        }
+        if (desiredPath == 0) return shootTargets[0];
+        if (desiredPath == 1) return shootTargets[1];
+        if (desiredPath == 2) return shootTargets[2];
+        return null;
     }
 }
