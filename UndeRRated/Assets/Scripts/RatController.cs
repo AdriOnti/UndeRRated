@@ -19,13 +19,13 @@ public class RatController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+       // animator = GetComponent<Animator>();
     }
 
     // METHOD UPDATE
     void Update()
     {
-        //controller.Move(direction * Time.deltaTime);
+        controller.Move(direction * Time.deltaTime);
 
         // JUMP
         if(controller.isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))) Jump(); 
@@ -54,8 +54,8 @@ public class RatController : MonoBehaviour
         // SLIDE
         if (controller.isGrounded && (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S)))
         {
-            animator.Play("slide");
-            StartCoroutine(StopAnimation());
+          //  animator.Play("slide");
+           // StartCoroutine(StopAnimation());
         }
 
         if (Input.GetKeyUp(KeyCode.Space))

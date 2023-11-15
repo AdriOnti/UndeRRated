@@ -17,13 +17,13 @@ public class TeleportRoad : MonoBehaviour
         {
             other.gameObject.transform.position = new Vector3(road3.position.x, road3.position.y, road3.position.z + road1.localScale.z);
 
-            ObstaclesPlacementGround.PlaceObjects1(other.gameObject.transform);
+            //ObstaclesPlacementGround.PlaceObjects1(other.gameObject.transform);
             //ObstaclesPlacementGround.PlaceObjects2(other.gameObject.transform);
         }
         else if (other.gameObject.name == "RoadTile2")
         {
             other.gameObject.transform.position = new Vector3(road1.position.x, road1.position.y, road1.position.z + road1.localScale.z);
-            ObstaclesPlacementGround.PlaceObjects1(other.gameObject.transform);
+           // ObstaclesPlacementGround.PlaceObjects1(other.gameObject.transform);
             //ObstaclesPlacementGround.PlaceObjects2(other.gameObject.transform);
 
         }
@@ -31,7 +31,7 @@ public class TeleportRoad : MonoBehaviour
         {
             other.gameObject.transform.position = new Vector3(road2.position.x, road2.position.y, road2.position.z + road1.localScale.z);
 
-            ObstaclesPlacementGround.PlaceObjects1(other.gameObject.transform);
+            //ObstaclesPlacementGround.PlaceObjects1(other.gameObject.transform);
             //ObstaclesPlacementGround.PlaceObjects2(other.gameObject.transform);
         }
        
