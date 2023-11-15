@@ -1,18 +1,19 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DeadMenu : MonoBehaviour
+public class DeadMenu : Menu
 {
     public static DeadMenu instance;
-    public List<GameObject> canvas;
-    public GameObject rat;
 
-    private void Start()
+    private void Update()
     {
-        rat.GetComponent<RatController>().enabled = false;
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            Debug.LogError("NO PUEDES PAUSAR *golpea el baston en el suelo*");
+        }
     }
-
 
     // RESPAWN FUNCTION
     /// <summary>
@@ -23,20 +24,6 @@ public class DeadMenu : MonoBehaviour
     public void Respawn()
     {
         Debug.LogWarning("FALTA AÑADIRLE EL COSTE");
-        canvas[0].SetActive(false);
-        canvas[1].SetActive(true);
-        Time.timeScale = 1.0f;
-        rat.GetComponent<RatController>().enabled = true;
-    }
-
-    // RESTART FUNCTION
-    /// <summary>
-    /// Carga la escena UndeRRated para comenzar una nueva partida
-    /// </summary>
-    public void Restart()
-    {
-        Time.timeScale = 1f;
-        if (SceneManager.GetActiveScene().name != "UndeRRated") SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        else SceneManager.LoadScene("UndeRRated");
+        Resume();
     }
 }

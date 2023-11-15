@@ -22,7 +22,7 @@ public class ObjectsPool : MonoBehaviour
 
     // Rat Bullets
     private List<GameObject> pooledRatBullets = new List<GameObject>();
-    private int amountOfRatBullets = 6;
+    private int amountOfRatBullets = 15;
     [SerializeField] public GameObject ratBullet;
 
     // Random Number

@@ -12,19 +12,17 @@ public class RatController : MonoBehaviour
     private Animator animator;
     private bool isShooting;
 
-    // RAT BULLET PARAMETERS
-    public GameObject bullet;
-    public Transform[] shootTargets = new Transform[3];
-    private Transform shootTarget;
-    public float shootForce = 150f;
-
     // PUBLIC PARAMETERS
     public float jumpForce;
     public float pathDistance = 10;
     public float Gravity;
+    public List<GameObject> canvas; // DeadMenu, HUD, PauseMenu
 
-    // CANVAS
-    public List<GameObject> canvas;
+    // RAT BULLET PARAMETERS
+    public GameObject bullet;
+    public Transform[] shootTargets = new Transform[3];
+    private Transform shootTarget;
+    public float shootForce;
 
     // METHOD START
     void Start()
@@ -82,6 +80,17 @@ public class RatController : MonoBehaviour
                 //bullet.transform.SetParent(parentRoad);
             }
         }
+
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            Time.timeScale = 0;
+            foreach(GameObject menu in canvas)
+            {
+                GetComponent<RatController>().enabled = false;
+                if(menu.name != "PauseMenu") menu.SetActive(false);
+                else menu.SetActive(true);
+            }
+        }
     }
 
     // STOP TIME IF PLAYER IMPACT WITH AN OBSTACLE
@@ -91,8 +100,11 @@ public class RatController : MonoBehaviour
         if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat"))
         {
             Time.timeScale = 0;
-            canvas[0].SetActive(true);
-            canvas[1].SetActive(false);
+            foreach (GameObject menu in canvas)
+            {
+                if(menu.name != "DeadMenu") menu.SetActive(false);
+                else menu.SetActive(true);
+            }
         }
     
     }
@@ -125,11 +137,19 @@ public class RatController : MonoBehaviour
     private void Shot()
     {
         shootTarget = ShotTarget();
-        bullet = ObjectsPool.instance.GetPooledRatBullet();
+        try
+        {
+            bullet = ObjectsPool.instance.GetPooledRatBullet();
+        }
+        catch 
+        { 
+            Debug.Log("No hay más balas disponibles"); 
+            bullet = null;
+        }
 
         if (bullet != null)
         {
-            bullet.transform.position = shootTarget.position;
+            bullet.transform.position = transform.position;
             bullet.SetActive(true);
 
             //bullet.GetComponent<RatBullet>().StartMovement(shootTarget.position, shootForce);
