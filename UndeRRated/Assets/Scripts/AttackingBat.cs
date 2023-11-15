@@ -45,6 +45,7 @@ public class AttackingBat : ObstacleRespawner
             if (Vector3.Distance(projectile.transform.position, shootTargets[targetIndex].position) < 0.01f)
             {
                 isShooting = false;
+                projectile.transform.position = new Vector3(projectile.transform.position.x, projectile.transform.position.y - 1.5f, projectile.transform.position.z);
                 projectile.transform.SetParent(parentRoad);
             }
         }
