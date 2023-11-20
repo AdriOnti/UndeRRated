@@ -18,7 +18,7 @@ public class ObjectsPool : MonoBehaviour
     // Obstacles
     private List<GameObject> pooledObstacles = new List<GameObject>();
     private int amountOfObstaclesofTheSameType = 4;
-    [SerializeField] public GameObject[] obstacles = new GameObject[7];
+    [SerializeField] public GameObject[] obstacles;
 
     // Rat Bullets
     private List<GameObject> pooledRatBullets = new List<GameObject>();
