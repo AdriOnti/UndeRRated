@@ -143,7 +143,7 @@ public class RatController : MonoBehaviour
         }
         catch 
         { 
-            Debug.Log("No hay m�s balas disponibles"); 
+            Debug.Log("No hay más balas disponibles"); 
             bullet = null;
         }
 

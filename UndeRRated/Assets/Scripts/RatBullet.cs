@@ -14,6 +14,7 @@ public class RatBullet : ObstacleRespawner
         base.OnTriggerEnter(other);
         if (other.CompareTag("Bat") /*|| collision.CompareTag("BrekeableObstacle")*/)
         {
+            Score.ExtraPoints();
             gameObject.SetActive(false);
         }
     }

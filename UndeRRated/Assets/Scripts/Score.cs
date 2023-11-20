@@ -4,9 +4,9 @@ using TMPro;
 public class Score : MonoBehaviour
 {
     public TextMeshProUGUI score;
-    public float scoreAmount;
+    static float scoreAmount;
     public float pointIncreastedPerSec;
-    private int killPoints = 10;
+    static int killPoints = 10;
     protected bool enemyKilled;
 
 
@@ -25,14 +25,14 @@ public class Score : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            scoreAmount += ExtraPoints();
-            enemyKilled = false;    
-        }
+        //if (Input.GetKeyUp(KeyCode.Space))
+        //{
+        //    scoreAmount += ExtraPoints();
+        //    enemyKilled = false;    
+        //}
     }
-    private int ExtraPoints()
+    public static void ExtraPoints()
     {
-        return killPoints;
+        scoreAmount += killPoints;
     }
 }

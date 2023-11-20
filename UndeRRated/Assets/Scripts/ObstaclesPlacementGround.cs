@@ -49,8 +49,8 @@ public class ObstaclesPlacementGround : MonoBehaviour
             selectedObject.SetActive(true);
             // Establecer el objeto carretera como padre del objeto movido
             selectedObject.transform.SetParent(road);
-           
-            //// Eliminar el objeto seleccionado del array
+
+            // Eliminar el objeto seleccionado del array
             //objectsToPlace = objectsToPlace.Where(obj => obj != selectedObject).ToArray();
         }
     }
@@ -87,7 +87,7 @@ public class ObstaclesPlacementGround : MonoBehaviour
             selectedObject.SetActive(true);
             // Establecer el objeto carretera como padre del objeto movido
             selectedObject.transform.SetParent(road);
-           
+
 
             // Eliminar el objeto seleccionado del array
             //objectsToPlace = objectsToPlace.Where(obj => obj != selectedObject).ToArray();
