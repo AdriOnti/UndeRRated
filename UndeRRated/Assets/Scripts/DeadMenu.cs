@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DeadMenu : Menu
 {
@@ -24,6 +26,7 @@ public class DeadMenu : Menu
     public void Respawn()
     {
         Debug.LogWarning("FALTA AÑADIRLE EL COSTE");
+        rat.transform.position = new Vector3(rat.transform.position.x, rat.transform.position.y, rat.transform.position.z + 2.5f);
         Resume();
     }
 }
