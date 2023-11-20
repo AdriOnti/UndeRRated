@@ -1,6 +1,7 @@
 using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class RatController : MonoBehaviour
 {
@@ -9,17 +10,26 @@ public class RatController : MonoBehaviour
     private Vector3 direction;
     private int desiredPath = 1;
     private Animator animator;
+    private bool isShooting;
 
     // PUBLIC PARAMETERS
     public float jumpForce;
     public float pathDistance = 9;
     public float Gravity;
+    public List<GameObject> canvas; // DeadMenu, HUD, PauseMenu
+
+    // RAT BULLET PARAMETERS
+    public GameObject bullet;
+    public Transform[] shootTargets = new Transform[3];
+    private Transform shootTarget;
+    public float shootForce;
 
     // METHOD START
     void Start()
     {
         controller = GetComponent<CharacterController>();
-       // animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
+        bullet.transform.position = transform.position;
     }
 
     // METHOD UPDATE
@@ -58,11 +68,29 @@ public class RatController : MonoBehaviour
            // StartCoroutine(StopAnimation());
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space)) { Shot(); }
+
+        if (isShooting)
         {
-            Shot();
+            // projectile.transform.SetParent(parent);
+            bullet.transform.position = Vector3.MoveTowards(bullet.transform.position, shootTarget.position, shootForce * Time.deltaTime);
+            if (Vector3.Distance(bullet.transform.position, shootTarget.position) < 0.01f)
+            {
+                isShooting = false;
+                //bullet.transform.SetParent(parentRoad);
+            }
         }
-        
+
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            Time.timeScale = 0;
+            foreach(GameObject menu in canvas)
+            {
+                GetComponent<RatController>().enabled = false;
+                if(menu.name != "PauseMenu") menu.SetActive(false);
+                else menu.SetActive(true);
+            }
+        }
     }
 
     // STOP TIME IF PLAYER IMPACT WITH AN OBSTACLE
@@ -71,9 +99,12 @@ public class RatController : MonoBehaviour
 
         if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat"))
         {
-            //Time.timeScale = 0;
-            //Debug.Log(other.name);
-            SceneManager.LoadScene("Muelte");
+            Time.timeScale = 0;
+            foreach (GameObject menu in canvas)
+            {
+                if(menu.name != "DeadMenu") menu.SetActive(false);
+                else menu.SetActive(true);
+            }
         }
     
     }
@@ -105,6 +136,32 @@ public class RatController : MonoBehaviour
     // SHOT
     private void Shot()
     {
-        Debug.Log("He disparado");
+        shootTarget = ShotTarget();
+        try
+        {
+            bullet = ObjectsPool.instance.GetPooledRatBullet();
+        }
+        catch 
+        { 
+            Debug.Log("No hay m�s balas disponibles"); 
+            bullet = null;
+        }
+
+        if (bullet != null)
+        {
+            bullet.transform.position = transform.position;
+            bullet.SetActive(true);
+
+            //bullet.GetComponent<RatBullet>().StartMovement(shootTarget.position, shootForce);
+            isShooting= true;
+        }
+    }
+
+    private Transform ShotTarget()
+    {
+        if (desiredPath == 0) return shootTargets[0];
+        if (desiredPath == 1) return shootTargets[1];
+        if (desiredPath == 2) return shootTargets[2];
+        return null;
     }
 }

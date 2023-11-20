@@ -1,8 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class DeadMenu : MonoBehaviour
+public class DeadMenu : Menu
 {
+    public static DeadMenu instance;
+
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            Debug.LogError("NO PUEDES PAUSAR *golpea el baston en el suelo*");
+        }
+    }
+
     // RESPAWN FUNCTION
     /// <summary>
     /// FUNCION EN PROCESO.
@@ -11,17 +25,8 @@ public class DeadMenu : MonoBehaviour
     /// </summary>
     public void Respawn()
     {
-        Debug.Log("EN MANTENIMIENTO");
-        Debug.LogWarning("MANTENIMENT IN PROCESS");
-    }
-
-    // RESTART FUNCTION
-    /// <summary>
-    /// Carga la escena UndeRRated para comenzar una nueva partida
-    /// </summary>
-    public void Restart()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("UndeRRated");
+        Debug.LogWarning("FALTA AÑADIRLE EL COSTE");
+        rat.transform.position = new Vector3(rat.transform.position.x, rat.transform.position.y, rat.transform.position.z + 2.5f);
+        Resume();
     }
 }

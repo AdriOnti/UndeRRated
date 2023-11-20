@@ -62,6 +62,11 @@ public class AttackingBat : ObstacleRespawner
         {
             Shoot();
         }
+        else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player") || other.CompareTag("RatBullet"))
+        {
+            this.gameObject.SetActive(false);
+            projectile.SetActive(false);
+        }
 
     }
 
@@ -88,9 +93,8 @@ public class AttackingBat : ObstacleRespawner
     /// <param name="collision">Objeto con el que colisiona para morir</param>
     private void OnCollisionEnter(Collision collision)
     {
-
-        //Llamar a la animación de muerte
-        //WaitForSeconds
+        // Play Dead Animation
+        // Call a IEnumerator with a WaitForSeconds
         this.gameObject.SetActive(false);
     }
 }

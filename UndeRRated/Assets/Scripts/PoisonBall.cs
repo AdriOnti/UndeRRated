@@ -3,13 +3,20 @@ using UnityEngine;
 
 public class PoisonBall : ObstacleRespawner
 {
-    
-    //private void OnTriggerEnter(Collider collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Player"))
-    //    {
 
-         
-    //    }
-    //}
+    public override void OnTriggerEnter(Collider collision)
+    {
+        base.OnTriggerEnter(collision);
+        //if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Player"))
+        //{
+
+
+        //}
+
+        if (collision.gameObject.CompareTag("RatBullet") )
+        {
+            // Play Animation of explosion
+            gameObject.SetActive(false);
+        }
+    }
 }

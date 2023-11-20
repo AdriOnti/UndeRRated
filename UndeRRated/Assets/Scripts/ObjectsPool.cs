@@ -10,16 +10,22 @@ public class ObjectsPool : MonoBehaviour
     // Static Reference
     public static ObjectsPool instance;
 
-    //Poison Balls
+    // Poison Balls
     private List<GameObject> pooledPoisonBalls = new List<GameObject>();
     private int amountOfPoisonBalls = 6;
     [SerializeField] private GameObject poisonBall;
 
-    //Obstacles
+    // Obstacles
     private List<GameObject> pooledObstacles = new List<GameObject>();
     private int amountOfObstaclesofTheSameType = 4;
     [SerializeField] public GameObject[] obstacles = new GameObject[7];
 
+    // Rat Bullets
+    private List<GameObject> pooledRatBullets = new List<GameObject>();
+    private int amountOfRatBullets = 15;
+    [SerializeField] public GameObject ratBullet;
+
+    // Random Number
     System.Random rnd = new System.Random();
 
     private void Awake()
@@ -33,8 +39,7 @@ public class ObjectsPool : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-
+        // POISION BALLS
         for (int i = 0; i < amountOfPoisonBalls; i++)
         {
             GameObject obj = Instantiate(poisonBall);
@@ -42,6 +47,8 @@ public class ObjectsPool : MonoBehaviour
             obj.transform.SetParent(instance.transform);
             pooledPoisonBalls.Add(obj);
         }
+
+        // OBSTACLES
         for (int i = 0; i < obstacles.Length; i++)
         {
             for (int j = 0; j < amountOfObstaclesofTheSameType; j++)
@@ -52,6 +59,15 @@ public class ObjectsPool : MonoBehaviour
                 pooledObstacles.Add(obj);
             }
 
+        }
+
+        // RAT BULLETS
+        for(int i = 0; i < amountOfRatBullets; i++)
+        {
+            GameObject obj = Instantiate(ratBullet);
+            obj.SetActive(false);
+            obj.transform.SetParent(instance.transform);
+            pooledRatBullets.Add(obj);
         }
 
     }
@@ -68,29 +84,28 @@ public class ObjectsPool : MonoBehaviour
 
     public GameObject GetPooledObstacle()
     {
-        Debug.Log(pooledObstacles.Count);
+        //Debug.Log(pooledObstacles.Count);
         //Debug.Log(obstacles.Length);
         int rndNum = rnd.Next(0, pooledObstacles.Count);
 
         if (!pooledObstacles[rndNum].activeInHierarchy)
         {
-            Debug.Log(rndNum);
+            //Debug.Log(rndNum);
             return pooledObstacles[rndNum];
         }
         else return GetPooledObstacle();
 
     }
 
-    /*public GameObject GetPooledRatBullet()
+    public GameObject GetPooledRatBullet()
     {
-        for (int i = 0; i < pooledPoisonBalls.Count; i++)
+        int rndNum = rnd.Next(0, pooledRatBullets.Count);
+
+        if (!pooledRatBullets[rndNum].activeInHierarchy)
         {
-            if (!pooledPoisonBalls[i].activeInHierarchy)
-            {
-                return pooledPoisonBalls[i];
-            }
+            return pooledRatBullets[rndNum];
         }
-        return null;
+        else return GetPooledRatBullet();
     }
-    */
+
 }

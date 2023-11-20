@@ -66,10 +66,13 @@ public class MovingBat : ObstacleRespawner
             StartCoroutine(flashNow());
             lightWarning.enabled = false;
         }
-        else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player")/*other.CompareTag("RatBullet")*/)  
+        else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player") || other.CompareTag("RatBullet"))  
         {
-           this.gameObject.SetActive(false);
-            
+            // Play Death Anim
+            // WaitForSeconds            
+            this.gameObject.SetActive(false);
+            lightWarning.enabled = false;
+
         }
        
 
