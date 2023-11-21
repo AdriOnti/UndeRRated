@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class RatController : MonoBehaviour
@@ -11,13 +10,11 @@ public class RatController : MonoBehaviour
     private int desiredPath = 1;
     private Animator animator;
     private bool isShooting;
-
     // PUBLIC PARAMETERS
     public float jumpForce;
     public float pathDistance = 9;
     public float Gravity;
     public List<GameObject> canvas; // DeadMenu, HUD, PauseMenu
-
     // RAT BULLET PARAMETERS
     public GameObject bullet;
     public Transform[] shootTargets = new Transform[3];
@@ -27,22 +24,27 @@ public class RatController : MonoBehaviour
     // METHOD START
     void Start()
     {
-        controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        controller = GetComponentInChildren<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
         bullet.transform.position = transform.position;
     }
 
     // METHOD UPDATE
     void Update()
     {
-        controller.Move(direction * Time.deltaTime);
+        // MOVEMENT INPUT
+        float moveInput = Input.GetAxis("Horizontal");
+        direction.x = moveInput;
 
         // JUMP
-        if(controller.isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))) Jump(); 
-        else direction.y += Gravity * 2 * Time.deltaTime;
-
-        // FORCE TO GO TO THE GROUND IF IS JUMPING
-        if(!controller.isGrounded && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))) direction.y -= jumpForce;
+        if (controller.isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)))
+        {
+            Jump();
+        }
+        else
+        {
+            direction.y += Gravity * Time.deltaTime;
+        }
 
         // CALCULATE THE RIGHT PATH
         if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
@@ -52,10 +54,10 @@ public class RatController : MonoBehaviour
         }
 
         // CALCULATE THE LEFT PATH
-        if(Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
         {
             desiredPath--;
-            if(desiredPath <= -1) desiredPath = 0;
+            if (desiredPath <= -1) desiredPath = 0;
         }
 
         // MOVE TO THE PATH
@@ -64,30 +66,26 @@ public class RatController : MonoBehaviour
         // SLIDE
         if (controller.isGrounded && (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S)))
         {
-          //  animator.Play("slide");
-           // StartCoroutine(StopAnimation());
+            StartCoroutine(StopAnimation());
         }
 
-        if (Input.GetKeyUp(KeyCode.Space)) { Shot(); }
-
-        if (isShooting)
+        // SHOT
+        if (Input.GetKeyUp(KeyCode.Space))
         {
-            // projectile.transform.SetParent(parent);
-            bullet.transform.position = Vector3.MoveTowards(bullet.transform.position, shootTarget.position, shootForce * Time.deltaTime);
-            if (Vector3.Distance(bullet.transform.position, shootTarget.position) < 0.01f)
-            {
-                isShooting = false;
-                //bullet.transform.SetParent(parentRoad);
-            }
+            Shot();
         }
 
-        if(Input.GetKeyUp(KeyCode.Escape))
+        // Apply movement
+        controller.Move(direction * Time.deltaTime);
+
+        // ESCAPE
+        if (Input.GetKeyUp(KeyCode.Escape))
         {
             Time.timeScale = 0;
-            foreach(GameObject menu in canvas)
+            foreach (GameObject menu in canvas)
             {
                 GetComponent<RatController>().enabled = false;
-                if(menu.name != "PauseMenu") menu.SetActive(false);
+                if (menu.name != "PauseMenu") menu.SetActive(false);
                 else menu.SetActive(true);
             }
         }
@@ -96,37 +94,36 @@ public class RatController : MonoBehaviour
     // STOP TIME IF PLAYER IMPACT WITH AN OBSTACLE
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat"))
         {
             Time.timeScale = 0;
             foreach (GameObject menu in canvas)
             {
-                if(menu.name != "DeadMenu") menu.SetActive(false);
+                if (menu.name != "DeadMenu") menu.SetActive(false);
                 else menu.SetActive(true);
             }
         }
-    
     }
 
-
     // JUMP FUNCTION
-    private void Jump() { direction.y = jumpForce; }
+    private void Jump()
+    {
+        direction.y = jumpForce;
+    }
 
     // MOVEMENT TO THE DESIRED PATH FUNCTION
     private void GoToPath()
     {
         Vector3 targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
-
         if (desiredPath == 0) targetPosition += Vector3.left * pathDistance;
         if (desiredPath == 2) targetPosition += Vector3.right * pathDistance;
-
-        transform.position = Vector3.Lerp(transform.position, targetPosition, 0.25f);
+        controller.Move((targetPosition - transform.position) * 0.25f);
     }
 
     // STOP ANIMATION
     private IEnumerator StopAnimation()
     {
+        animator.Play("slide");
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         animator.enabled = false;
         yield return new WaitForSeconds(0.01f);
@@ -141,19 +138,16 @@ public class RatController : MonoBehaviour
         {
             bullet = ObjectsPool.instance.GetPooledRatBullet();
         }
-        catch 
-        { 
-            Debug.Log("No hay más balas disponibles"); 
+        catch
+        {
+            Debug.Log("No hay más balas disponibles");
             bullet = null;
         }
-
         if (bullet != null)
         {
             bullet.transform.position = transform.position;
             bullet.SetActive(true);
-
-            //bullet.GetComponent<RatBullet>().StartMovement(shootTarget.position, shootForce);
-            isShooting= true;
+            isShooting = true;
         }
     }
 
@@ -165,3 +159,4 @@ public class RatController : MonoBehaviour
         return null;
     }
 }
+
