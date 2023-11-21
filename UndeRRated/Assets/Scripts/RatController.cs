@@ -64,8 +64,8 @@ public class RatController : MonoBehaviour
         // SLIDE
         if (controller.isGrounded && (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S)))
         {
-          //  animator.Play("slide");
-           // StartCoroutine(StopAnimation());
+            animator.Play("slide");
+            StartCoroutine(StopAnimation());
         }
 
         if (Input.GetKeyUp(KeyCode.Space)) { Shot(); }
