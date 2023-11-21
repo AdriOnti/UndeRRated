@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class DeadMenu : Menu
 {
     public static DeadMenu instance;
 
+    /// <summary>
+    /// Anectoda sobre este script.
+    /// <para>Cuando se empezaba el menu de pausa, al morir por primera todo iba bien, 
+    /// pero si revivias y volvias a morir podias darle al ESC y se abria el menu de pausa, 
+    /// por lo que si le volvia a dar al ESC podia revivir sin gastar dinero </para>
+    /// </summary>
     private void Update()
     {
         if (Input.GetKeyUp(KeyCode.Escape))

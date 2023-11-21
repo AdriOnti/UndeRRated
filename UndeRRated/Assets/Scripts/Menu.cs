@@ -8,9 +8,18 @@ public class Menu : MonoBehaviour
     public List<GameObject> canvas;
     public GameObject rat;
 
+
+    /// <summary>
+    /// Esto corresponde a la anecdota comentada en DeadMenu.cs
+    /// <para>Esta funcion era un Awake() o un Start(), pero cuando lo cambiamos a OnEnable() todo se soluciono</para>
+    /// </summary>
     private void OnEnable()
     {
-        rat.GetComponent<RatController>().enabled = false;
+        try
+        {
+            rat.GetComponent<RatController>().enabled = false;
+        }
+        catch { /* Para el menu principal */ }
     }
 
     // RESUME FUNCTION
@@ -36,6 +45,10 @@ public class Menu : MonoBehaviour
         else SceneManager.LoadScene("UndeRRated");
     }
 
+    // QUIT FUNCTION
+    /// <summary>
+    /// ¿Hace falta que diga que hace esta funcion?
+    /// </summary>
     public void Quit()
     {
         Debug.LogWarning("Saliendo de UndeRRated");
