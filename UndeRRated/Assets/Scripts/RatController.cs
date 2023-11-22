@@ -46,6 +46,9 @@ public class RatController : MonoBehaviour
     {
         controller.Move(direction * Time.deltaTime);
 
+
+        if (transform.position.z != 7.53) transform.position = new Vector3(transform.position.x, transform.position.y, 7.53f);
+
         // JUMP
         if (controller.isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))) Jump();
         else direction.y += Gravity * 2 * Time.deltaTime;
@@ -109,7 +112,12 @@ public class RatController : MonoBehaviour
 
         if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat"))
         {
-            Time.timeScale = 0;
+            animator.SetBool("isDead", true);
+            GameObject[] rtm = GameObject.FindGameObjectsWithTag("Ground");
+            RoadTileMove.speed = 0;
+            
+            //Time.timeScale = 0;
+
             foreach (GameObject menu in canvas)
             {
                 if (menu.name != "DeadMenu") menu.SetActive(false);
@@ -118,7 +126,10 @@ public class RatController : MonoBehaviour
         }
 
     }
+ 
 
+        
+    
 
     // JUMP FUNCTION
     private void Jump() {

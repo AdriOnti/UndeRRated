@@ -21,7 +21,9 @@ public class Menu : MonoBehaviour
             if (menu.name == "HUD") menu.SetActive(true);
             else menu.SetActive(false);
         }
-        Time.timeScale = 1.0f;
+        RoadTileMove.speed = -1;
+        //Time.timeScale = 1.0f;
+        rat.GetComponentInChildren<Animator>().SetBool("isDead", false);
         rat.GetComponent<RatController>().enabled = true;
     }
 
@@ -32,6 +34,7 @@ public class Menu : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1f;
+        RoadTileMove.speed = -1;
         if (SceneManager.GetActiveScene().name != "UndeRRated") SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         else SceneManager.LoadScene("UndeRRated");
     }
