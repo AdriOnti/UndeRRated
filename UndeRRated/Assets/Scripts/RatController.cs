@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,6 +12,8 @@ public class RatController : MonoBehaviour
     private int desiredPath = 1;
     private Animator animator;
     private bool isShooting;
+    private int breakableCount = 0;
+    private bool isDizzy = false;
 
     // PUBLIC PARAMETERS
     public float jumpForce;
@@ -35,6 +38,12 @@ public class RatController : MonoBehaviour
     // METHOD UPDATE
     void Update()
     {
+        if (isDizzy)
+        {
+            //Debug.Log("IsDizzy");
+            // Input System
+        }
+
         controller.Move(direction * Time.deltaTime);
 
         // JUMP
@@ -99,11 +108,24 @@ public class RatController : MonoBehaviour
 
         if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat"))
         {
-            Time.timeScale = 0;
-            foreach (GameObject menu in canvas)
+            Die();
+        }
+
+        if (other.gameObject.CompareTag("ObstacleBreakable"))
+        {
+            Debug.Log(breakableCount);
+            MeshRenderer meshBreakable = other.GetComponent<MeshRenderer>();
+            meshBreakable.enabled = false;
+            if (breakableCount == 0)
             {
-                if(menu.name != "DeadMenu") menu.SetActive(false);
-                else menu.SetActive(true);
+                isDizzy = true;
+                StartCoroutine(TimeDizzy(5f));
+                StartCoroutine(WaitAfterBreakable(0.5f));
+            }
+            else if (breakableCount == 1)
+            {
+                Die();
+                breakableCount = 0;
             }
         }
     
@@ -157,11 +179,33 @@ public class RatController : MonoBehaviour
         }
     }
 
+    private void Die()
+    {
+        Time.timeScale = 0;
+        foreach (GameObject menu in canvas)
+        {
+            if (menu.name != "DeadMenu") menu.SetActive(false);
+            else menu.SetActive(true);
+        }
+    }
+
     private Transform ShotTarget()
     {
         if (desiredPath == 0) return shootTargets[0];
         if (desiredPath == 1) return shootTargets[1];
         if (desiredPath == 2) return shootTargets[2];
         return null;
+    }
+
+    private IEnumerator WaitAfterBreakable(float segs)
+    {
+        yield return new WaitForSeconds(segs);
+        breakableCount = 1;
+    }
+
+    private IEnumerator TimeDizzy(float segs)
+    {
+        yield return new WaitForSeconds(segs);
+        isDizzy = false;
     }
 }
