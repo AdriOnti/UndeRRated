@@ -11,6 +11,8 @@ public class RatController : MonoBehaviour
     private int desiredPath = 1;
     private Animator animator;
     private bool isShooting;
+    private float slideDuration = 0.5f;
+    private float jumpDuration = 0.5f;
 
     // PUBLIC PARAMETERS
     public float jumpForce;
@@ -27,7 +29,7 @@ public class RatController : MonoBehaviour
 
     private BoxCollider ratCol;
     private float defaultSizeCollider;
-    private float slideableYsize = 0.2f;
+    private float slideableYsize = 0.1f;
 
     // METHOD START
     void Start()
@@ -119,7 +121,14 @@ public class RatController : MonoBehaviour
 
 
     // JUMP FUNCTION
-    private void Jump() { direction.y = jumpForce; }
+    private void Jump() {
+
+        animator.SetBool("isJumping", true);
+        animator.SetBool("isSliding", false);
+        direction.y = jumpForce;
+        StartCoroutine(StopJumpAnimation());
+
+    }
 
     // MOVEMENT TO THE DESIRED PATH FUNCTION
     private void GoToPath()
@@ -132,11 +141,18 @@ public class RatController : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, targetPosition, 0.25f);
     }
 
+
     // STOP ANIMATION
+    private IEnumerator StopJumpAnimation()
+    {
+
+        yield return new WaitForSeconds(jumpDuration);
+        animator.SetBool("isJumping", false);
+    }
     private IEnumerator StopSlideAnimation()
     {
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(slideDuration);
         animator.SetBool("isSliding", false);
         ratCol.size = new Vector3(ratCol.size.x, defaultSizeCollider, ratCol.size.z);
     }
