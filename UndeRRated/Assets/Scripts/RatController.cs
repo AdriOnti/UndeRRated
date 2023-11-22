@@ -24,12 +24,19 @@ public class RatController : MonoBehaviour
     private Transform shootTarget;
     public float shootForce;
 
+
+    private BoxCollider ratCol;
+    private float defaultSizeCollider;
+    private float slideableYsize = 0.2f;
+
     // METHOD START
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         bullet.transform.position = transform.position;
+        ratCol = GetComponent<BoxCollider>();
+        defaultSizeCollider = ratCol.size.y;
     }
 
     // METHOD UPDATE
@@ -64,8 +71,9 @@ public class RatController : MonoBehaviour
         // SLIDE
         if (controller.isGrounded && (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S)))
         {
-            //  animator.Play("slide");
-            // StartCoroutine(StopAnimation());
+            animator.SetBool("isSliding", true);
+            ratCol.size = new Vector3(ratCol.size.x, slideableYsize, ratCol.size.z);
+            StartCoroutine(StopSlideAnimation());
         }
 
         if (Input.GetKeyUp(KeyCode.Space)) { Shot(); }
@@ -125,12 +133,12 @@ public class RatController : MonoBehaviour
     }
 
     // STOP ANIMATION
-    private IEnumerator StopAnimation()
+    private IEnumerator StopSlideAnimation()
     {
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        animator.enabled = false;
-        yield return new WaitForSeconds(0.01f);
-        animator.enabled = true;
+
+        yield return new WaitForSeconds(1f);
+        animator.SetBool("isSliding", false);
+        ratCol.size = new Vector3(ratCol.size.x, defaultSizeCollider, ratCol.size.z);
     }
 
     // SHOT
