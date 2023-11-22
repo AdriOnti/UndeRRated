@@ -10,6 +10,7 @@ public class MainMenu : Menu
     /// </summary>
     public void StartGame()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("UndeRRated");
     }
 
