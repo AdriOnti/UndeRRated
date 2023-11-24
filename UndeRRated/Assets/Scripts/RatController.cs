@@ -44,10 +44,13 @@ public class RatController : MonoBehaviour
     // METHOD UPDATE
     void Update()
     {
-        controller.Move(direction * Time.deltaTime);
+  
+            controller.Move(direction * Time.deltaTime);
+    
+       
 
 
-        if (transform.position.z != 7.53) transform.position = new Vector3(transform.position.x, transform.position.y, 7.53f);
+       // if (transform.position.z != 7.53) transform.position = new Vector3(transform.position.x, transform.position.y, 7.53f);
 
         // JUMP
         if (controller.isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))) Jump();

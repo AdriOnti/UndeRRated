@@ -10,6 +10,8 @@ public class PauseMenu : Menu
     public TextMeshProUGUI resumedScore;
 
 
+
+
     private void Update()
     {
         pausedScore.text = $"Puntuación: {resumedScore.text}";
@@ -17,5 +19,7 @@ public class PauseMenu : Menu
         {
             Resume();
         }
+
+
     }
 }

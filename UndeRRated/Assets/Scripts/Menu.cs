@@ -8,15 +8,26 @@ public class Menu : MonoBehaviour
     public List<GameObject> canvas;
     public GameObject rat;
 
+    private CharacterController characterController;
+    private BoxCollider boxCollider;
     private void OnEnable()
     {
         rat.GetComponent<RatController>().enabled = false;
+        characterController = rat.GetComponent<CharacterController>();
+        boxCollider = rat.GetComponent<BoxCollider>();
     }
 
     // RESUME FUNCTION
     public void Resume()
     {
-        foreach(GameObject menu in canvas)
+        if (rat.GetComponentInChildren<Animator>().GetBool("isDead"))
+        {
+            rat.GetComponent<RatController>().enabled = false;
+            StartCoroutine(DisableRatController());
+        }
+            
+
+        foreach (GameObject menu in canvas)
         {
             if (menu.name == "HUD") menu.SetActive(true);
             else menu.SetActive(false);
@@ -24,7 +35,15 @@ public class Menu : MonoBehaviour
         RoadTileMove.speed = -1;
         //Time.timeScale = 1.0f;
         rat.GetComponentInChildren<Animator>().SetBool("isDead", false);
+        
+    }
+
+
+    private IEnumerator DisableRatController()
+    {
         rat.GetComponent<RatController>().enabled = true;
+        yield return new WaitForSeconds(2f);
+        Debug.Log("HAN PASADO 2 SEGUNDOS");
     }
 
     // RESTART FUNCTION

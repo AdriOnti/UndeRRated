@@ -2140,7 +2140,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6102890a808a4e24bbcc188d3b16d86f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -1
 --- !u!54 &259297486
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2400,8 +2399,9 @@ GameObject:
   - component: {fileID: 284022554}
   - component: {fileID: 284022553}
   - component: {fileID: 284022552}
+  - component: {fileID: 284022557}
   m_Layer: 0
-  m_Name: scripter
+  m_Name: CEREBRO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2505,6 +2505,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &284022557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284022551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37df7282d3d238a48a8a00edb8fbe3de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &286916523
 GameObject:
   m_ObjectHideFlags: 0
@@ -8235,7 +8247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6102890a808a4e24bbcc188d3b16d86f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -1
 --- !u!54 &935380674
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -21115,7 +21126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6102890a808a4e24bbcc188d3b16d86f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -1
 --- !u!54 &2097230644
 Rigidbody:
   m_ObjectHideFlags: 0
