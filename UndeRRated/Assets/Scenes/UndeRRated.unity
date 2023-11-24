@@ -4307,7 +4307,7 @@ MonoBehaviour:
   canvas:
   - {fileID: 383627506}
   - {fileID: 1008641844}
-  - {fileID: 0}
+  - {fileID: 740495137}
   rat: {fileID: 148028945}
 --- !u!114 &383627508
 MonoBehaviour:
