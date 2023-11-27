@@ -34,6 +34,6 @@ public class TeleportRoad : MonoBehaviour
             ObstaclesPlacementGround.PlaceObjects1(other.gameObject.transform);
             //ObstaclesPlacementGround.PlaceObjects2(other.gameObject.transform);
         }
-       
+        ObstaclesPlacementGround.CheesePLacement(other.gameObject.transform);
     }
 }

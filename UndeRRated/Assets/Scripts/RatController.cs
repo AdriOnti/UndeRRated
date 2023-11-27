@@ -128,6 +128,13 @@ public class RatController : MonoBehaviour
                 breakableCount = 0;
             }
         }
+
+        if (other.gameObject.CompareTag("Cheese"))
+        {
+            Score.AddCheese();
+            other.transform.SetParent(ObjectsPool.instance.transform);
+            other.gameObject.SetActive(false);
+        }
     
     }
 

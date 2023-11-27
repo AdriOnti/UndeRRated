@@ -25,6 +25,11 @@ public class ObjectsPool : MonoBehaviour
     private int amountOfRatBullets = 15;
     [SerializeField] public GameObject ratBullet;
 
+    // Cheese
+    private List<GameObject> pooledCheese = new List<GameObject>();
+    private int amountOfCheese = 30;
+    [SerializeField] public GameObject cheese;
+
     // Random Number
     System.Random rnd = new System.Random();
 
@@ -70,6 +75,15 @@ public class ObjectsPool : MonoBehaviour
             pooledRatBullets.Add(obj);
         }
 
+        // CHEEEESEEEE
+        for (int i = 0; i < amountOfCheese; i++)
+        {
+            GameObject obj = Instantiate(cheese);
+            obj.SetActive(false);
+            obj.transform.SetParent(instance.transform);
+            pooledCheese.Add(obj);
+        }
+
     }
     public GameObject GetPooledPoisonBall()
     {
@@ -106,6 +120,17 @@ public class ObjectsPool : MonoBehaviour
             return pooledRatBullets[rndNum];
         }
         else return GetPooledRatBullet();
+    }
+
+    public GameObject GetPooledCheese()
+    {
+        int rndNum = rnd.Next(0, pooledCheese.Count);
+
+        if (!pooledCheese[rndNum].activeInHierarchy)
+        {
+            return pooledCheese[rndNum];
+        }
+        else return GetPooledCheese();
     }
 
 }
