@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : Menu
 {
-    private Animation animation;
+    //private Animation animation;
     private Animator animator;
 
     /// <summary>
@@ -13,18 +13,18 @@ public class MainMenu : Menu
     /// </summary>
     public void StartGame()
     {
-        Time.timeScale = 1.0f;
         CameraInStart.animIsStart = true;
         animator = rat.GetComponent<Animator>();
         animator.enabled = true;
+        StartCoroutine(LoadUndeRRated());
+    }
 
+    IEnumerator LoadUndeRRated()
+    {
         animator.Play("startGame");
-
-        // Se han de ejecutar la animacion de correr y la de StartGame al mismo tiempo
-
-        //animation.Play("Armature_ArmatureAction");
-
-        //SceneManager.LoadScene("UndeRRated");
+        yield return new WaitForSeconds(1.5f);
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene("UndeRRated");
     }
 
     public void RatShop()

@@ -11,7 +11,7 @@ public class RatController : MonoBehaviour
     private int desiredPath = 1;
     private Animator animator;
     private bool isShooting;
-    private RatInputs ratInputs;
+    //private RatInputs ratInputs;
 
     // PUBLIC PARAMETERS
     public float jumpForce;
