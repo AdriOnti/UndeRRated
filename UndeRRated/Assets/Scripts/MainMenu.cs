@@ -16,6 +16,10 @@ public class MainMenu : Menu
         CameraInStart.animIsStart = true;
         animator = rat.GetComponent<Animator>();
         animator.enabled = true;
+
+        GameObject canvas = GameObject.Find("Canvas");
+        canvas.GetComponent<Canvas>().enabled = false;
+
         StartCoroutine(LoadUndeRRated());
     }
 
