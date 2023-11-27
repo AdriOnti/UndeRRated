@@ -19,11 +19,11 @@ public class MainMenu : Menu
         animator.enabled = true;
 
         animator.Play("startGame");
-        
+
         // Se han de ejecutar la animacion de correr y la de StartGame al mismo tiempo
 
-        //animation.CrossFade("Armature_ArmatureAction");
-        
+        //animation.Play("Armature_ArmatureAction");
+
         //SceneManager.LoadScene("UndeRRated");
     }
 
