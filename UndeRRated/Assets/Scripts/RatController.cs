@@ -147,24 +147,9 @@ public class RatController : MonoBehaviour
             Score.AddCheese();
             other.transform.SetParent(ObjectsPool.instance.transform);
             other.gameObject.SetActive(false);
-        }
-    
-            animator.SetBool("isDead", true);
-            RoadTileMove.speed = 0;
-            
+        } 
             //Time.timeScale = 0;
-
-            foreach (GameObject menu in canvas)
-            {
-                if (menu.name != "DeadMenu") menu.SetActive(false);
-                else menu.SetActive(true);
-            }
         }
-    }
- 
-
-        
-    
 
     // JUMP FUNCTION
     private void Jump() {
@@ -237,7 +222,10 @@ public class RatController : MonoBehaviour
 
     private void Die()
     {
-        Time.timeScale = 0;
+       // Time.timeScale = 0;
+
+        animator.SetBool("isDead", true);
+        RoadTileMove.speed = 0;
         foreach (GameObject menu in canvas)
         {
             if (menu.name != "DeadMenu") menu.SetActive(false);

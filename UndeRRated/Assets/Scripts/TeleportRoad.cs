@@ -17,7 +17,7 @@ public class TeleportRoad : MonoBehaviour
         {
             other.gameObject.transform.position = new Vector3(road3.position.x, road3.position.y, road3.position.z + road1.localScale.z);
 
-           // ObstaclesPlacementGround.PlaceObjects1(other.gameObject.transform);
+           ObstaclesPlacementGround.PlaceObjects1(other.gameObject.transform);
             //ObstaclesPlacementGround.PlaceObjects2(other.gameObject.transform);
         }
         else if (other.gameObject.name == "RoadTile2")

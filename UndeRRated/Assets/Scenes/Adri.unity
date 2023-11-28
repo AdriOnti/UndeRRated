@@ -1520,7 +1520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83475aadad741bc4fa924ce67a8828c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 1272463183}
+  objectPool: {fileID: 0}
   bulletLifetime: 0.4
 --- !u!54 &127490243
 Rigidbody:
@@ -3265,7 +3265,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6102890a808a4e24bbcc188d3b16d86f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -1
 --- !u!54 &335904187
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3985,7 +3984,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6102890a808a4e24bbcc188d3b16d86f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -1
 --- !u!54 &410885596
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6700,7 +6698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7d8186b220eb9643b4cdf05dd9984d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 147684566}
+  objectPool: {fileID: 0}
   attackingPositions:
   - {fileID: 612686243}
   - {fileID: 1667958478}
@@ -7881,7 +7879,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6102890a808a4e24bbcc188d3b16d86f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: -1
 --- !u!54 &819299975
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10645,7 +10642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7d8186b220eb9643b4cdf05dd9984d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 1272463183}
+  objectPool: {fileID: 0}
   attackingPositions:
   - {fileID: 612686243}
   - {fileID: 1667958478}
@@ -11608,7 +11605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0f60e82ec73c94293a3a4c82bc8c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
+  objectPool: {fileID: 0}
 --- !u!54 &1130356405
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12362,7 +12359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b8a6eec1b1227498b92e92e27095c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 1272463183}
+  objectPool: {fileID: 0}
   projectile: {fileID: 1364881330}
   parentRoad: {fileID: 335904192}
   shootTargets:
@@ -12997,6 +12994,7 @@ MonoBehaviour:
   - {fileID: 4269532241116981635, guid: 400c7dea1bc734449a45735a5cd890eb, type: 3}
   - {fileID: 4269532241116981635, guid: 1737b4aea6cc7f34887c37b59b798ff6, type: 3}
   ratBullet: {fileID: 127490240}
+  cheese: {fileID: 0}
 --- !u!4 &1272463183
 Transform:
   m_ObjectHideFlags: 0
@@ -13957,7 +13955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b83e9fbb0a931b74ab6005839e85f5fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 1272463183}
+  objectPool: {fileID: 0}
 --- !u!54 &1364881332
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18401,7 +18399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b8a6eec1b1227498b92e92e27095c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 147684566}
+  objectPool: {fileID: 0}
   projectile: {fileID: 1649793797}
   parentRoad: {fileID: 0}
   shootTargets:
@@ -22445,6 +22443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: {fileID: 1507828371}
+  cheese: {fileID: 0}
   pointIncreastedPerSec: 1
 --- !u!114 &2111474040
 MonoBehaviour:
@@ -22703,7 +22702,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1667958478}
   - {fileID: 819299973}
   - {fileID: 1814100763}
   - {fileID: 475813241}
@@ -22728,5 +22726,6 @@ SceneRoots:
   - {fileID: 1103250110}
   - {fileID: 1672383235}
   - {fileID: 410885601}
+  - {fileID: 1667958478}
   - {fileID: 1480160498}
   - {fileID: 1113925759}
