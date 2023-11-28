@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RatController : MonoBehaviour
 {
@@ -192,7 +193,15 @@ public class RatController : MonoBehaviour
 
             //bullet.GetComponent<RatBullet>().StartMovement(shootTarget.position, shootForce);
             isShooting = true;
+            animator.SetBool("isShooting", true);
+            StartCoroutine(EndShootingAnimation());
         }
+    }
+    
+    public IEnumerator EndShootingAnimation()
+    {
+        yield return new WaitForSeconds(0.3f);
+        animator.SetBool("isShooting", false);
     }
 
     private Transform ShotTarget()
