@@ -17,6 +17,8 @@ public class RatController : MonoBehaviour
     private bool isDizzy = false;
     private float slideDuration = 0.5f;
     private float jumpDuration = 0.5f;
+    //private RatInputs ratInputs;
+
 
     // PUBLIC PARAMETERS
     public float jumpForce;

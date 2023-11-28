@@ -10,11 +10,20 @@ public class Menu : MonoBehaviour
 
     private CharacterController characterController;
     private BoxCollider boxCollider;
+    /// <summary>
+    /// Esto corresponde a la anecdota comentada en DeadMenu.cs
+    /// <para>Esta funcion era un Awake() o un Start(), pero cuando lo cambiamos a OnEnable() todo se soluciono</para>
+    /// </summary>
     private void OnEnable()
     {
-        rat.GetComponent<RatController>().enabled = false;
-        characterController = rat.GetComponent<CharacterController>();
-        boxCollider = rat.GetComponent<BoxCollider>();
+        try
+        {
+            
+            rat.GetComponent<RatController>().enabled = false;
+            characterController = rat.GetComponent<CharacterController>();
+            boxCollider = rat.GetComponent<BoxCollider>();
+        }
+        catch { /* Para el menu principal */ }
     }
 
     // RESUME FUNCTION
@@ -60,6 +69,10 @@ public class Menu : MonoBehaviour
         else SceneManager.LoadScene("UndeRRated");
     }
 
+    // QUIT FUNCTION
+    /// <summary>
+    /// �Hace falta que diga que hace esta funcion?
+    /// </summary>
     public void Quit()
     {
         Debug.LogWarning("Saliendo de UndeRRated");
