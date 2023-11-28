@@ -11,7 +11,7 @@ public class DeadMenu : Menu
 
     private void Update()
     {
-                if (Input.GetKeyUp(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Escape))
         {
             Debug.LogWarning("NO PUEDES PAUSAR *golpea el baston en el suelo*");
         }

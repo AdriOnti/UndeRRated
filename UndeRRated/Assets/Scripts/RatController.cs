@@ -119,8 +119,8 @@ public class RatController : MonoBehaviour
             if (breakableCount == 0)
             {
                 isDizzy = true;
+                StartCoroutine(WaitAfterBreakable(0.5f, meshBreakable));
                 StartCoroutine(TimeDizzy(5f));
-                StartCoroutine(WaitAfterBreakable(0.5f));
             }
             else if (breakableCount == 1)
             {
@@ -204,15 +204,17 @@ public class RatController : MonoBehaviour
         return null;
     }
 
-    private IEnumerator WaitAfterBreakable(float segs)
+    private IEnumerator WaitAfterBreakable(float segs, MeshRenderer mesh)
     {
         yield return new WaitForSeconds(segs);
         breakableCount = 1;
+        mesh.enabled = true;
     }
 
     private IEnumerator TimeDizzy(float segs)
     {
         yield return new WaitForSeconds(segs);
         isDizzy = false;
+        breakableCount = 0;
     }
 }

@@ -21,7 +21,7 @@ public class Menu : MonoBehaviour
             if (menu.name == "HUD") menu.SetActive(true);
             else menu.SetActive(false);
         }
-        Time.timeScale = 1.0f;
+        Time.timeScale = 1f;
         rat.GetComponent<RatController>().enabled = true;
     }
 

@@ -13,6 +13,8 @@ public class ObstaclesPlacementGround : MonoBehaviour
     public static ObstaclesPlacementGround Instance;
     static int randomPath;
 
+    public static Transform[] parentsCheese;
+
     void Start()
     {
         
@@ -104,9 +106,9 @@ public class ObstaclesPlacementGround : MonoBehaviour
             selectedObject.SetActive(true);
 
             Debug.Log(road);
-            
+
             // Establecer el objeto carretera como padre del objeto movido
-            selectedObject.transform.SetParent(road);
+            selectedObject.transform.SetParent(road.Find("Cheeses"));
         }
     }
 }
