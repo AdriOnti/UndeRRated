@@ -9,6 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7135538325251906427}
+  - component: {fileID: 4815476770123141411}
+  - component: {fileID: 1145803822772046056}
+  - component: {fileID: 2473115840711453073}
   m_Layer: 0
   m_Name: ObstacleHN
   m_TagString: ObstacleGeneric
@@ -34,6 +37,67 @@ Transform:
   - {fileID: 1455928207360350319}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!54 &4815476770123141411
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4269532241116981635}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &1145803822772046056
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4269532241116981635}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.9463858, z: 1}
+  m_Center: {x: -0, y: 1.5274112, z: 0}
+--- !u!114 &2473115840711453073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4269532241116981635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0f60e82ec73c94293a3a4c82bc8c9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 0}
 --- !u!1 &5655570051088651914
 GameObject:
   m_ObjectHideFlags: 0
@@ -47,7 +111,6 @@ GameObject:
   - component: {fileID: 5105836005272036878}
   - component: {fileID: 7158878910901890156}
   - component: {fileID: 3494861649447321071}
-  - component: {fileID: 8796461512906549441}
   m_Layer: 0
   m_Name: ObstacleTN (2)
   m_TagString: ObstacleGeneric
@@ -168,19 +231,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &8796461512906549441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5655570051088651914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a0f60e82ec73c94293a3a4c82bc8c9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parent: {fileID: 0}
 --- !u!1 &8876035639347203681
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +244,6 @@ GameObject:
   - component: {fileID: 7211356262584758941}
   - component: {fileID: 2163632971740172075}
   - component: {fileID: 837425460821969457}
-  - component: {fileID: 2747868955080453049}
   m_Layer: 0
   m_Name: ObstacleTN (1)
   m_TagString: ObstacleGeneric
@@ -315,19 +364,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &2747868955080453049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8876035639347203681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a0f60e82ec73c94293a3a4c82bc8c9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parent: {fileID: 0}
 --- !u!1 &9216761665524123788
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,7 +377,6 @@ GameObject:
   - component: {fileID: 6440239035790936544}
   - component: {fileID: 51669826546820244}
   - component: {fileID: 2579553946665321589}
-  - component: {fileID: 103950322890687418}
   m_Layer: 0
   m_Name: ObstacleTN
   m_TagString: ObstacleGeneric
@@ -462,16 +497,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &103950322890687418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9216761665524123788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a0f60e82ec73c94293a3a4c82bc8c9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parent: {fileID: 0}
