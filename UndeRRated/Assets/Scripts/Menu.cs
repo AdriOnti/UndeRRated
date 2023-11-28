@@ -32,8 +32,10 @@ public class Menu : MonoBehaviour
             if (menu.name == "HUD") menu.SetActive(true);
             else menu.SetActive(false);
         }
+
+        rat.GetComponent<RatController>().enabled = true;
         RoadTileMove.speed = -1;
-        //Time.timeScale = 1.0f;
+        Time.timeScale = 1f;
         rat.GetComponentInChildren<Animator>().SetBool("isDead", false);
         
     }

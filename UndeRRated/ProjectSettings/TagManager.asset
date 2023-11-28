@@ -20,6 +20,8 @@ TagManager:
   - Pool
   - Despawner
   - RatBullet
+  - ObstacleBreakable
+  - Cheese
   layers:
   - Default
   - TransparentFX

@@ -13,7 +13,7 @@ public class DeadMenu : Menu
     {
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            Debug.LogError("NO PUEDES PAUSAR *golpea el baston en el suelo*");
+            Debug.LogWarning("NO PUEDES PAUSAR *golpea el baston en el suelo*");
         }
     }
 

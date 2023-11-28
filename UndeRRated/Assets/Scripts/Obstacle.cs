@@ -10,7 +10,7 @@ public class Obstacle : ObstacleRespawner
     }
     private void Start()
     {
-        parent = GameObject.FindGameObjectWithTag("Pool").transform;
+        objectPool = GameObject.FindGameObjectWithTag("Pool").transform;
     }
   
 }

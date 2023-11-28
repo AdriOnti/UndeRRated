@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,6 +13,8 @@ public class RatController : MonoBehaviour
     private int desiredPath = 1;
     private Animator animator;
     private bool isShooting;
+    private int breakableCount = 0;
+    private bool isDizzy = false;
     private float slideDuration = 0.5f;
     private float jumpDuration = 0.5f;
 
@@ -45,14 +48,14 @@ public class RatController : MonoBehaviour
     // METHOD UPDATE
     void Update()
     {
-  
-            controller.Move(direction * Time.deltaTime);
-    
+        if (isDizzy)
+        {
+            //Debug.Log("IsDizzy");
+            // Input System
+        }
+
+        controller.Move(direction * Time.deltaTime); 
        
-
-
-       // if (transform.position.z != 7.53) transform.position = new Vector3(transform.position.x, transform.position.y, 7.53f);
-
         // JUMP
         if (controller.isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))) Jump();
         else direction.y += Gravity * 2 * Time.deltaTime;
@@ -116,8 +119,35 @@ public class RatController : MonoBehaviour
 
         if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat"))
         {
+            Die();
+        }
+
+        if (other.gameObject.CompareTag("ObstacleBreakable"))
+        {
+            Debug.Log(breakableCount);
+            MeshRenderer meshBreakable = other.GetComponent<MeshRenderer>();
+            meshBreakable.enabled = false;
+            if (breakableCount == 0)
+            {
+                isDizzy = true;
+                StartCoroutine(WaitAfterBreakable(0.5f, meshBreakable));
+                StartCoroutine(TimeDizzy(5f));
+            }
+            else if (breakableCount == 1)
+            {
+                Die();
+                breakableCount = 0;
+            }
+        }
+
+        if (other.gameObject.CompareTag("Cheese"))
+        {
+            Score.AddCheese();
+            other.transform.SetParent(ObjectsPool.instance.transform);
+            other.gameObject.SetActive(false);
+        }
+    
             animator.SetBool("isDead", true);
-            GameObject[] rtm = GameObject.FindGameObjectsWithTag("Ground");
             RoadTileMove.speed = 0;
             
             //Time.timeScale = 0;
@@ -128,7 +158,6 @@ public class RatController : MonoBehaviour
                 else menu.SetActive(true);
             }
         }
-
     }
  
 
@@ -204,6 +233,16 @@ public class RatController : MonoBehaviour
         animator.SetBool("isShooting", false);
     }
 
+    private void Die()
+    {
+        Time.timeScale = 0;
+        foreach (GameObject menu in canvas)
+        {
+            if (menu.name != "DeadMenu") menu.SetActive(false);
+            else menu.SetActive(true);
+        }
+    }
+
     private Transform ShotTarget()
     {
         if (desiredPath == 0) return shootTargets[0];
@@ -211,4 +250,19 @@ public class RatController : MonoBehaviour
         if (desiredPath == 2) return shootTargets[2];
         return null;
     }
+
+    private IEnumerator WaitAfterBreakable(float segs, MeshRenderer mesh)
+    {
+        yield return new WaitForSeconds(segs);
+        breakableCount = 1;
+        mesh.enabled = true;
+    }
+
+    private IEnumerator TimeDizzy(float segs)
+    {
+        yield return new WaitForSeconds(segs);
+        isDizzy = false;
+        breakableCount = 0;
+    }
 }
+

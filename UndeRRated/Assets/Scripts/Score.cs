@@ -4,8 +4,10 @@ using TMPro;
 public class Score : MonoBehaviour
 {
     public TextMeshProUGUI score;
+    public TextMeshProUGUI cheese;
     static float scoreAmount;
-    public float pointIncreastedPerSec;
+    static int cheeseAmount;
+    public int pointIncreastedPerSec;
     static int killPoints = 10;
     protected bool enemyKilled;
 
@@ -13,8 +15,9 @@ public class Score : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scoreAmount = 0f;
-        pointIncreastedPerSec = 1f;
+        cheeseAmount = 0;
+        scoreAmount = 0;
+        pointIncreastedPerSec = 1;
     }
 
     // Update is called once per frame
@@ -22,6 +25,7 @@ public class Score : MonoBehaviour
     {
         score.text = Convert.ToInt32(scoreAmount).ToString();
         scoreAmount += pointIncreastedPerSec * Time.deltaTime*2;
+        cheese.text = cheeseAmount.ToString();
     }
     private void Update()
     {
@@ -34,5 +38,10 @@ public class Score : MonoBehaviour
     public static void ExtraPoints()
     {
         scoreAmount += killPoints;
+    }
+
+    public static void AddCheese()
+    {
+        cheeseAmount++;
     }
 }
