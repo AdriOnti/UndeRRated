@@ -6,29 +6,26 @@ using UnityEngine.SceneManagement;
 public class MainMenu : Menu
 {
     //private Animation animation;
-    private Animator animator;
+    private Animator animatorParent;
+
+    private void OnEnable()
+    {
+
+    }
 
     /// <summary>
     /// Cuando el usuario le de al boton de comenzar partida, se cargara la escena 
     /// </summary>
     public void StartGame()
     {
+ 
         CameraInStart.animIsStart = true;
-        animator = rat.GetComponent<Animator>();
-        animator.enabled = true;
+        animatorParent = rat.GetComponent<Animator>();
+
 
         GameObject canvas = GameObject.Find("Canvas");
         canvas.GetComponent<Canvas>().enabled = false;
-
-        StartCoroutine(LoadUndeRRated());
-    }
-
-    IEnumerator LoadUndeRRated()
-    {
-        animator.Play("startGame");
-        yield return new WaitForSeconds(1.5f);
-        Time.timeScale = 1.0f;
-        SceneManager.LoadScene("UndeRRated");
+        animatorParent.SetBool("start", true);
     }
 
     public void RatShop()
