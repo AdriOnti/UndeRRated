@@ -105,7 +105,7 @@ public class ObstaclesPlacementGround : MonoBehaviour
             cheesePos += 5f; 
             selectedObject.SetActive(true);
 
-            Debug.Log(road);
+            //Debug.Log(road);
 
             // Establecer el objeto carretera como padre del objeto movido
             selectedObject.transform.SetParent(road.Find("Cheeses"));

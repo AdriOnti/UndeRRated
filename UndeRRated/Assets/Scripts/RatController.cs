@@ -24,7 +24,7 @@ public class RatController : MonoBehaviour
     public float jumpForce;
     public float pathDistance = 9;
     public float Gravity;
-    public List<GameObject> canvas; // DeadMenu, HUD, PauseMenu
+    private GameObject[] canvas; // DeadMenu, HUD, PauseMenu
 
     // RAT BULLET PARAMETERS
     public GameObject bullet;
@@ -45,6 +45,8 @@ public class RatController : MonoBehaviour
         bullet.transform.position = transform.position;
         ratCol = GetComponent<BoxCollider>();
         defaultSizeCollider = ratCol.size.y;
+
+        canvas = GameManager.Instance.GetUI();
     }
 
     // METHOD UPDATE
@@ -105,13 +107,15 @@ public class RatController : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            Time.timeScale = 0;
-            foreach (GameObject menu in canvas)
-            {
-                GetComponent<RatController>().enabled = false;
-                if (menu.name != "PauseMenu") menu.SetActive(false);
-                else menu.SetActive(true);
-            }
+            //Time.timeScale = 0;
+            //foreach (GameObject menu in canvas)
+            //{
+            //    GetComponent<RatController>().enabled = false;
+            //    if (menu.name != "PauseMenu") menu.SetActive(false);
+            //    else menu.SetActive(true);
+            //}
+
+            GameManager.Instance.PauseGame();
         }
     }
 
@@ -226,11 +230,12 @@ public class RatController : MonoBehaviour
 
         animator.SetBool("isDead", true);
         RoadTileMove.speed = 0;
-        foreach (GameObject menu in canvas)
-        {
-            if (menu.name != "DeadMenu") menu.SetActive(false);
-            else menu.SetActive(true);
-        }
+        //foreach (GameObject menu in canvas)
+        //{
+        //    if (menu.name != "DeadMenu") menu.SetActive(false);
+        //    else menu.SetActive(true);
+        //}
+        GameManager.Instance.DeadCharacter();
     }
 
     private Transform ShotTarget()

@@ -9,17 +9,27 @@ public class PauseMenu : Menu
 {
     public TextMeshProUGUI pausedScore;
     public TextMeshProUGUI resumedScore;
+    public static float pausedTime;
 
-
-
+    private void Start()
+    {
+        canvas = GameManager.Instance.GetUI();
+    }
 
     private void Update()
     {
         pausedScore.text = $"Puntuación: {resumedScore.text}";
-        if (Input.GetKeyUp(KeyCode.Escape))
+        pausedTime = Time.timeScale;
+        if(GetComponent<Canvas>().enabled == true )
         {
-            Resume();
+            Debug.Log("Estoy pausado");
+            Time.timeScale = 0;
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                Resume();
+            }
         }
+        
     }
 
     public void ReturnMainMenu()

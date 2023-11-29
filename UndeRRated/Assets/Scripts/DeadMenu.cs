@@ -4,6 +4,11 @@ public class DeadMenu : Menu
 {
     public static DeadMenu instance;
 
+    private void Start()
+    {
+        canvas = GameManager.Instance.GetUI();
+    }
+
     /// <summary>
     /// Anectoda sobre este script.
     /// <para>Cuando se empezaba el menu de pausa, al morir por primera todo iba bien, 
@@ -12,9 +17,13 @@ public class DeadMenu : Menu
     /// </summary>
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
+        if(GetComponent<Canvas>().enabled == true)
         {
-            Debug.LogWarning("NO PUEDES PAUSAR *golpea el baston en el suelo*");
+            Debug.Log("Estoy muerto");
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                Debug.LogWarning("NO PUEDES PAUSAR *golpea el baston en el suelo*");
+            }
         }
     }
 
