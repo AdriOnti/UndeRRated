@@ -22,6 +22,8 @@ TagManager:
   - RatBullet
   - ObstacleBreakable
   - Cheese
+  - DizzyState
+  - RatAnimController
   layers:
   - Default
   - TransparentFX

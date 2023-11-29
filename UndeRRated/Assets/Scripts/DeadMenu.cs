@@ -26,7 +26,7 @@ public class DeadMenu : Menu
     /// </summary>
     public void Respawn()
     {
-        Debug.LogWarning("FALTA AÑADIRLE EL COSTE");
+        //Debug.LogWarning("FALTA AÑADIRLE EL COSTE");
         
         Resume();
     }
