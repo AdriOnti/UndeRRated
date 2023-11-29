@@ -20,12 +20,12 @@ public class PauseMenu : Menu
         {
             Resume();
         }
-
-
     }
 
     public void ReturnMainMenu()
     {
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene("Main");
+        
     }
 }

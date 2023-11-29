@@ -12854,7 +12854,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas:
   - {fileID: 533479753}
-  - {fileID: 0}
+  - {fileID: 1008641844}
   - {fileID: 1430917653}
   rat: {fileID: 7287444351774170379}
   pausedScore: {fileID: 662216158}
@@ -21703,8 +21703,8 @@ Transform:
   m_GameObject: {fileID: 7287444351774170379}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 7.53}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalPosition: {x: 0, y: 5.0306, z: 7.2194}
+  m_LocalScale: {x: 2, y: 1.62116, z: 1.57214}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1157444941}

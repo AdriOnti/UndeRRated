@@ -22,8 +22,8 @@ public class CameraInStart : MonoBehaviour
     {
         if (animIsStart)
         {
-            Time.timeScale = 0.25f;
-            newPos = new Vector3(player.transform.position.x - 5f, player.transform.position.y + 7f, player.transform.position.z - 13f);
+            //Time.timeScale = 0.25f;
+            newPos = new Vector3(player.transform.position.x - 3f, player.transform.position.y + 4f, player.transform.position.z - 8f);
             transform.position = newPos;
         }
     }

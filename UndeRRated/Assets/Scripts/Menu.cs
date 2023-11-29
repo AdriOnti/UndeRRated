@@ -17,8 +17,7 @@ public class Menu : MonoBehaviour
     private void OnEnable()
     {
         try
-        {
-            
+        { 
             rat.GetComponent<RatController>().enabled = false;
             characterController = rat.GetComponent<CharacterController>();
             boxCollider = rat.GetComponent<BoxCollider>();
