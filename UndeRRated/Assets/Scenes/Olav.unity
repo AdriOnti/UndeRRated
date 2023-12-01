@@ -21767,9 +21767,9 @@ MonoBehaviour:
   Gravity: -35
   bullet: {fileID: 752857352}
   shootTargets:
-  - {fileID: 1039982689}
-  - {fileID: 1786842624}
-  - {fileID: 331224585}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   shootForce: 150
 --- !u!137 &8045885911117458228
 SkinnedMeshRenderer:

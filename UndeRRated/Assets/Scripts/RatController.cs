@@ -20,15 +20,13 @@ public class RatController : MonoBehaviour
     //private RatInputs ratInputs;
 
 
-    // PUBLIC PARAMETERS
+    [Header("Rat Parameters")]
     public float jumpForce;
     public float pathDistance = 9;
     public float Gravity;
-    private GameObject[] canvas; // DeadMenu, HUD, PauseMenu
 
-    // RAT BULLET PARAMETERS
+    [Header("RatBullet Parameters")]
     public GameObject bullet;
-    public Transform[] shootTargets = new Transform[3];
     private Transform shootTarget;
     public float shootForce;
 
@@ -36,6 +34,8 @@ public class RatController : MonoBehaviour
     private BoxCollider ratCol;
     private float defaultSizeCollider;
     private float slideableYsize = 0.1f;
+    private Transform[] shootTargets;
+    private GameObject[] canvas; // DeadMenu, HUD, PauseMenu
 
     // METHOD START
     void Start()
@@ -47,6 +47,7 @@ public class RatController : MonoBehaviour
         defaultSizeCollider = ratCol.size.y;
 
         canvas = GameManager.Instance.GetUI();
+        shootTargets = GameManager.Instance.RatShotTarget();
     }
 
     // METHOD UPDATE
