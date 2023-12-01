@@ -105,7 +105,7 @@ public class RatController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Escape) && GameManager.Instance.DeadMenuActive())
         {
             //Time.timeScale = 0;
             //foreach (GameObject menu in canvas)

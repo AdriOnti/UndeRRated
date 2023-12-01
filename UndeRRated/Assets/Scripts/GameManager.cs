@@ -47,6 +47,16 @@ public class GameManager : MonoBehaviour
         ActiveUI("HUD");
     }
 
+    public bool DeadMenuActive()
+    {
+        foreach (GameObject menu in canvas)
+        {
+            if (menu.name != "DeadMenu") return menu.GetComponent<Canvas>().enabled;
+        }
+
+        return false;
+    }
+
     // Activa el componente Canvas del objeto deseado y desactiva el resto
     private void ActiveUI(string ui)
     {

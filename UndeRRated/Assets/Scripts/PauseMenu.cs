@@ -22,7 +22,6 @@ public class PauseMenu : Menu
         pausedTime = Time.timeScale;
         if(GetComponent<Canvas>().enabled == true )
         {
-            Debug.Log("Estoy pausado");
             Time.timeScale = 0;
             if (Input.GetKeyUp(KeyCode.Escape))
             {
