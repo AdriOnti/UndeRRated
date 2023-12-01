@@ -47,6 +47,12 @@ public class GameManager : MonoBehaviour
         ActiveUI("HUD");
     }
 
+
+    /// <summary>
+    /// Olav: Cuando se implemento el GameManager el antiguo bug de que en el menu de muerte podias abrir el de pausa, reapareció.
+    /// No tengo ni idea de como funciona esto, simplemente funciona y punto
+    /// </summary>
+    /// <returns>Si el menu de pausa esta desactivado o no ¿creo?</returns>
     public bool DeadMenuActive()
     {
         foreach (GameObject menu in canvas)
