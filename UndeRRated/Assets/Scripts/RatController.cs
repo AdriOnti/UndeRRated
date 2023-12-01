@@ -144,12 +144,19 @@ public class RatController : MonoBehaviour
 
         if (other.gameObject.CompareTag("Cheese"))
         {
-            Score.AddCheese();
+            Score.AddCheese(1);
             other.transform.SetParent(ObjectsPool.instance.transform);
             other.gameObject.SetActive(false);
-        } 
-            //Time.timeScale = 0;
         }
+
+        if (other.gameObject.CompareTag("MegaCheese"))
+        {
+            Score.AddCheese(5);
+            other.transform.SetParent(ObjectsPool.instance.transform);
+            other.gameObject.SetActive(false);
+        }
+        //Time.timeScale = 0;
+    }
 
     // JUMP FUNCTION
     private void Jump() {

@@ -30,6 +30,15 @@ public class ObjectsPool : MonoBehaviour
     private int amountOfCheese = 30;
     [SerializeField] public GameObject cheese;
 
+    // Rotten Cheese
+    private int amountOfRottenCheese = 2;
+    public GameObject rottenCheese;
+
+    // Mega Cheese
+    private List<GameObject> pooledMegaCheese = new List<GameObject>();
+    private int amountOfMegaCheese = 3;
+    public GameObject megaCheese;
+
     // Random Number
     System.Random rnd = new System.Random();
 
@@ -84,6 +93,24 @@ public class ObjectsPool : MonoBehaviour
             pooledCheese.Add(obj);
         }
 
+        // ROTTEN CHEESE
+        for (int i = 0; i < amountOfRottenCheese; i++)
+        {
+            GameObject obj = Instantiate(rottenCheese);
+            obj.SetActive(false);
+            obj.transform.SetParent(instance.transform);
+            pooledCheese.Add(obj);
+        }
+
+        // MEGA CHEESE
+        for (int i = 0; i < amountOfMegaCheese; i++)
+        {
+            GameObject obj = Instantiate(megaCheese);
+            obj.SetActive(false);
+            obj.transform.SetParent(instance.transform);
+            pooledMegaCheese.Add(obj);
+        }
+
     }
     public GameObject GetPooledPoisonBall()
     {
@@ -98,13 +125,9 @@ public class ObjectsPool : MonoBehaviour
 
     public GameObject GetPooledObstacle()
     {
-        //Debug.Log(pooledObstacles.Count);
-        //Debug.Log(obstacles.Length);
         int rndNum = rnd.Next(0, pooledObstacles.Count);
-
         if (!pooledObstacles[rndNum].activeInHierarchy)
         {
-            //Debug.Log(rndNum);
             return pooledObstacles[rndNum];
         }
         else return GetPooledObstacle();
@@ -133,4 +156,14 @@ public class ObjectsPool : MonoBehaviour
         else return GetPooledCheese();
     }
 
+    public GameObject GetPooledMegaCheese()
+    {
+        int rndNum = rnd.Next(0, pooledMegaCheese.Count);
+
+        if (!pooledMegaCheese[rndNum].activeInHierarchy)
+        {
+            return pooledMegaCheese[rndNum];
+        }
+        else return GetPooledMegaCheese();
+    }
 }

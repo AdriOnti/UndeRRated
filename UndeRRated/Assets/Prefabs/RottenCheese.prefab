@@ -11,9 +11,12 @@ GameObject:
   - component: {fileID: 3708194441564912180}
   - component: {fileID: 349588243936900497}
   - component: {fileID: 2539198882602156379}
+  - component: {fileID: 3982627809714377780}
+  - component: {fileID: 3171503887479759351}
+  - component: {fileID: 8910518616658293874}
   m_Layer: 0
-  m_Name: Cheese_0002_LOD0
-  m_TagString: Untagged
+  m_Name: RottenCheese
+  m_TagString: ObstacleBreakable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 4052667497768132750}
   serializedVersion: 2
   m_LocalRotation: {x: -0.38319194, y: -0.594276, z: -0.59427595, w: 0.38319188}
-  m_LocalPosition: {x: -0, y: 5.82, z: -0}
-  m_LocalScale: {x: 196.85004, y: 196.85004, z: 196.85004}
+  m_LocalPosition: {x: -0, y: 0, z: -0.00000005960464}
+  m_LocalScale: {x: 104.63367, y: 104.63367, z: 104.63367}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,3 +86,64 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &3982627809714377780
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4052667497768132750}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &3171503887479759351
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4052667497768132750}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.011571867, y: 0.014065472, z: 0.012227862}
+  m_Center: {x: 0.00000520774, y: 0.000649632, z: 0.0026664534}
+--- !u!114 &8910518616658293874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4052667497768132750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0f60e82ec73c94293a3a4c82bc8c9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectPool: {fileID: 0}
