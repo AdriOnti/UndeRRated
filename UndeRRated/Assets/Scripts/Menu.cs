@@ -32,27 +32,31 @@ public class Menu : MonoBehaviour
     // RESUME FUNCTION
     public void Resume()
     {
+        Debug.Log(rat.GetComponentInChildren<Animator>().GetBool("isDead"));
         if (rat.GetComponentInChildren<Animator>().GetBool("isDead"))
         {
-            rat.GetComponent<RatController>().enabled = false;
-            StartCoroutine(DisableRatController());
+            boxCollider.enabled = false;
+            //StartCoroutine(DisableRatController());
         }
-
+        // Comentar linea de abajo si da problemas
+        rat.GetComponent<RatController>().enabled = true;
+        
         GameManager.Instance.ResumeGame();
 
-        rat.GetComponent<RatController>().enabled = true;
         RoadTileMove.speed = -1;
         Time.timeScale = 1f;
         rat.GetComponentInChildren<Animator>().SetBool("isDead", false);
-        
+       
     }
 
 
-    private IEnumerator DisableRatController()
+    public IEnumerator DisableRatController()
     {
-        rat.GetComponent<RatController>().enabled = true;
+        
         yield return new WaitForSeconds(2f);
+        boxCollider.enabled = true;
         Debug.Log("HAN PASADO 2 SEGUNDOS");
+        
     }
 
     // RESTART FUNCTION
