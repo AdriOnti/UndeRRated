@@ -5175,10 +5175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0206d7de9f9a39d4f878ec829e761e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas:
-  - {fileID: 533479753}
-  - {fileID: 1008641844}
-  - {fileID: 1430917653}
   rat: {fileID: 7287444351774170379}
 --- !u!114 &533479756
 MonoBehaviour:
@@ -12852,10 +12848,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401f648c3ce6cb4418fad166ec2a9d99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas:
-  - {fileID: 533479753}
-  - {fileID: 0}
-  - {fileID: 1430917653}
   rat: {fileID: 7287444351774170379}
   pausedScore: {fileID: 662216158}
   resumedScore: {fileID: 1666672092}
@@ -21773,15 +21765,11 @@ MonoBehaviour:
   jumpForce: 28
   pathDistance: 9
   Gravity: -35
-  canvas:
-  - {fileID: 1008641844}
-  - {fileID: 533479753}
-  - {fileID: 1430917653}
   bullet: {fileID: 752857352}
   shootTargets:
-  - {fileID: 1039982689}
-  - {fileID: 1786842624}
-  - {fileID: 331224585}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   shootForce: 150
 --- !u!137 &8045885911117458228
 SkinnedMeshRenderer:

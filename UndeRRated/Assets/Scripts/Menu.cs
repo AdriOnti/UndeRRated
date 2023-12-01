@@ -5,23 +5,28 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
-    public List<GameObject> canvas;
+    protected GameObject[] canvas;
     public GameObject rat;
 
     private CharacterController characterController;
     private BoxCollider boxCollider;
+
     /// <summary>
     /// Esto corresponde a la anecdota comentada en DeadMenu.cs
     /// <para>Esta funcion era un Awake() o un Start(), pero cuando lo cambiamos a OnEnable() todo se soluciono</para>
     /// </summary>
-    private void OnEnable()
+    private void Update()
     {
-        try
-        { 
-            rat.GetComponent<RatController>().enabled = false;
-            boxCollider = rat.GetComponent<BoxCollider>();
+        if(GetComponent<Canvas>().enabled == true)
+        {
+            try
+            {
+                rat.GetComponent<RatController>().enabled = false;
+                characterController = rat.GetComponent<CharacterController>();
+                boxCollider = rat.GetComponent<BoxCollider>();
+            }
+            catch { /* Para el menu principal */ }
         }
-        catch { /* Para el menu principal */ }
     }
 
     // RESUME FUNCTION
@@ -33,13 +38,10 @@ public class Menu : MonoBehaviour
             boxCollider.enabled = false;
             //StartCoroutine(DisableRatController());
         }
+        // Comentar linea de abajo si da problemas
         rat.GetComponent<RatController>().enabled = true;
-
-        foreach (GameObject menu in canvas)
-        {
-            if (menu.name == "HUD") menu.SetActive(true);
-            else menu.SetActive(false);
-        }
+        
+        GameManager.Instance.ResumeGame();
 
         RoadTileMove.speed = -1;
         Time.timeScale = 1f;

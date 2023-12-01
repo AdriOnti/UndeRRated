@@ -40,8 +40,8 @@ public class Score : MonoBehaviour
         scoreAmount += killPoints;
     }
 
-    public static void AddCheese()
+    public static void AddCheese(int points)
     {
-        cheeseAmount++;
+        cheeseAmount += points;
     }
 }
