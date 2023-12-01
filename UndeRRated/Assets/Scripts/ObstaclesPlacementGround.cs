@@ -96,12 +96,16 @@ public class ObstaclesPlacementGround : MonoBehaviour
         SetPositionsRoad(road);
         float cheesePos = -5f;
         randomPath = Random.Range(0, 3);
+        int randomMegaCheese = Random.Range(0, 5);
+
         for (int i = 0; i < 6; i++)
         {
-            GameObject selectedObject = ObjectsPool.instance.GetPooledCheese();
+            GameObject selectedObject;
+            if (i == 5 && randomMegaCheese == 1) { selectedObject = ObjectsPool.instance.GetPooledMegaCheese(); }
+            else { selectedObject = ObjectsPool.instance.GetPooledCheese(); }
 
             // Mover el objeto seleccionado y establecer la posición encima del objeto carretera
-            selectedObject.transform.position = new Vector3(positionObsX[randomPath], road.position.y + 1f, positionObsZ[0] - cheesePos);
+            selectedObject.transform.position = new Vector3(positionObsX[randomPath], road.position.y + 0.5f, positionObsZ[0] + cheesePos);
             cheesePos += 5f; 
             selectedObject.SetActive(true);
 

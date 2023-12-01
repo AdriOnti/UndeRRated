@@ -5771,6 +5771,8 @@ MonoBehaviour:
   - {fileID: 4269532241116981635, guid: 1737b4aea6cc7f34887c37b59b798ff6, type: 3}
   ratBullet: {fileID: 752857352}
   cheese: {fileID: 9167573204285734970, guid: 6f8f91ba99c73584faf8505530561ca5, type: 3}
+  rottenCheese: {fileID: 4052667497768132750, guid: 891ace36706dc3144a4c7030d56a08d3, type: 3}
+  megaCheese: {fileID: 9167573204285734970, guid: 79ebcd85e467f984998e3b9a71f2fe99, type: 3}
 --- !u!1 &662216157
 GameObject:
   m_ObjectHideFlags: 0
@@ -10533,7 +10535,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.66, y: 0.66, z: 0.66}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1358171710023964463}
@@ -21730,8 +21732,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.8326726, y: 1.4449248, z: 2.6108432}
-  m_Center: {x: -0.03169185, y: 0.62092066, z: 0.3153839}
+  m_Size: {x: 0.6, y: 1.26, z: 2.08}
+  m_Center: {x: -0.03, y: 0.24, z: 0.05}
 --- !u!143 &7956141642390259635
 CharacterController:
   m_ObjectHideFlags: 0
