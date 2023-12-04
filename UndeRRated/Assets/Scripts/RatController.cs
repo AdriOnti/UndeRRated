@@ -39,6 +39,16 @@ public class RatController : MonoBehaviour
     private Transform[] shootTargets;
     private GameObject[] canvas; // DeadMenu, HUD, PauseMenu
 
+    KeyCode kright = KeyCode.RightArrow;
+    KeyCode kleft = KeyCode.LeftArrow;
+    KeyCode kup = KeyCode.UpArrow;
+    KeyCode kdown = KeyCode.DownArrow;
+
+    KeyCode kd = KeyCode.D;
+    KeyCode ka = KeyCode.A;
+    KeyCode kw = KeyCode.W;
+    KeyCode ks = KeyCode.S;
+
     // METHOD START
     void Start()
     {
@@ -59,28 +69,49 @@ public class RatController : MonoBehaviour
     {
         if (isDizzy)
         {
+            kright = KeyCode.LeftArrow;
+            kleft = KeyCode.RightArrow;
+            kup = KeyCode.DownArrow;
+            kdown = KeyCode.UpArrow;
+
+            kd = KeyCode.A;
+            ka = KeyCode.D;
+            kw = KeyCode.S;
+            ks = KeyCode.W;
+
             //Debug.Log("IsDizzy");
-            // Input System
+        }
+        else
+        {
+            kright = KeyCode.RightArrow;
+            kleft = KeyCode.LeftArrow;
+            kup = KeyCode.UpArrow;
+            kdown = KeyCode.DownArrow;
+
+            kd = KeyCode.D;
+            ka = KeyCode.A;
+            kw = KeyCode.W;
+            ks = KeyCode.S;
         }
 
         controller.Move(direction * Time.deltaTime); 
        
         // JUMP
-        if (controller.isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))) Jump();
+        if (controller.isGrounded && (Input.GetKeyDown(kup) || Input.GetKeyDown(kw))) Jump();
         else direction.y += Gravity * 2 * Time.deltaTime;
 
         // FORCE TO GO TO THE GROUND IF IS JUMPING
-        if (!controller.isGrounded && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))) direction.y -= jumpForce;
+        if (!controller.isGrounded && (Input.GetKeyDown(kdown) || Input.GetKeyDown(ks))) direction.y -= jumpForce;
 
         // CALCULATE THE RIGHT PATH
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(kright) || Input.GetKeyDown(kd))
         {
             desiredPath++;
             if (desiredPath >= 3) desiredPath = 2;
         }
 
         // CALCULATE THE LEFT PATH
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(kleft) || Input.GetKeyDown(ka))
         {
             desiredPath--;
             if (desiredPath <= -1) desiredPath = 0;
@@ -90,7 +121,7 @@ public class RatController : MonoBehaviour
         GoToPath();
 
         // SLIDE
-        if (controller.isGrounded && (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S)))
+        if (controller.isGrounded && (Input.GetKeyUp(kdown) || Input.GetKeyUp(ks)))
         {
             animatorRat.SetBool("isSliding", true);
             ratCol.size = new Vector3(ratCol.size.x, slideableYsize, ratCol.size.z);
