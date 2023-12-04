@@ -1322,7 +1322,7 @@ GameObject:
   - component: {fileID: 103829235}
   - component: {fileID: 103829234}
   m_Layer: 0
-  m_Name: Rat
+  m_Name: RatObj
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3144,6 +3144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37df7282d3d238a48a8a00edb8fbe3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &298914947
 GameObject:
   m_ObjectHideFlags: 0
@@ -5843,7 +5844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0206d7de9f9a39d4f878ec829e761e2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rat: {fileID: 0}
+  rat: {fileID: 103829233}
 --- !u!114 &533479756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14334,7 +14335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 401f648c3ce6cb4418fad166ec2a9d99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rat: {fileID: 0}
+  rat: {fileID: 103829233}
   pausedScore: {fileID: 662216158}
   resumedScore: {fileID: 1666672092}
 --- !u!114 &1430917655
