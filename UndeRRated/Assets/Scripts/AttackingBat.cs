@@ -8,7 +8,7 @@ public class AttackingBat : ObstacleRespawner
     public GameObject projectile;
     public Transform parentRoad;
     private bool isShooting;
-    public Transform[] shootTargets = new Transform[3];
+    [SerializeField] Transform[] shootTargets = new Transform[3];
     private int targetIndex;
     private float speed = 150f;
 
@@ -19,6 +19,7 @@ public class AttackingBat : ObstacleRespawner
     void Start()
     {
         projectile.transform.position = transform.position;
+        shootTargets = GameManager.Instance.BatTarget();
     }
 
     // AWAKE FUNCTION

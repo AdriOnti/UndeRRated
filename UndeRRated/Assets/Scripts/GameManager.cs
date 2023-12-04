@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
     // Obtener todos los objetivos que los murcielagos pueden atacar
     public Transform[] BatTarget()
     {
-        return GetTarget("AttackingPositions");
+        return GetTarget("AttackingPosition");
     }
 
     /// <summary>
