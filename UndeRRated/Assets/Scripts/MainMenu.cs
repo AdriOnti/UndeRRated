@@ -23,7 +23,7 @@ public class MainMenu : Menu
         animatorParent = rat.GetComponent<Animator>();
 
 
-        GameObject canvas = GameObject.Find("Canvas");
+        GameObject canvas = GameObject.Find("MainCanvas");
         canvas.GetComponent<Canvas>().enabled = false;
         animatorParent.SetBool("start", true);
     }
@@ -32,5 +32,12 @@ public class MainMenu : Menu
     {
         Debug.LogWarning("FALTA LA TIENDA, FALTA LA TIENDA, FALTA LA TIENDA");
         //SceneManager.LoadScene("Shop");
+    }
+
+    public void ControlSewer()
+    {
+        // La camara se mete en el rio, se teletransporta y vuelve a su posicion original activando el canvas de los controles
+        // CameraPos = new Vector3(-52.37f, 4.62f, 37.18f);
+        // CameraRot = Tranform.Rotate(19.169f, 21.943f, 0.451f);
     }
 }

@@ -15,39 +15,29 @@ public class Menu : MonoBehaviour
     /// Esto corresponde a la anecdota comentada en DeadMenu.cs
     /// <para>Esta funcion era un Awake() o un Start(), pero cuando lo cambiamos a OnEnable() todo se soluciono</para>
     /// </summary>
-    private void Update()
+    private void OnEnable()
     {
-        if(GetComponent<Canvas>().enabled == true)
+        try
         {
-            try
-            {
-                rat.GetComponent<RatController>().enabled = false;
-                characterController = rat.GetComponent<CharacterController>();
-                boxCollider = rat.GetComponent<BoxCollider>();
-            }
-            catch { /* Para el menu principal */ }
+            //rat.GetComponent<RatController>().enabled = false;
+            characterController = rat.GetComponent<CharacterController>();
+            boxCollider = rat.GetComponent<BoxCollider>();
         }
+        catch { /* Para el menu principal */ }
     }
 
     // RESUME FUNCTION
     public void Resume()
     {
-        Debug.Log(rat.GetComponentInChildren<Animator>().GetBool("isDead"));
         if (rat.GetComponentInChildren<Animator>().GetBool("isDead"))
         {
-            StartCoroutine(RatController.Instance.Invincibility(1f));
-           // boxCollider.enabled = false;
-            //StartCoroutine(DisableRatController());
-        }
-        // Comentar linea de abajo si da problemas
-        //rat.GetComponent<RatController>().enabled = true;
-        
+        StartCoroutine(RatController.Instance.Invincibility(1f));
+        }          
+        RoadTileMove.speed = -1;
+        Time.timeScale = GameManager.Instance.ActualTime();
+        rat.GetComponentInChildren<Animator>().SetBool("isDead", false);
         GameManager.Instance.ResumeGame();
 
-        RoadTileMove.speed = -1;
-        Time.timeScale = 1f;
-        rat.GetComponentInChildren<Animator>().SetBool("isDead", false);
-       
     }
 
 

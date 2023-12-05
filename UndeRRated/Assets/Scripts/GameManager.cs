@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     private GameObject[] canvas;
+    private float actualTime = 1.0f;
+    public GameObject player;
 
     private void Awake()
     {
@@ -14,6 +16,17 @@ public class GameManager : MonoBehaviour
         else if (Instance != this) Destroy(gameObject);
 
         CanvasController();
+        player = GetPlayer();
+    }
+
+    public float ActualTime()
+    {
+        return actualTime;
+    }
+
+    private GameObject GetPlayer()
+    {
+        return GameObject.Find("RatObj");
     }
 
     private void CanvasController()
@@ -33,17 +46,22 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
+        actualTime = Time.timeScale;
+        player.GetComponent<RatController>().enabled = false;
         ActiveUI("PauseMenu");
-        Time.timeScale= PauseMenu.pausedTime;
+        //Time.timeScale= PauseMenu.pausedTime;
     }
 
     public void DeadCharacter()
     {
+        actualTime = Time.timeScale;
+        player.GetComponent<RatController>().enabled = false;
         ActiveUI("DeadMenu");
     }
 
     public void ResumeGame()
     {
+        Time.timeScale = actualTime;
         ActiveUI("HUD");
     }
 
@@ -57,7 +75,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (GameObject menu in canvas)
         {
-            if (menu.name != "DeadMenu") return menu.GetComponent<Canvas>().enabled;
+            if (menu.name != "DeadMenu") return menu.gameObject.activeSelf;
         }
 
         return false;
@@ -68,8 +86,8 @@ public class GameManager : MonoBehaviour
     {
         foreach (GameObject menu in canvas)
         {
-            if (menu.name != ui) menu.GetComponent<Canvas>().enabled = false;
-            else menu.GetComponent<Canvas>().enabled = true;
+            if (menu.name != ui) menu.gameObject.SetActive(false);
+            else menu.gameObject.SetActive(true);
         }
     }
 
@@ -96,7 +114,7 @@ public class GameManager : MonoBehaviour
     // Obtener todos los objetivos que los murcielagos pueden atacar
     public Transform[] BatTarget()
     {
-        return GetTarget("AttackingPositions");
+        return GetTarget("AttackingPosition");
     }
 
     /// <summary>

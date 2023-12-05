@@ -5,7 +5,7 @@ using UnityEditor;
 public class MovingBat : ObstacleRespawner
 {
     // PARAMETERS
-    public Transform[] attackingPositions = new Transform[3];
+    [SerializeField] Transform[] attackingPositions = new Transform[3];
     public Transform parentRoad;
     private bool isMoving;
     private float speed = 150f;
@@ -19,12 +19,17 @@ public class MovingBat : ObstacleRespawner
     /// <summary>
     /// Generamos un numero aleatorio que sera el punto al que atacara
     /// </summary>
-    void Awake()
-    {
-         System.Random rnd = new System.Random();
-         targetIndex = rnd.Next(attackingPositions.Length); 
-    }
+    //void Awake()
+    //{
+        
+    //}
 
+    private void Start()
+    {
+        attackingPositions = GameManager.Instance.BatTarget(); 
+        System.Random rnd = new System.Random();
+        targetIndex = rnd.Next(attackingPositions.Length);
+    }
     // UPDATE FUNCTION
     /// <summary>
     /// Si el murciélago tiene su booleano de moverse en true, cada frame se ira moviendo poco a poco hasta llegar a una distancia minima
