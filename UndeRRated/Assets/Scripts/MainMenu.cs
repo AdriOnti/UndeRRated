@@ -10,7 +10,7 @@ public class MainMenu : Menu
 
     private void OnEnable()
     {
-
+        Time.timeScale = 1.0f;
     }
 
     /// <summary>

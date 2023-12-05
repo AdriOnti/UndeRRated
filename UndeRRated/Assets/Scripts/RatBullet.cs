@@ -12,10 +12,11 @@ public class RatBullet : ObstacleRespawner
     public override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
-        if (other.CompareTag("Bat") /*|| collision.CompareTag("BrekeableObstacle")*/)
+        if (other.CompareTag("Bat") || other.CompareTag("ObstacleBreakable"))
         {
             Score.ExtraPoints();
             gameObject.SetActive(false);
+            other.gameObject.SetActive(false);
         }
     }
 

@@ -57,7 +57,7 @@ public class RatController : MonoBehaviour
 
     private void Awake()
     {
-        ratRenderer = GetComponentInChildren<Renderer>(); 
+        ratRenderer = GetComponentInChildren<Renderer>();
         color = ratRenderer.material.color;
         Instance = this;
     }
@@ -109,8 +109,8 @@ public class RatController : MonoBehaviour
             ks = KeyCode.S;
         }
 
-        controller.Move(direction * Time.deltaTime); 
-       
+        controller.Move(direction * Time.deltaTime);
+
         // JUMP
         if (controller.isGrounded && (Input.GetKeyDown(kup) || Input.GetKeyDown(kw))) Jump();
         else direction.y += Gravity * 2 * Time.deltaTime;
@@ -167,7 +167,7 @@ public class RatController : MonoBehaviour
         Debug.Log("I should be invincible");
         Physics.IgnoreLayerCollision(6, 7, true);
         color.g = 0f;
-        color.b = 0f;   
+        color.b = 0f;
         ratRenderer.material.color = color;
 
         yield return new WaitForSeconds(invTime);
@@ -179,6 +179,12 @@ public class RatController : MonoBehaviour
 
     }
 
+    public void CallInvincibility(float invisTime) {
+    
+     StartCoroutine(Invincibility(invisTime));   
+    
+    
+    }
 
     // STOP TIME IF PLAYER IMPACT WITH AN OBSTACLE
     private void OnTriggerEnter(Collider other)
@@ -208,7 +214,7 @@ public class RatController : MonoBehaviour
                     breakableCount = 0;
                 }
             }
-        } else
+        } else if (other.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat") || other.gameObject.CompareTag("ObstacleBreakable"))
         {
             StartCoroutine(Invincibility(1f));
             ForceField.Instance.Protect();

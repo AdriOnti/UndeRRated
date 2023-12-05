@@ -105,7 +105,7 @@ public class ObstaclesPlacementGround : MonoBehaviour
             else { selectedObject = ObjectsPool.instance.GetPooledCheese(); }
 
             // Mover el objeto seleccionado y establecer la posición encima del objeto carretera
-            selectedObject.transform.position = new Vector3(positionObsX[randomPath], road.position.y + 0.5f, positionObsZ[0] + cheesePos);
+            selectedObject.transform.position = new Vector3(positionObsX[randomPath], road.position.y + 1f, positionObsZ[0] + cheesePos);
             cheesePos += 5f; 
             selectedObject.SetActive(true);
 

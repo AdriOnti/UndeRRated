@@ -19,9 +19,8 @@ public class Menu : MonoBehaviour
     {
         try
         {
+            rat = GameManager.Instance.GetPlayer();
             //rat.GetComponent<RatController>().enabled = false;
-            characterController = rat.GetComponent<CharacterController>();
-            boxCollider = rat.GetComponent<BoxCollider>();
         }
         catch { /* Para el menu principal */ }
     }
@@ -31,11 +30,11 @@ public class Menu : MonoBehaviour
     {
         if (rat.GetComponentInChildren<Animator>().GetBool("isDead"))
         {
-        StartCoroutine(RatController.Instance.Invincibility(1f));
+            RatController.Instance.CallInvincibility(1f);
+            rat.GetComponentInChildren<Animator>().SetBool("isDead", false);
         }          
         RoadTileMove.speed = -1;
         Time.timeScale = GameManager.Instance.ActualTime();
-        rat.GetComponentInChildren<Animator>().SetBool("isDead", false);
         GameManager.Instance.ResumeGame();
 
     }
