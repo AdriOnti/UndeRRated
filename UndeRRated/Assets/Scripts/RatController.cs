@@ -39,6 +39,7 @@ public class RatController : MonoBehaviour
     private Transform[] shootTargets;
     private GameObject[] canvas; // DeadMenu, HUD, PauseMenu
 
+
     KeyCode kright = KeyCode.RightArrow;
     KeyCode kleft = KeyCode.LeftArrow;
     KeyCode kup = KeyCode.UpArrow;
@@ -49,9 +50,23 @@ public class RatController : MonoBehaviour
     KeyCode kw = KeyCode.W;
     KeyCode ks = KeyCode.S;
 
+    Renderer ratRenderer;
+    Color color;
+    public static RatController Instance;
+
+
+    private void Awake()
+    {
+        ratRenderer = GetComponentInChildren<Renderer>(); 
+        color = ratRenderer.material.color;
+        Instance = this;
+    }
+
+
     // METHOD START
     void Start()
     {
+
         controller = GetComponent<CharacterController>();
         animatorRat = GetComponentInChildren<Animator>();
 
@@ -155,33 +170,58 @@ public class RatController : MonoBehaviour
         }
     }
 
+    public IEnumerator Invincibility(float invTime)
+    {
+        Debug.Log("I should be invincible");
+        Physics.IgnoreLayerCollision(6, 7, true);
+        color.g = 0f;
+        color.b = 0f;   
+        ratRenderer.material.color = color;
+
+        yield return new WaitForSeconds(invTime);
+        Physics.IgnoreLayerCollision(6, 7, false);
+        color.g = 1f;
+        color.b = 1f;
+        ratRenderer.material.color = color;
+
+
+    }
+
+
     // STOP TIME IF PLAYER IMPACT WITH AN OBSTACLE
     private void OnTriggerEnter(Collider other)
     {
-
-        if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat"))
+        if (!ForceField.Instance.isActive)
         {
-            Die();
-        }
-
-        if (other.gameObject.CompareTag("ObstacleBreakable"))
-        {
-            Debug.Log(breakableCount);
-            MeshRenderer meshBreakable = other.GetComponent<MeshRenderer>();
-            meshBreakable.enabled = false;
-            if (breakableCount == 0)
-            {
-                isDizzy = true;
-                dizzyRat.gameObject.SetActive(true);
-                StartCoroutine(WaitAfterBreakable(0.5f, meshBreakable));
-                StartCoroutine(TimeDizzy(5f));
-            }
-            else if (breakableCount == 1)
+            if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat"))
             {
                 Die();
-                breakableCount = 0;
             }
+
+            if (other.gameObject.CompareTag("ObstacleBreakable"))
+            {
+                Debug.Log(breakableCount);
+                MeshRenderer meshBreakable = other.GetComponent<MeshRenderer>();
+                meshBreakable.enabled = false;
+                if (breakableCount == 0)
+                {
+                    isDizzy = true;
+                    dizzyRat.gameObject.SetActive(true);
+                    StartCoroutine(WaitAfterBreakable(0.5f, meshBreakable));
+                    StartCoroutine(TimeDizzy(5f));
+                }
+                else if (breakableCount == 1)
+                {
+                    Die();
+                    breakableCount = 0;
+                }
+            }
+        } else
+        {
+            StartCoroutine(Invincibility(1f));
+            ForceField.Instance.Protect();
         }
+        
 
         if (other.gameObject.CompareTag("Cheese"))
         {
@@ -198,6 +238,9 @@ public class RatController : MonoBehaviour
         }
         //Time.timeScale = 0;
     }
+
+
+
 
     // JUMP FUNCTION
     private void Jump() {
