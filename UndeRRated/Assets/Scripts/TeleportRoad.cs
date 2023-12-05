@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class TeleportRoad : MonoBehaviour
 {
-    public Transform target;
+   
     public Transform road1;
     public Transform road2;
     public Transform road3;
-    public Transform objectPool;
+    
 
     //road3.position.z + 52.82955f
     void OnTriggerEnter(Collider other)

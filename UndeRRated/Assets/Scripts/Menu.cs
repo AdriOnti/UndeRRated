@@ -35,11 +35,12 @@ public class Menu : MonoBehaviour
         Debug.Log(rat.GetComponentInChildren<Animator>().GetBool("isDead"));
         if (rat.GetComponentInChildren<Animator>().GetBool("isDead"))
         {
-            boxCollider.enabled = false;
+            StartCoroutine(RatController.Instance.Invincibility(1f));
+           // boxCollider.enabled = false;
             //StartCoroutine(DisableRatController());
         }
         // Comentar linea de abajo si da problemas
-        rat.GetComponent<RatController>().enabled = true;
+        //rat.GetComponent<RatController>().enabled = true;
         
         GameManager.Instance.ResumeGame();
 
