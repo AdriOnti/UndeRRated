@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2198691539295348377}
   - component: {fileID: 5734775803134791812}
   - component: {fileID: 1388726320086669693}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ObstacleN
   m_TagString: ObstacleGeneric
   m_Icon: {fileID: 0}
@@ -146,4 +146,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0f60e82ec73c94293a3a4c82bc8c9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent: {fileID: 0}
+  objectPool: {fileID: 0}

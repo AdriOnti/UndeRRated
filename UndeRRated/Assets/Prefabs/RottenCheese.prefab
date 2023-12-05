@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3982627809714377780}
   - component: {fileID: 3171503887479759351}
   - component: {fileID: 8910518616658293874}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RottenCheese
   m_TagString: ObstacleBreakable
   m_Icon: {fileID: 0}
