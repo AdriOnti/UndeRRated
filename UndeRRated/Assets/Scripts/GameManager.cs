@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
         return actualTime;
     }
 
-    private GameObject GetPlayer()
+    public GameObject GetPlayer()
     {
         return GameObject.Find("RatObj");
     }
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         actualTime = Time.timeScale;
-        player.GetComponent<RatController>().enabled = false;
+        //player.GetComponent<RatController>().enabled = false;
         ActiveUI("PauseMenu");
         //Time.timeScale= PauseMenu.pausedTime;
     }
@@ -55,12 +55,13 @@ public class GameManager : MonoBehaviour
     public void DeadCharacter()
     {
         actualTime = Time.timeScale;
-        player.GetComponent<RatController>().enabled = false;
+        //player.GetComponent<RatController>().enabled = false;
         ActiveUI("DeadMenu");
     }
 
     public void ResumeGame()
     {
+        //player.GetComponent<RatController>().enabled = true;
         Time.timeScale = actualTime;
         ActiveUI("HUD");
     }
