@@ -9499,6 +9499,7 @@ GameObject:
   - component: {fileID: 939522047}
   - component: {fileID: 939522046}
   - component: {fileID: 939522045}
+  - component: {fileID: 939522049}
   m_Layer: 7
   m_Name: RatObj
   m_TagString: Player
@@ -9584,12 +9585,31 @@ Transform:
   m_LocalScale: {x: 2, y: 1.62116, z: 1.57214}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8025579186622297326}
   - {fileID: 2020756323}
   - {fileID: 2032306500}
   - {fileID: 2039960650}
-  - {fileID: 8025579186622297326}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &939522049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939522044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3536a245a0a43742ad53b464055718d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: ForceField
+  abilityDescription: Protects the rat 1 hit
+  abilityCooldown: 20
+  materials:
+  - {fileID: 2100000, guid: 0960f507df40faa4ea033d24d5327f61, type: 2}
+  - {fileID: 2100000, guid: 383350809ebe1f642a18c24cc7c02b7d, type: 2}
+  isActive: 0
 --- !u!1 &952663472
 GameObject:
   m_ObjectHideFlags: 0
@@ -12353,6 +12373,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1265503651}
   m_LocalEulerAnglesHint: {x: 8.651108e-13, y: 4.0711098e-13, z: 2.449027e-13}
+--- !u!1 &1201355577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1201355579}
+  - component: {fileID: 1201355578}
+  m_Layer: 0
+  m_Name: CDManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1201355578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201355577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4261ab7d929861e4f9c7388afb9d2c19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilitiesOnCooldown: []
+--- !u!4 &1201355579
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201355577}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -66.49524, y: -61.183075, z: 304.4028}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1202797299
 GameObject:
   m_ObjectHideFlags: 0
@@ -23081,7 +23146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5805356531469468844, guid: 4aabc9de69e50b14fa5e76862bae1d2a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23120,3 +23185,4 @@ SceneRoots:
   - {fileID: 1786842624}
   - {fileID: 331224585}
   - {fileID: 1039982689}
+  - {fileID: 1201355579}

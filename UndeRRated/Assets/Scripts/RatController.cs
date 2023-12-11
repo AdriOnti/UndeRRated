@@ -189,7 +189,7 @@ public class RatController : MonoBehaviour
     // STOP TIME IF PLAYER IMPACT WITH AN OBSTACLE
     private void OnTriggerEnter(Collider other)
     {
-        if (!ForceField.Instance.isActive)
+        if (!ProtectionField.Instance.isActive)
         {
             if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat"))
             {
@@ -217,7 +217,7 @@ public class RatController : MonoBehaviour
         } else if (other.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat") || other.gameObject.CompareTag("ObstacleBreakable"))
         {
             StartCoroutine(Invincibility(1f));
-            ForceField.Instance.Protect();
+            ProtectionField.Instance.Protect();
         }
         
 
