@@ -13,13 +13,7 @@ public class FadeController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void FadeIn()
-    {
-        animator.SetBool("Out", false);
-    }
+    public void FadeIn() { animator.SetBool("Out", false); }
 
-    public void FadeOut()
-    {
-        animator.SetBool("Out", true);
-    }
+    public void FadeOut() { animator.SetBool("Out", true); }
 }

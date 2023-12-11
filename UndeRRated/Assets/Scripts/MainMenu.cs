@@ -12,7 +12,11 @@ public class MainMenu : Menu
     private void OnEnable()
     {
         Time.timeScale = 1.0f;
-        cntrlCanvas.SetActive(false);
+        try
+        {
+            cntrlCanvas.SetActive(false);
+        }
+        catch { }
     }
 
     /// <summary>
@@ -46,16 +50,36 @@ public class MainMenu : Menu
         // CameraRot = Tranform.Rotate(19.169f, 21.943f, 0.451f);
     }
 
+    public void MainSewer()
+    {
+        StartCoroutine(CntrlOut());
+    }
+
     IEnumerator CntrlIn()
     {
         FadeController.instance.FadeOut();
         yield return new WaitForSeconds(1.5f);
+        CameraInStart.ControlSectionOut = false;
         CameraInStart.ControlSectionIn = true;
 
         yield return new WaitForSeconds(2f);
 
         GameObject canvas = GameObject.Find("MainCanvas");
-        canvas.SetActive(false);
+        canvas.GetComponent<Canvas>().enabled = false;
         cntrlCanvas.SetActive(true);
+    }
+
+    IEnumerator CntrlOut()
+    {
+        FadeController.instance.FadeOut();
+        yield return new WaitForSeconds(1.5f);
+        CameraInStart.ControlSectionOut = true;
+        CameraInStart.ControlSectionIn = false;
+
+        yield return new WaitForSeconds(2f);
+
+        GameObject canvas = GameObject.Find("MainCanvas");
+        canvas.GetComponent<Canvas>().enabled = true;
+        cntrlCanvas.SetActive(false);
     }
 }

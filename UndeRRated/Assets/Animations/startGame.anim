@@ -198,7 +198,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 4.8333335
+    m_StopTime: 4.6833334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -732,13 +732,6 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 4.6833334
-    functionName: FadeOut
-    data: 
-    objectReferenceParameter: {fileID: 11500000, guid: bc12e5ed1b12c0e4f98e397ff44f8e3e, type: 3}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 4.8333335
     functionName: LoadUndeRRated
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: 77d8c2f86049dff42bcebf68f9307921, type: 3}
