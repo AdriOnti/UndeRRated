@@ -37,23 +37,11 @@ public class MainMenu : Menu
     public void RatShop()
     {
         Debug.LogWarning("FALTA LA TIENDA, FALTA LA TIENDA, FALTA LA TIENDA");
-        //SceneManager.LoadScene("Shop");
     }
 
-    public void ControlSewer()
-    {
-        StartCoroutine(CntrlIn());
+    public void ControlSewer() { StartCoroutine(CntrlIn()); }
 
-
-        // La camara se mete en el rio, se teletransporta y vuelve a su posicion original activando el canvas de los controles
-        // CameraPos = new Vector3(-52.37f, 4.62f, 37.18f);
-        // CameraRot = Tranform.Rotate(19.169f, 21.943f, 0.451f);
-    }
-
-    public void MainSewer()
-    {
-        StartCoroutine(CntrlOut());
-    }
+    public void MainSewer() { StartCoroutine(CntrlOut()); }
 
     IEnumerator CntrlIn()
     {
@@ -79,12 +67,5 @@ public class MainMenu : Menu
         GameObject canvas = GameObject.Find("MainCanvas");
         canvas.GetComponent<Canvas>().enabled = true;
         FadeController.instance.FadeIn();
-    }
-
-    public void LoadUndeRRated()
-    {
-        Debug.Log("Hola");
-        FadeController.instance.FadeOut();
-        SceneManager.LoadScene("UndeRRated");
     }
 }

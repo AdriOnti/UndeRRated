@@ -1,8 +1,11 @@
+using TMPro;
 using UnityEngine;
 
 public class DeadMenu : Menu
 {
     public static DeadMenu instance;
+    public TextMeshProUGUI pausedScore;
+    public TextMeshProUGUI resumedScore;
 
     private void Start()
     {
@@ -17,6 +20,8 @@ public class DeadMenu : Menu
     /// </summary>
     private void Update()
     {
+        pausedScore.text = $"Puntuación: {resumedScore.text}";
+
         if(GetComponent<Canvas>().enabled == true)
         {
             RoadTileMove.deadRat = true;

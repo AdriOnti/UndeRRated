@@ -11,7 +11,6 @@ public class FadeController : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        //animator = GetComponent<Animator>();
         GameObject fadeFather = GameObject.Find("Fade");
         GameObject[] fades = new GameObject[fadeFather.transform.childCount];
 
@@ -25,9 +24,6 @@ public class FadeController : MonoBehaviour
             if (f.name == "PanelOut") fadeOut = f.gameObject;
             if(f.name == "PanelIn") fadeIn = f.gameObject;
         }
-
-        Debug.Log(fadeIn);
-        Debug.Log(fadeOut);
 
     }
 
