@@ -1,6 +1,6 @@
-
 using UnityEditor;
 using UnityEngine;
+using System.Collections;
 
 public class AttackingBat : ObstacleRespawner
 {
@@ -11,6 +11,7 @@ public class AttackingBat : ObstacleRespawner
     [SerializeField] Transform[] shootTargets = new Transform[3];
     private int targetIndex;
     private float speed = 150f;
+
 
     // START FUNCTION
     /// <summary>
@@ -65,8 +66,8 @@ public class AttackingBat : ObstacleRespawner
         }
         else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player") || other.CompareTag("RatBullet"))
         {
-            this.gameObject.SetActive(false);
             projectile.SetActive(false);
+            StartCoroutine(Die());
         }
 
     }
@@ -96,6 +97,12 @@ public class AttackingBat : ObstacleRespawner
     {
         // Play Dead Animation
         // Call a IEnumerator with a WaitForSeconds
+        StartCoroutine(Die());
+    }
+
+    public IEnumerator Die()
+    {
+        yield return new WaitForSeconds(1);
         this.gameObject.SetActive(false);
     }
 }

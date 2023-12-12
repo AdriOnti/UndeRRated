@@ -15,8 +15,10 @@ public class RatBullet : ObstacleRespawner
         if (other.CompareTag("Bat") || other.CompareTag("ObstacleBreakable"))
         {
             Score.ExtraPoints();
-            gameObject.SetActive(false);
-            other.gameObject.SetActive(false);
+            ParticleSystem particles = other.gameObject.GetComponentInChildren<ParticleSystem>();
+            particles.Play();
+            StartCoroutine(Die(other.gameObject));
+            StartCoroutine(Die(gameObject));
         }
     }
 
@@ -25,5 +27,11 @@ public class RatBullet : ObstacleRespawner
     {
         yield return new WaitForSeconds(bulletLifetime);
         gameObject.SetActive(false);
+    }
+
+    public IEnumerator Die(GameObject obj)
+    {
+        yield return new WaitForSeconds(1);
+        obj.SetActive(false);
     }
 }

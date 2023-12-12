@@ -6,9 +6,9 @@ public class TpObstacleBreakable : MonoBehaviour
 	
 	void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "playerTest")
+        if (other.gameObject.CompareTag("RatBullet"))
         {
-            transform.position = teleportTarget.transform.position;
+            
         }
     }
 }
