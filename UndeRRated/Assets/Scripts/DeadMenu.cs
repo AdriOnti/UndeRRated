@@ -19,7 +19,7 @@ public class DeadMenu : Menu
     {
         if(GetComponent<Canvas>().enabled == true)
         {
-            //Debug.Log("Estoy muerto");
+            RoadTileMove.deadRat = true;
             if (Input.GetKeyUp(KeyCode.Escape))
             {
                 Debug.LogWarning("NO PUEDES PAUSAR *golpea el baston en el suelo*");

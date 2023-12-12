@@ -58,28 +58,33 @@ public class MainMenu : Menu
     IEnumerator CntrlIn()
     {
         FadeController.instance.FadeOut();
-        yield return new WaitForSeconds(1.5f);
-        CameraInStart.ControlSectionOut = false;
-        CameraInStart.ControlSectionIn = true;
-
-        yield return new WaitForSeconds(2f);
-
         GameObject canvas = GameObject.Find("MainCanvas");
         canvas.GetComponent<Canvas>().enabled = false;
+        yield return new WaitForSeconds(0.5f);
+        CameraInStart.ControlSectionIn = true;
+        CameraInStart.ControlSectionOut = false;
+        yield return new WaitForSeconds(0.5f);
         cntrlCanvas.SetActive(true);
+        FadeController.instance.FadeIn();
     }
 
     IEnumerator CntrlOut()
     {
         FadeController.instance.FadeOut();
-        yield return new WaitForSeconds(1.5f);
+        cntrlCanvas.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
         CameraInStart.ControlSectionOut = true;
         CameraInStart.ControlSectionIn = false;
-
-        yield return new WaitForSeconds(2f);
-
+        yield return new WaitForSeconds(0.5f);
         GameObject canvas = GameObject.Find("MainCanvas");
         canvas.GetComponent<Canvas>().enabled = true;
-        cntrlCanvas.SetActive(false);
+        FadeController.instance.FadeIn();
+    }
+
+    public void LoadUndeRRated()
+    {
+        Debug.Log("Hola");
+        FadeController.instance.FadeOut();
+        SceneManager.LoadScene("UndeRRated");
     }
 }

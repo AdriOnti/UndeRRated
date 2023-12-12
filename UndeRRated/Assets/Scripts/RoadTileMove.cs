@@ -5,6 +5,7 @@ public class RoadTileMove : MonoBehaviour
 
     private Rigidbody rb;
     public static float speed = -1;
+    public static bool deadRat;
 
  
 
@@ -23,7 +24,7 @@ public class RoadTileMove : MonoBehaviour
     }
     private void Update()
     {
-        if ((Time.timeScale!=0)) Time.timeScale += 0.000005f;
+        if (Time.timeScale!=0 && !deadRat) Time.timeScale += 0.000005f;
 
     }
        

@@ -34,6 +34,7 @@ public class Menu : MonoBehaviour
             rat.GetComponentInChildren<Animator>().SetBool("isDead", false);
         }          
         RoadTileMove.speed = -1;
+        RoadTileMove.deadRat = false;
         Time.timeScale = GameManager.Instance.ActualTime();
         GameManager.Instance.ResumeGame();
 
