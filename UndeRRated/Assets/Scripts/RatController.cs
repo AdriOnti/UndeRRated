@@ -10,9 +10,13 @@ public class RatController : MonoBehaviour
     // PRIVATE PARAMETERS
     private CharacterController controller;
     private Vector3 direction;
-    private int desiredPath = 1;
+    public int desiredPath = 1;
     private Animator animatorRat;
     public GameObject dizzyRat;
+
+
+
+
 
     private bool isShooting;
     private int breakableCount = 0;
@@ -28,7 +32,7 @@ public class RatController : MonoBehaviour
     public float Gravity;
 
     [Header("RatBullet Parameters")]
-    public GameObject bullet;
+   
     private Transform shootTarget;
     public float shootForce;
 
@@ -71,7 +75,7 @@ public class RatController : MonoBehaviour
         animatorRat = GetComponentInChildren<Animator>();
 
 
-        bullet.transform.position = transform.position;
+       
         ratCol = GetComponent<BoxCollider>();
         defaultSizeCollider = ratCol.size.y;
 
@@ -143,18 +147,18 @@ public class RatController : MonoBehaviour
             StartCoroutine(StopSlideAnimation());
         }
 
-        if (Input.GetKeyUp(KeyCode.Space)) { Shot(); }
+       //if (Input.GetKeyUp(KeyCode.Space)) { Shot(); }
 
-        if (isShooting)
-        {
-            // projectile.transform.SetParent(parent);
-            bullet.transform.position = Vector3.MoveTowards(bullet.transform.position, shootTarget.position, shootForce * Time.deltaTime);
-            if (Vector3.Distance(bullet.transform.position, shootTarget.position) < 0.01f)
-            {
-                isShooting = false;
-                //bullet.transform.SetParent(parentRoad);
-            }
-        }
+        //if (isShooting)
+        //{
+        //    // projectile.transform.SetParent(parent);
+        //    bullet.transform.position = Vector3.MoveTowards(bullet.transform.position, shootTarget.position, shootForce * Time.deltaTime);
+        //    if (Vector3.Distance(bullet.transform.position, shootTarget.position) < 0.01f)
+        //    {
+        //        isShooting = false;
+        //        //bullet.transform.SetParent(parentRoad);
+        //    }
+        //}
 
         if (Input.GetKeyUp(KeyCode.Escape) && GameManager.Instance.DeadMenuActive())
         {
@@ -278,30 +282,30 @@ public class RatController : MonoBehaviour
     }
 
     // SHOT
-    private void Shot()
-    {
-        shootTarget = ShotTarget();
-        try
-        {
-            bullet = ObjectsPool.instance.GetPooledRatBullet();
-        }
-        catch
-        {
-            Debug.Log("No hay más balas disponibles");
-            bullet = null;
-        }
+    //private void Shot()
+    //{
+    //    shootTarget = ShotTarget();
+    //    try
+    //    {
+    //        bullet = ObjectsPool.instance.GetPooledRatBullet();
+    //    }
+    //    catch
+    //    {
+    //        Debug.Log("No hay más balas disponibles");
+    //        bullet = null;
+    //    }
 
-        if (bullet != null)
-        {
-            bullet.transform.position = transform.position;
-            bullet.SetActive(true);
+    //    if (bullet != null)
+    //    {
+    //        bullet.transform.position = transform.position;
+    //        bullet.SetActive(true);
 
-            //bullet.GetComponent<RatBullet>().StartMovement(shootTarget.position, shootForce);
-            isShooting = true;
-            animatorRat.SetBool("isShooting", true);
-            StartCoroutine(EndShootingAnimation());
-        }
-    }
+    //        //bullet.GetComponent<RatBullet>().StartMovement(shootTarget.position, shootForce);
+    //        isShooting = true;
+    //        animatorRat.SetBool("isShooting", true);
+    //        StartCoroutine(EndShootingAnimation());
+    //    }
+    //}
     
     public IEnumerator EndShootingAnimation()
     {

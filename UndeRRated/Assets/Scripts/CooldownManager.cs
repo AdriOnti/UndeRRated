@@ -41,9 +41,11 @@ public class CooldownManager : MonoBehaviour
 
 
     IEnumerator Cooldown(CooldownData CDability, Ability ability)
-    {    
+    {
+        float maxCooldown = CDability.cooldown;
         while (CDability.cooldown > 0f)
-        { 
+        {
+            ability.slider.UpdateSliderCooldown(CDability.cooldown, maxCooldown);
             CDability.cooldown -= Time.deltaTime;
             yield return null;
         }

@@ -11,11 +11,14 @@ public abstract class Ability : MonoBehaviour
 
     [SerializeField] private float abilityCooldown = 1f;
 
-    
+
     public float AbilityCooldown { get { return abilityCooldown; } }
 
     public string AbilityDescription { get { return abilityDescription; } }
     public string AbilityName { get { return abilityName; } }
+
+
+    public CooldownSlider slider;
 
     private RatInputs ratInputs;
 
@@ -32,19 +35,22 @@ public abstract class Ability : MonoBehaviour
         ratInputs = new RatInputs();
 
         if (abilityName == "ForceField")
-            ratInputs.InGame.ForceField.performed += Attack;
+            ratInputs.InGame.ForceField.performed += StartAbility;
 
         if (abilityName == "InmunityBoost")
-            ratInputs.InGame.InmunityBoost.performed += Attack;
-
+            ratInputs.InGame.InmunityBoost.performed += StartAbility;
+        if (abilityName == "Ratatata")
+            ratInputs.InGame.Shot.performed += StartAbility;
     }
 
-    protected virtual void Attack(InputAction.CallbackContext context)
+    protected virtual void StartAbility(InputAction.CallbackContext context)
     {
         if (CooldownManager.Instance.IsOnCooldown(this)) { return; }
-        Debug.Log($"I am casting: {abilityName}");
+     
         Cast();
-        CooldownManager.Instance.PutOnCooldown(this);
+
+        if (abilityName != "ForceField")
+            CooldownManager.Instance.PutOnCooldown(this);
     }
 
     public abstract void Cast();

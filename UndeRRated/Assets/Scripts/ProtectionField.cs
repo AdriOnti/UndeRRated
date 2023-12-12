@@ -17,15 +17,18 @@ public class ProtectionField : Ability
     protected override void Awake()
     {
         base.Awake();
-       // isActive = false;
+        renderer = GetComponent<Renderer>();
+        isActive = false;
         Instance = this;
-    }
-    private void Start()
-    {
-        renderer = GetComponentInChildren<Renderer>();
+
         blueMat = materials[0];
         redMat = materials[1];
         renderer.sharedMaterial = blueMat;
+        renderer.enabled = false;
+    }
+    private void Start()
+    {
+
     }
 
 
@@ -36,6 +39,7 @@ public class ProtectionField : Ability
             StartCoroutine(Disapear());
         }
         StartCoroutine(DisableShield());
+        CooldownManager.Instance.PutOnCooldown(this);
     }
 
     IEnumerator Disapear()
@@ -48,17 +52,14 @@ public class ProtectionField : Ability
     {
         yield return new WaitForSeconds(1.1f);
         isActive = false;
-        this.gameObject.SetActive(false);
+        renderer.enabled = false;   
       
     }
-    public void EnableShield()
-    {
-        isActive = true;
-        renderer.enabled = true;
-    }
-
     public override void Cast()
     {
-        EnableShield();
+        if(isActive) return; 
+           Debug.Log($"I am casting: {this.AbilityName}");
+        isActive = true;
+        renderer.enabled = true;
     }
 }
