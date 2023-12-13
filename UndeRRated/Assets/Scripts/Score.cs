@@ -11,7 +11,6 @@ public class Score : MonoBehaviour
     static int killPoints = 10;
     protected bool enemyKilled;
 
-
     // Start is called before the first frame update
     void Start()
     {

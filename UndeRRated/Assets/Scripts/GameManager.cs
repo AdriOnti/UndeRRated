@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +11,8 @@ public class GameManager : MonoBehaviour
     private GameObject[] canvas;
     private float actualTime = 1.0f;
     public GameObject player;
+    public int cheeseSaved;
+    private int highScore;
 
     private void Awake()
     {
@@ -17,6 +21,8 @@ public class GameManager : MonoBehaviour
 
         CanvasController();
         player = GetPlayer();
+        GetSavedMoney();
+        GetHighScore();
     }
 
     public float ActualTime()
@@ -132,5 +138,91 @@ public class GameManager : MonoBehaviour
         }
 
         return targets;
+    }
+
+    private void GetSavedMoney()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "Files/data.rat");
+        StreamReader sr = File.OpenText(path);
+        string file = sr.ReadToEnd();
+        sr.Close();
+
+        string[] fileLines = file.Split('\r', '\n');
+        for (int i = 0; i < fileLines.Length; i++)
+        {
+            string[] sections = fileLines[i].Split(';');
+            if (sections[0] == "Quesitos")
+            {
+                cheeseSaved = Convert.ToInt32(sections[1]);
+            }
+
+        }
+    }
+
+    public void SaveMoney(int cheeseCollected)
+    {
+        string path = Path.Combine(Application.persistentDataPath, "Files/data.rat");
+        StreamReader sr = File.OpenText(path);
+        string file = sr.ReadToEnd();
+        sr.Close();
+
+        string[] fileLines = file.Split('\r', '\n');
+        for (int i = 0; i < fileLines.Length; i++)
+        {
+            string[] sections = fileLines[i].Split(';');
+            if (sections[0] == "Quesitos")
+            {
+                int cheeseTmp = cheeseSaved + cheeseCollected;
+                sections[1] = cheeseTmp.ToString();
+                fileLines[i] = string.Join(";", sections);
+            }
+        }
+        File.WriteAllText(path, string.Empty);
+        string modifiedContent = string.Join("\n", fileLines.Where(line => !string.IsNullOrWhiteSpace(line)));
+        File.WriteAllText(path, modifiedContent);
+
+    }
+
+    private void GetHighScore()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "Files/data.rat");
+        StreamReader sr = File.OpenText(path);
+        string file = sr.ReadToEnd();
+        sr.Close();
+
+        string[] fileLines = file.Split('\r', '\n');
+        for (int i = 0; i < fileLines.Length; i++)
+        {
+            string[] sections = fileLines[i].Split(';');
+            if (sections[0] == "Score")
+            {
+                highScore = Convert.ToInt32(sections[1]);
+            }
+
+        }
+    }
+
+    public void SaveHighScore(int score)
+    {
+        string path = Path.Combine(Application.persistentDataPath, "Files/data.rat");
+        StreamReader sr = File.OpenText(path);
+        string file = sr.ReadToEnd();
+        sr.Close();
+
+        string[] fileLines = file.Split('\r', '\n');
+        for (int i = 0; i < fileLines.Length; i++)
+        {
+            string[] sections = fileLines[i].Split(';');
+            if (sections[0] == "Score" && score > highScore)
+            {
+                int scoreTmp = highScore + score;
+                sections[1] = scoreTmp.ToString();
+                fileLines[i] = string.Join(";", sections);
+            }
+        }
+        File.WriteAllText(path, string.Empty);
+        string modifiedContent = string.Join("\n", fileLines.Where(line => !string.IsNullOrWhiteSpace(line)));
+        File.WriteAllText(path, modifiedContent);
+
     }
 }

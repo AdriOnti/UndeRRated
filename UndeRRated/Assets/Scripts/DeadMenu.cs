@@ -1,11 +1,10 @@
+using System;
 using TMPro;
 using UnityEngine;
 
-public class DeadMenu : Menu
+public class DeadMenu : InGameMenu
 {
     public static DeadMenu instance;
-    public TextMeshProUGUI pausedScore;
-    public TextMeshProUGUI resumedScore;
 
     private void Start()
     {
@@ -20,9 +19,12 @@ public class DeadMenu : Menu
     /// </summary>
     private void Update()
     {
-        pausedScore.text = $"Puntuación: {resumedScore.text}";
+        pausedScore.text = $"Score: {resumedScore.text}";
+        int tmp = Convert.ToInt32(resumedCheese.text) + GameManager.Instance.cheeseSaved;
+        pausedCheese.text = $"Quesitos: {tmp}";
+        GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text));
 
-        if(GetComponent<Canvas>().enabled == true)
+        if (GetComponent<Canvas>().enabled == true)
         {
             RoadTileMove.deadRat = true;
             if (Input.GetKeyUp(KeyCode.Escape))
