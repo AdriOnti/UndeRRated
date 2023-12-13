@@ -24,6 +24,9 @@ public class DeadMenu : InGameMenu
         pausedCheese.text = $"Quesitos: {tmp}";
         GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text));
 
+        string[] splitScore = pausedScore.GetParsedText().Split(' ');
+        GameManager.Instance.SaveHighScore(Convert.ToInt32(splitScore[1]));
+
         if (GetComponent<Canvas>().enabled == true)
         {
             RoadTileMove.deadRat = true;
@@ -43,7 +46,9 @@ public class DeadMenu : InGameMenu
     public void Respawn()
     {
         //Debug.LogWarning("FALTA AÑADIRLE EL COSTE");
+        Debug.LogWarning("Se han quitado 50 quesitos");
         
+        GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text) - 50);
         Resume();
     }
 }

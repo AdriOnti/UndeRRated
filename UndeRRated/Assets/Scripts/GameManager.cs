@@ -215,8 +215,8 @@ public class GameManager : MonoBehaviour
             string[] sections = fileLines[i].Split(';');
             if (sections[0] == "Score" && score > highScore)
             {
-                int scoreTmp = highScore + score;
-                sections[1] = scoreTmp.ToString();
+                highScore = score;
+                sections[1] = highScore.ToString();
                 fileLines[i] = string.Join(";", sections);
             }
         }

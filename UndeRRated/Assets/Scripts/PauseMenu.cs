@@ -17,6 +17,10 @@ public class PauseMenu : InGameMenu
         int tmp = Convert.ToInt32(resumedCheese.text) + GameManager.Instance.cheeseSaved;
         pausedCheese.text = $"Quesitos: {tmp}";
         GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text));
+
+        string[] splitScore = pausedScore.GetParsedText().Split(' ');
+        GameManager.Instance.SaveHighScore(Convert.ToInt32(splitScore[1]));
+
         pausedTime = Time.timeScale;
         if(GetComponent<Canvas>().enabled == true )
         {
