@@ -67,7 +67,7 @@ public class AttackingBat : ObstacleRespawner
         else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player") || other.CompareTag("RatBullet"))
         {
             projectile.SetActive(false);
-            StartCoroutine(Die());
+            //StartCoroutine(Die());
         }
 
     }
@@ -89,20 +89,9 @@ public class AttackingBat : ObstacleRespawner
 
     }
 
-    /// <summary>
-    /// Mostramos su animacion de muerte, se espera unos segundos y luego se desactiva
-    /// </summary>
-    /// <param name="collision">Objeto con el que colisiona para morir</param>
-    private void OnCollisionEnter(Collision collision)
-    {
-        // Play Dead Animation
-        // Call a IEnumerator with a WaitForSeconds
-        StartCoroutine(Die());
-    }
-
     public IEnumerator Die()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         this.gameObject.SetActive(false);
     }
 }

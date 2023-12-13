@@ -76,8 +76,7 @@ public class MovingBat : ObstacleRespawner
             // Play Death Anim
             // WaitForSeconds            
             lightWarning.enabled = false;
-            StartCoroutine(Die());
-
+            //StartCoroutine(Die());
         }
        
 
@@ -106,7 +105,7 @@ public class MovingBat : ObstacleRespawner
 
     public IEnumerator Die()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         this.gameObject.SetActive(false);
     }
 }

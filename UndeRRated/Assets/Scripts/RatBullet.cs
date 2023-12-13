@@ -16,7 +16,7 @@ public class RatBullet : ObstacleRespawner
         {
             Score.ExtraPoints();
             ParticleSystem particles = other.gameObject.GetComponentInChildren<ParticleSystem>();
-            particles.Play();
+            //particles.Play();
             StartCoroutine(Die(other.gameObject));
             StartCoroutine(Die(gameObject));
         }
@@ -31,7 +31,7 @@ public class RatBullet : ObstacleRespawner
 
     public IEnumerator Die(GameObject obj)
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         obj.SetActive(false);
     }
 }
