@@ -9,8 +9,9 @@ public class ProtectionField : Ability
     new Renderer renderer;
     Material blueMat;
     Material redMat;
-    
 
+
+    public float invincibleTime = 5f;
     public static ProtectionField Instance;
     public bool isActive;
 
@@ -58,7 +59,7 @@ public class ProtectionField : Ability
     public override void Cast()
     {
         if(isActive) return; 
-           Debug.Log($"I am casting: {this.AbilityName}");
+          Debug.Log($"I am casting: {this.AbilityName}");
         isActive = true;
         renderer.enabled = true;
     }

@@ -64,7 +64,7 @@ public partial class @RatInputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""InmunityBoost"",
+                    ""name"": ""RainbowRun"",
                     ""type"": ""Button"",
                     ""id"": ""906c3837-b512-4c1b-ae25-649fa3c6a390"",
                     ""expectedControlType"": ""Button"",
@@ -323,7 +323,7 @@ public partial class @RatInputs: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""InmunityBoost"",
+                    ""action"": ""RainbowRun"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -338,7 +338,7 @@ public partial class @RatInputs: IInputActionCollection2, IDisposable
         m_InGame_InvertMovement = m_InGame.FindAction("InvertMovement", throwIfNotFound: true);
         m_InGame_Shot = m_InGame.FindAction("Shot", throwIfNotFound: true);
         m_InGame_ForceField = m_InGame.FindAction("ForceField", throwIfNotFound: true);
-        m_InGame_InmunityBoost = m_InGame.FindAction("InmunityBoost", throwIfNotFound: true);
+        m_InGame_RainbowRun = m_InGame.FindAction("RainbowRun", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -404,7 +404,7 @@ public partial class @RatInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_InvertMovement;
     private readonly InputAction m_InGame_Shot;
     private readonly InputAction m_InGame_ForceField;
-    private readonly InputAction m_InGame_InmunityBoost;
+    private readonly InputAction m_InGame_RainbowRun;
     public struct InGameActions
     {
         private @RatInputs m_Wrapper;
@@ -413,7 +413,7 @@ public partial class @RatInputs: IInputActionCollection2, IDisposable
         public InputAction @InvertMovement => m_Wrapper.m_InGame_InvertMovement;
         public InputAction @Shot => m_Wrapper.m_InGame_Shot;
         public InputAction @ForceField => m_Wrapper.m_InGame_ForceField;
-        public InputAction @InmunityBoost => m_Wrapper.m_InGame_InmunityBoost;
+        public InputAction @RainbowRun => m_Wrapper.m_InGame_RainbowRun;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -435,9 +435,9 @@ public partial class @RatInputs: IInputActionCollection2, IDisposable
             @ForceField.started += instance.OnForceField;
             @ForceField.performed += instance.OnForceField;
             @ForceField.canceled += instance.OnForceField;
-            @InmunityBoost.started += instance.OnInmunityBoost;
-            @InmunityBoost.performed += instance.OnInmunityBoost;
-            @InmunityBoost.canceled += instance.OnInmunityBoost;
+            @RainbowRun.started += instance.OnRainbowRun;
+            @RainbowRun.performed += instance.OnRainbowRun;
+            @RainbowRun.canceled += instance.OnRainbowRun;
         }
 
         private void UnregisterCallbacks(IInGameActions instance)
@@ -454,9 +454,9 @@ public partial class @RatInputs: IInputActionCollection2, IDisposable
             @ForceField.started -= instance.OnForceField;
             @ForceField.performed -= instance.OnForceField;
             @ForceField.canceled -= instance.OnForceField;
-            @InmunityBoost.started -= instance.OnInmunityBoost;
-            @InmunityBoost.performed -= instance.OnInmunityBoost;
-            @InmunityBoost.canceled -= instance.OnInmunityBoost;
+            @RainbowRun.started -= instance.OnRainbowRun;
+            @RainbowRun.performed -= instance.OnRainbowRun;
+            @RainbowRun.canceled -= instance.OnRainbowRun;
         }
 
         public void RemoveCallbacks(IInGameActions instance)
@@ -480,6 +480,6 @@ public partial class @RatInputs: IInputActionCollection2, IDisposable
         void OnInvertMovement(InputAction.CallbackContext context);
         void OnShot(InputAction.CallbackContext context);
         void OnForceField(InputAction.CallbackContext context);
-        void OnInmunityBoost(InputAction.CallbackContext context);
+        void OnRainbowRun(InputAction.CallbackContext context);
     }
 }

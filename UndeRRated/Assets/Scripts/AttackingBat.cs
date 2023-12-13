@@ -9,18 +9,14 @@ public class AttackingBat : ObstacleRespawner
     public Transform parentRoad;
     private bool isShooting;
     [SerializeField] Transform[] shootTargets = new Transform[3];
-    private int targetIndex;
+    public int targetIndex;
     private float speed = 150f;
 
     // START FUNCTION
     /// <summary>
     /// La posicion del proyectil es la misma que la del murciélago
     /// </summary>
-    void Start()
-    {
-        projectile.transform.position = transform.position;
-        shootTargets = GameManager.Instance.BatTarget();
-    }
+
 
     // AWAKE FUNCTION
     /// <summary>
@@ -28,8 +24,9 @@ public class AttackingBat : ObstacleRespawner
     /// </summary>
     void Awake()
     {
-        System.Random rnd = new System.Random();
-        targetIndex = rnd.Next(shootTargets.Length);
+        projectile.transform.position = transform.position;
+        shootTargets = GameManager.Instance.BatTarget();
+
     }
 
     // UPDATE FUNCTION
@@ -51,7 +48,7 @@ public class AttackingBat : ObstacleRespawner
             }
         }
     }
-   
+
     /// <summary>
     /// Cuando el murciélago llegue al trigger collider con tag AttackTrigger, ejecutara la funcion Shoot()
     /// </summary>
@@ -61,12 +58,16 @@ public class AttackingBat : ObstacleRespawner
         base.OnTriggerEnter(other);
         if (other.CompareTag("AttackTrigger"))
         {
+            int rnd = Random.Range(0, shootTargets.Length);
+            targetIndex = rnd;
             Shoot();
+
         }
         else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player") || other.CompareTag("RatBullet"))
         {
             this.gameObject.SetActive(false);
             projectile.SetActive(false);
+
         }
 
     }

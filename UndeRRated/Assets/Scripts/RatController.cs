@@ -32,7 +32,7 @@ public class RatController : MonoBehaviour
     public float Gravity;
 
     [Header("RatBullet Parameters")]
-   
+
     private Transform shootTarget;
     public float shootForce;
 
@@ -54,15 +54,15 @@ public class RatController : MonoBehaviour
     KeyCode kw = KeyCode.W;
     KeyCode ks = KeyCode.S;
 
-    Renderer ratRenderer;
-    Color color;
+    SkinnedMeshRenderer ratRenderer;
+    Color initialColor;
     public static RatController Instance;
 
 
     private void Awake()
     {
-        ratRenderer = GetComponentInChildren<Renderer>();
-        color = ratRenderer.material.color;
+        ratRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        initialColor = ratRenderer.material.color;
         Instance = this;
     }
 
@@ -75,7 +75,7 @@ public class RatController : MonoBehaviour
         animatorRat = GetComponentInChildren<Animator>();
 
 
-       
+
         ratCol = GetComponent<BoxCollider>();
         defaultSizeCollider = ratCol.size.y;
 
@@ -146,20 +146,6 @@ public class RatController : MonoBehaviour
             ratCol.size = new Vector3(ratCol.size.x, slideableYsize, ratCol.size.z);
             StartCoroutine(StopSlideAnimation());
         }
-
-       //if (Input.GetKeyUp(KeyCode.Space)) { Shot(); }
-
-        //if (isShooting)
-        //{
-        //    // projectile.transform.SetParent(parent);
-        //    bullet.transform.position = Vector3.MoveTowards(bullet.transform.position, shootTarget.position, shootForce * Time.deltaTime);
-        //    if (Vector3.Distance(bullet.transform.position, shootTarget.position) < 0.01f)
-        //    {
-        //        isShooting = false;
-        //        //bullet.transform.SetParent(parentRoad);
-        //    }
-        //}
-
         if (Input.GetKeyUp(KeyCode.Escape) && GameManager.Instance.DeadMenuActive())
         {
             GameManager.Instance.PauseGame();
@@ -168,32 +154,40 @@ public class RatController : MonoBehaviour
 
     public IEnumerator Invincibility(float invTime)
     {
-        Debug.Log("I should be invincible");
+        //Debug.Log("Soy invencible");
         Physics.IgnoreLayerCollision(6, 7, true);
-        color.g = 0f;
-        color.b = 0f;
-        ratRenderer.material.color = color;
+
+        Color tempColor = initialColor;
+        tempColor.g = 0f;
+        tempColor.b = 0f;
+        ratRenderer.material.color = tempColor;
+
 
         yield return new WaitForSeconds(invTime);
-        Physics.IgnoreLayerCollision(6, 7, false);
-        color.g = 1f;
-        color.b = 1f;
-        ratRenderer.material.color = color;
 
+        Physics.IgnoreLayerCollision(6, 7, false);
+
+        ratRenderer.material.color = initialColor;
+
+        if (RainbowRun.Instance.isInvincible)
+        {
+            RainbowRun.Instance.EndInvincibleTime();
+        }
 
     }
 
-    public void CallInvincibility(float invisTime) {
-    
-     StartCoroutine(Invincibility(invisTime));   
-    
-    
+    public void CallInvincibility(float invisTime)
+    {
+
+        StartCoroutine(Invincibility(invisTime));
+
+
     }
 
     // STOP TIME IF PLAYER IMPACT WITH AN OBSTACLE
     private void OnTriggerEnter(Collider other)
     {
-        if (!ProtectionField.Instance.isActive)
+        if (!ProtectionField.Instance.isActive && !RainbowRun.Instance.isInvincible)
         {
             if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat"))
             {
@@ -218,12 +212,14 @@ public class RatController : MonoBehaviour
                     breakableCount = 0;
                 }
             }
-        } else if (other.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat") || other.gameObject.CompareTag("ObstacleBreakable"))
+        }
+        else if (other.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat") || other.gameObject.CompareTag("ObstacleBreakable"))
         {
-            StartCoroutine(Invincibility(1f));
+
+            StartCoroutine(Invincibility(ProtectionField.Instance.invincibleTime));
             ProtectionField.Instance.Protect();
         }
-        
+
 
         if (other.gameObject.CompareTag("Cheese"))
         {
@@ -245,7 +241,8 @@ public class RatController : MonoBehaviour
 
 
     // JUMP FUNCTION
-    private void Jump() {
+    private void Jump()
+    {
 
         animatorRat.SetBool("isJumping", true);
         animatorRat.SetBool("isSliding", false);
@@ -281,32 +278,6 @@ public class RatController : MonoBehaviour
         ratCol.size = new Vector3(ratCol.size.x, defaultSizeCollider, ratCol.size.z);
     }
 
-    // SHOT
-    //private void Shot()
-    //{
-    //    shootTarget = ShotTarget();
-    //    try
-    //    {
-    //        bullet = ObjectsPool.instance.GetPooledRatBullet();
-    //    }
-    //    catch
-    //    {
-    //        Debug.Log("No hay más balas disponibles");
-    //        bullet = null;
-    //    }
-
-    //    if (bullet != null)
-    //    {
-    //        bullet.transform.position = transform.position;
-    //        bullet.SetActive(true);
-
-    //        //bullet.GetComponent<RatBullet>().StartMovement(shootTarget.position, shootForce);
-    //        isShooting = true;
-    //        animatorRat.SetBool("isShooting", true);
-    //        StartCoroutine(EndShootingAnimation());
-    //    }
-    //}
-    
     public IEnumerator EndShootingAnimation()
     {
         yield return new WaitForSeconds(0.3f);
@@ -315,7 +286,7 @@ public class RatController : MonoBehaviour
 
     private void Die()
     {
-       // Time.timeScale = 0;
+        // Time.timeScale = 0;
 
         animatorRat.SetBool("isDead", true);
         RoadTileMove.speed = 0;

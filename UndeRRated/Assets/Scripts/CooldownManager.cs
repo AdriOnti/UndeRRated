@@ -57,7 +57,7 @@ public class CooldownManager : MonoBehaviour
         {
             if (cooldownData.ability == ability)
             {
-                Debug.Log($"{ability.AbilityName} is on cooldown for another {cooldownData.cooldown} seconds");
+               
                 return true;
             }
 

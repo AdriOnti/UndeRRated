@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "InmunityBoost",
+                    "name": "RainbowRun",
                     "type": "Button",
                     "id": "906c3837-b512-4c1b-ae25-649fa3c6a390",
                     "expectedControlType": "Button",
@@ -301,7 +301,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "InmunityBoost",
+                    "action": "RainbowRun",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

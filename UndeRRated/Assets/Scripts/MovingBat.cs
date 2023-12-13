@@ -77,6 +77,7 @@ public class MovingBat : ObstacleRespawner
             // WaitForSeconds            
             this.gameObject.SetActive(false);
             lightWarning.enabled = false;
+            isMoving = false;
 
         }
        

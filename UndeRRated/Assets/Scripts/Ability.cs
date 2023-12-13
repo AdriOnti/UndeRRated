@@ -36,9 +36,8 @@ public abstract class Ability : MonoBehaviour
 
         if (abilityName == "ForceField")
             ratInputs.InGame.ForceField.performed += StartAbility;
-
-        if (abilityName == "InmunityBoost")
-            ratInputs.InGame.InmunityBoost.performed += StartAbility;
+        if (abilityName == "RainbowRun")
+            ratInputs.InGame.RainbowRun.performed += StartAbility;
         if (abilityName == "Ratatata")
             ratInputs.InGame.Shot.performed += StartAbility;
     }
@@ -49,7 +48,7 @@ public abstract class Ability : MonoBehaviour
      
         Cast();
 
-        if (abilityName != "ForceField")
+        if (abilityName != "ForceField" && abilityName != "RainbowRun")
             CooldownManager.Instance.PutOnCooldown(this);
     }
 
