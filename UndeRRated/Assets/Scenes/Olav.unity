@@ -9629,11 +9629,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ec607a3ba028a046bb6622eaf74aa2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  desiredPath: 1
   dizzyRat: {fileID: 2039960648}
   jumpForce: 28
   pathDistance: 9
   Gravity: -35
-  bullet: {fileID: 752857352}
+  ratParticles: {fileID: 0}
   shootForce: 150
 --- !u!4 &939522048
 Transform:
@@ -16700,10 +16701,7 @@ MonoBehaviour:
   objectPool: {fileID: 653976609}
   projectile: {fileID: 1596220658}
   parentRoad: {fileID: 2048339428}
-  shootTargets:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  targetIndex: 0
 --- !u!136 &1624240266
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -21371,10 +21369,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPool: {fileID: 653976609}
-  attackingPositions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   parentRoad: {fileID: 2048339428}
 --- !u!136 &1928982942
 CapsuleCollider:
