@@ -30,6 +30,7 @@ public class RatController : MonoBehaviour
     public float jumpForce;
     public float pathDistance = 9;
     public float Gravity;
+    public GameObject ratParticles;
 
     [Header("RatBullet Parameters")]
 
@@ -70,7 +71,6 @@ public class RatController : MonoBehaviour
     // METHOD START
     void Start()
     {
-
         controller = GetComponent<CharacterController>();
         animatorRat = GetComponentInChildren<Animator>();
 
@@ -187,7 +187,7 @@ public class RatController : MonoBehaviour
     // STOP TIME IF PLAYER IMPACT WITH AN OBSTACLE
     private void OnTriggerEnter(Collider other)
     {
-        if (!ProtectionField.Instance.isActive && !RainbowRun.Instance.isInvincible)
+        if (!ProtectionField.Instance.isActive && !RainbowRun.Instance.isInvincible)   
         {
             if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat"))
             {
@@ -196,6 +196,8 @@ public class RatController : MonoBehaviour
 
             if (other.gameObject.CompareTag("ObstacleBreakable"))
             {
+                ratParticles.SetActive(true);
+                ratParticles.GetComponent<ParticleSystem>().Play();
                 Debug.Log(breakableCount);
                 MeshRenderer meshBreakable = other.GetComponent<MeshRenderer>();
                 meshBreakable.enabled = false;
@@ -287,6 +289,8 @@ public class RatController : MonoBehaviour
     private void Die()
     {
         // Time.timeScale = 0;
+        ratParticles.SetActive(true);
+        ratParticles.GetComponent<ParticleSystem>().Play();
 
         animatorRat.SetBool("isDead", true);
         RoadTileMove.speed = 0;

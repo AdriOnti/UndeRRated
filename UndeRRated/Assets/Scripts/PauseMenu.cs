@@ -1,14 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using System;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
-public class PauseMenu : Menu
+public class PauseMenu : InGameMenu
 {
-    public TextMeshProUGUI pausedScore;
-    public TextMeshProUGUI resumedScore;
     public static float pausedTime;
 
     private void Start()
@@ -18,7 +13,14 @@ public class PauseMenu : Menu
 
     private void Update()
     {
-        pausedScore.text = $"Puntuación: {resumedScore.text}";
+        pausedScore.text = $"Score: {resumedScore.text}";
+        int tmp = Convert.ToInt32(resumedCheese.text) + GameManager.Instance.cheeseSaved;
+        pausedCheese.text = $"Quesitos: {tmp}";
+        GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text));
+
+        string[] splitScore = pausedScore.GetParsedText().Split(' ');
+        GameManager.Instance.SaveHighScore(Convert.ToInt32(splitScore[1]));
+
         pausedTime = Time.timeScale;
         if(GetComponent<Canvas>().enabled == true )
         {
@@ -28,13 +30,5 @@ public class PauseMenu : Menu
                 Resume();
             }
         }
-        
-    }
-
-    public void ReturnMainMenu()
-    {
-        Time.timeScale = 1.0f;
-        SceneManager.LoadScene("Main");
-        
     }
 }

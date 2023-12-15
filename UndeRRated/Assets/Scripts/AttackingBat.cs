@@ -1,6 +1,6 @@
-
 using UnityEditor;
 using UnityEngine;
+using System.Collections;
 
 public class AttackingBat : ObstacleRespawner
 {
@@ -12,9 +12,10 @@ public class AttackingBat : ObstacleRespawner
     public int targetIndex;
     private float speed = 150f;
 
+
     // START FUNCTION
     /// <summary>
-    /// La posicion del proyectil es la misma que la del murciélago
+    /// La posicion del proyectil es la misma que la del murciÃ©lago
     /// </summary>
 
 
@@ -32,7 +33,7 @@ public class AttackingBat : ObstacleRespawner
     // UPDATE FUNCTION
     /// <summary>
     /// Si el enemigo esta disparando, el proyectil se movera hacia el objetivo. Cuando llegue al a una distancia minima al objetivo, 
-    /// el murciélago dejara de disparar y el proyectil se convertira en hijo de la carretera.
+    /// el murciÃ©lago dejara de disparar y el proyectil se convertira en hijo de la carretera.
     /// </summary>
     private void Update()
     {
@@ -50,7 +51,7 @@ public class AttackingBat : ObstacleRespawner
     }
 
     /// <summary>
-    /// Cuando el murciélago llegue al trigger collider con tag AttackTrigger, ejecutara la funcion Shoot()
+    /// Cuando el murciÃ©lago llegue al trigger collider con tag AttackTrigger, ejecutara la funcion Shoot()
     /// </summary>
     /// <param name="other">Trigger que tendra que comparar para saber si ejecutar una funcion o no</param>
     public override void OnTriggerEnter(Collider other)
@@ -65,9 +66,8 @@ public class AttackingBat : ObstacleRespawner
         }
         else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player") || other.CompareTag("RatBullet"))
         {
-            this.gameObject.SetActive(false);
             projectile.SetActive(false);
-
+            //StartCoroutine(Die());
         }
 
     }
@@ -89,14 +89,9 @@ public class AttackingBat : ObstacleRespawner
 
     }
 
-    /// <summary>
-    /// Mostramos su animacion de muerte, se espera unos segundos y luego se desactiva
-    /// </summary>
-    /// <param name="collision">Objeto con el que colisiona para morir</param>
-    private void OnCollisionEnter(Collision collision)
+    public IEnumerator Die()
     {
-        // Play Dead Animation
-        // Call a IEnumerator with a WaitForSeconds
+        yield return new WaitForSeconds(0.5f);
         this.gameObject.SetActive(false);
     }
 }

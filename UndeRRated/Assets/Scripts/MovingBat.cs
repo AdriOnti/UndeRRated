@@ -21,7 +21,7 @@ public class MovingBat : ObstacleRespawner
     /// </summary>
     //void Awake()
     //{
-        
+
     //}
 
     private void Start()
@@ -32,7 +32,7 @@ public class MovingBat : ObstacleRespawner
     }
     // UPDATE FUNCTION
     /// <summary>
-    /// Si el murciélago tiene su booleano de moverse en true, cada frame se ira moviendo poco a poco hasta llegar a una distancia minima
+    /// Si el murciÃ©lago tiene su booleano de moverse en true, cada frame se ira moviendo poco a poco hasta llegar a una distancia minima
     /// </summary>
     private void Update()
     {
@@ -53,7 +53,7 @@ public class MovingBat : ObstacleRespawner
     }
 
     /// <summary>
-    /// Cuando el murciélago llegue al trigger collider con tag AttackTrigger, se pondra en movimiento.
+    /// Cuando el murciÃ©lago llegue al trigger collider con tag AttackTrigger, se pondra en movimiento.
     /// Si interactua con el WarningTrigger la AttackingPositions seleccionada se convertira en la que avisara del ataque.
     /// </summary>
     /// <param name="other">Trigger que tendra que comparar para saber si ejecutar una funcion o no</param>
@@ -75,10 +75,9 @@ public class MovingBat : ObstacleRespawner
         {
             // Play Death Anim
             // WaitForSeconds            
-            this.gameObject.SetActive(false);
             lightWarning.enabled = false;
             isMoving = false;
-
+            //StartCoroutine(Die());
         }
        
 
@@ -105,7 +104,9 @@ public class MovingBat : ObstacleRespawner
         }
     }
 
-
-
-   
+    public IEnumerator Die()
+    {
+        yield return new WaitForSeconds(0.5f);
+        this.gameObject.SetActive(false);
+    }
 }
