@@ -1,6 +1,8 @@
+using System;
+using TMPro;
 using UnityEngine;
 
-public class DeadMenu : Menu
+public class DeadMenu : InGameMenu
 {
     public static DeadMenu instance;
 
@@ -17,9 +19,17 @@ public class DeadMenu : Menu
     /// </summary>
     private void Update()
     {
-        if(GetComponent<Canvas>().enabled == true)
+        pausedScore.text = $"Score: {resumedScore.text}";
+        int tmp = Convert.ToInt32(resumedCheese.text) + GameManager.Instance.cheeseSaved;
+        pausedCheese.text = $"Quesitos: {tmp}";
+        GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text));
+
+        string[] splitScore = pausedScore.GetParsedText().Split(' ');
+        GameManager.Instance.SaveHighScore(Convert.ToInt32(splitScore[1]));
+
+        if (GetComponent<Canvas>().enabled == true)
         {
-            //Debug.Log("Estoy muerto");
+            RoadTileMove.deadRat = true;
             if (Input.GetKeyUp(KeyCode.Escape))
             {
                 Debug.LogWarning("NO PUEDES PAUSAR *golpea el baston en el suelo*");
@@ -36,7 +46,9 @@ public class DeadMenu : Menu
     public void Respawn()
     {
         //Debug.LogWarning("FALTA AÑADIRLE EL COSTE");
+        Debug.LogWarning("Se han quitado 50 quesitos");
         
+        GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text) - 50);
         Resume();
     }
 }
