@@ -1,6 +1,6 @@
-
 using UnityEditor;
 using UnityEngine;
+using System.Collections;
 
 public class AttackingBat : ObstacleRespawner
 {
@@ -11,6 +11,7 @@ public class AttackingBat : ObstacleRespawner
     [SerializeField] Transform[] shootTargets = new Transform[3];
     private int targetIndex;
     private float speed = 150f;
+
 
     // START FUNCTION
     /// <summary>
@@ -65,8 +66,8 @@ public class AttackingBat : ObstacleRespawner
         }
         else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player") || other.CompareTag("RatBullet"))
         {
-            this.gameObject.SetActive(false);
             projectile.SetActive(false);
+            //StartCoroutine(Die());
         }
 
     }
@@ -88,14 +89,9 @@ public class AttackingBat : ObstacleRespawner
 
     }
 
-    /// <summary>
-    /// Mostramos su animacion de muerte, se espera unos segundos y luego se desactiva
-    /// </summary>
-    /// <param name="collision">Objeto con el que colisiona para morir</param>
-    private void OnCollisionEnter(Collision collision)
+    public IEnumerator Die()
     {
-        // Play Dead Animation
-        // Call a IEnumerator with a WaitForSeconds
+        yield return new WaitForSeconds(0.5f);
         this.gameObject.SetActive(false);
     }
 }
