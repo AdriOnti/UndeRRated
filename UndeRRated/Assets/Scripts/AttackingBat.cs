@@ -9,19 +9,15 @@ public class AttackingBat : ObstacleRespawner
     public Transform parentRoad;
     private bool isShooting;
     [SerializeField] Transform[] shootTargets = new Transform[3];
-    private int targetIndex;
+    public int targetIndex;
     private float speed = 150f;
 
 
     // START FUNCTION
     /// <summary>
-    /// La posicion del proyectil es la misma que la del murciélago
+    /// La posicion del proyectil es la misma que la del murciÃ©lago
     /// </summary>
-    void Start()
-    {
-        projectile.transform.position = transform.position;
-        shootTargets = GameManager.Instance.BatTarget();
-    }
+
 
     // AWAKE FUNCTION
     /// <summary>
@@ -29,14 +25,15 @@ public class AttackingBat : ObstacleRespawner
     /// </summary>
     void Awake()
     {
-        System.Random rnd = new System.Random();
-        targetIndex = rnd.Next(shootTargets.Length);
+        projectile.transform.position = transform.position;
+        shootTargets = GameManager.Instance.BatTarget();
+
     }
 
     // UPDATE FUNCTION
     /// <summary>
     /// Si el enemigo esta disparando, el proyectil se movera hacia el objetivo. Cuando llegue al a una distancia minima al objetivo, 
-    /// el murciélago dejara de disparar y el proyectil se convertira en hijo de la carretera.
+    /// el murciÃ©lago dejara de disparar y el proyectil se convertira en hijo de la carretera.
     /// </summary>
     private void Update()
     {
@@ -52,9 +49,9 @@ public class AttackingBat : ObstacleRespawner
             }
         }
     }
-   
+
     /// <summary>
-    /// Cuando el murciélago llegue al trigger collider con tag AttackTrigger, ejecutara la funcion Shoot()
+    /// Cuando el murciÃ©lago llegue al trigger collider con tag AttackTrigger, ejecutara la funcion Shoot()
     /// </summary>
     /// <param name="other">Trigger que tendra que comparar para saber si ejecutar una funcion o no</param>
     public override void OnTriggerEnter(Collider other)
@@ -62,7 +59,10 @@ public class AttackingBat : ObstacleRespawner
         base.OnTriggerEnter(other);
         if (other.CompareTag("AttackTrigger"))
         {
+            int rnd = Random.Range(0, shootTargets.Length);
+            targetIndex = rnd;
             Shoot();
+
         }
         else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player") || other.CompareTag("RatBullet"))
         {

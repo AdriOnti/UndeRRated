@@ -30,7 +30,7 @@ public class Menu : MonoBehaviour
     {
         if (rat.GetComponentInChildren<Animator>().GetBool("isDead"))
         {
-            RatController.Instance.CallInvincibility(1f);
+            RatController.Instance.CallInvincibility(2f);
             rat.GetComponentInChildren<Animator>().SetBool("isDead", false);
         }          
         RoadTileMove.speed = -1;

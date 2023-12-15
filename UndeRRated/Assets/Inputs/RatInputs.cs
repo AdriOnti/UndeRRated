@@ -53,6 +53,24 @@ public partial class @RatInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ForceField"",
+                    ""type"": ""Button"",
+                    ""id"": ""209c9fd9-b178-481a-b773-f7123c6fdbfb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RainbowRun"",
+                    ""type"": ""Button"",
+                    ""id"": ""906c3837-b512-4c1b-ae25-649fa3c6a390"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -286,6 +304,28 @@ public partial class @RatInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Shot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""14b2cd66-0b19-4bd0-9e18-9177fc8c8bc7"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ForceField"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e0dc9cfc-d7a2-4707-b552-fde62cf1221b"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RainbowRun"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -297,6 +337,8 @@ public partial class @RatInputs: IInputActionCollection2, IDisposable
         m_InGame_Movement = m_InGame.FindAction("Movement", throwIfNotFound: true);
         m_InGame_InvertMovement = m_InGame.FindAction("InvertMovement", throwIfNotFound: true);
         m_InGame_Shot = m_InGame.FindAction("Shot", throwIfNotFound: true);
+        m_InGame_ForceField = m_InGame.FindAction("ForceField", throwIfNotFound: true);
+        m_InGame_RainbowRun = m_InGame.FindAction("RainbowRun", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -361,6 +403,8 @@ public partial class @RatInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_Movement;
     private readonly InputAction m_InGame_InvertMovement;
     private readonly InputAction m_InGame_Shot;
+    private readonly InputAction m_InGame_ForceField;
+    private readonly InputAction m_InGame_RainbowRun;
     public struct InGameActions
     {
         private @RatInputs m_Wrapper;
@@ -368,6 +412,8 @@ public partial class @RatInputs: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_InGame_Movement;
         public InputAction @InvertMovement => m_Wrapper.m_InGame_InvertMovement;
         public InputAction @Shot => m_Wrapper.m_InGame_Shot;
+        public InputAction @ForceField => m_Wrapper.m_InGame_ForceField;
+        public InputAction @RainbowRun => m_Wrapper.m_InGame_RainbowRun;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -386,6 +432,12 @@ public partial class @RatInputs: IInputActionCollection2, IDisposable
             @Shot.started += instance.OnShot;
             @Shot.performed += instance.OnShot;
             @Shot.canceled += instance.OnShot;
+            @ForceField.started += instance.OnForceField;
+            @ForceField.performed += instance.OnForceField;
+            @ForceField.canceled += instance.OnForceField;
+            @RainbowRun.started += instance.OnRainbowRun;
+            @RainbowRun.performed += instance.OnRainbowRun;
+            @RainbowRun.canceled += instance.OnRainbowRun;
         }
 
         private void UnregisterCallbacks(IInGameActions instance)
@@ -399,6 +451,12 @@ public partial class @RatInputs: IInputActionCollection2, IDisposable
             @Shot.started -= instance.OnShot;
             @Shot.performed -= instance.OnShot;
             @Shot.canceled -= instance.OnShot;
+            @ForceField.started -= instance.OnForceField;
+            @ForceField.performed -= instance.OnForceField;
+            @ForceField.canceled -= instance.OnForceField;
+            @RainbowRun.started -= instance.OnRainbowRun;
+            @RainbowRun.performed -= instance.OnRainbowRun;
+            @RainbowRun.canceled -= instance.OnRainbowRun;
         }
 
         public void RemoveCallbacks(IInGameActions instance)
@@ -421,5 +479,7 @@ public partial class @RatInputs: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnInvertMovement(InputAction.CallbackContext context);
         void OnShot(InputAction.CallbackContext context);
+        void OnForceField(InputAction.CallbackContext context);
+        void OnRainbowRun(InputAction.CallbackContext context);
     }
 }
