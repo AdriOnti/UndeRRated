@@ -1,9 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class RatController : MonoBehaviour
 {
@@ -14,11 +10,6 @@ public class RatController : MonoBehaviour
     private Animator animatorRat;
     public GameObject dizzyRat;
 
-
-
-
-
-    private bool isShooting;
     private int breakableCount = 0;
     private bool isDizzy = false;
     private float slideDuration = 0.5f;
@@ -34,16 +25,13 @@ public class RatController : MonoBehaviour
 
     [Header("RatBullet Parameters")]
 
-    private Transform shootTarget;
     public float shootForce;
 
 
     private BoxCollider ratCol;
     private float defaultSizeCollider;
     private float slideableYsize = 0.1f;
-    private Transform[] shootTargets;
-    private GameObject[] canvas; // DeadMenu, HUD, PauseMenu
-
+    
 
     KeyCode kright = KeyCode.RightArrow;
     KeyCode kleft = KeyCode.LeftArrow;
@@ -73,14 +61,8 @@ public class RatController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animatorRat = GetComponentInChildren<Animator>();
-
-
-
         ratCol = GetComponent<BoxCollider>();
         defaultSizeCollider = ratCol.size.y;
-
-        canvas = GameManager.Instance.GetUI();
-        shootTargets = GameManager.Instance.RatShotTarget();
     }
 
     // METHOD UPDATE
@@ -178,10 +160,7 @@ public class RatController : MonoBehaviour
 
     public void CallInvincibility(float invisTime)
     {
-
         StartCoroutine(Invincibility(invisTime));
-
-
     }
 
     // STOP TIME IF PLAYER IMPACT WITH AN OBSTACLE
@@ -295,20 +274,7 @@ public class RatController : MonoBehaviour
 
         animatorRat.SetBool("isDead", true);
         RoadTileMove.speed = 0;
-        //foreach (GameObject menu in canvas)
-        //{
-        //    if (menu.name != "DeadMenu") menu.SetActive(false);
-        //    else menu.SetActive(true);
-        //}
         GameManager.Instance.DeadCharacter();
-    }
-
-    private Transform ShotTarget()
-    {
-        if (desiredPath == 0) return shootTargets[0];
-        if (desiredPath == 1) return shootTargets[1];
-        if (desiredPath == 2) return shootTargets[2];
-        return null;
     }
 
     private IEnumerator WaitAfterBreakable(float segs, MeshRenderer mesh)

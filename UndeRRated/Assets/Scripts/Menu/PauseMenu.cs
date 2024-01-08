@@ -1,7 +1,5 @@
 using UnityEngine;
 using System;
-using UnityEngine.SceneManagement;
-
 public class PauseMenu : InGameMenu
 {
     public static float pausedTime;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RainbowRun : Ability
@@ -18,9 +16,6 @@ public class RainbowRun : Ability
         rainbowEffect = GetComponentInChildren<RainbowEffect>();
         light = GetComponentInChildren<Light>();
         base.Awake();
-
-
-
     }
     public override void Cast()
     {

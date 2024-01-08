@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class ProtectionField : Ability
@@ -27,12 +25,6 @@ public class ProtectionField : Ability
         renderer.sharedMaterial = blueMat;
         renderer.enabled = false;
     }
-    private void Start()
-    {
-
-    }
-
-
     public void Protect()
     {
         for (int i = 0; i < materials.Length; i++)
