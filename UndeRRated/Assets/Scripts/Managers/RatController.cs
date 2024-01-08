@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem.Processors;
 
 public class RatController : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class RatController : MonoBehaviour
     public int desiredPath = 1;
     private Animator animatorRat;
     public GameObject dizzyRat;
-
+    public bool isDead = false;
     private int breakableCount = 0;
     private bool isDizzy = false;
     private float slideDuration = 0.5f;
@@ -178,7 +179,6 @@ public class RatController : MonoBehaviour
             {
                 ratParticles.SetActive(true);
                 ratParticles.GetComponent<ParticleSystem>().Play();
-                Debug.Log(breakableCount);
                 MeshRenderer meshBreakable = other.GetComponent<MeshRenderer>();
                 meshBreakable.enabled = false;
                 if (breakableCount == 0)
@@ -268,7 +268,7 @@ public class RatController : MonoBehaviour
 
     private void Die()
     {
-        // Time.timeScale = 0;
+        isDead = true;
         ratParticles.SetActive(true);
         ratParticles.GetComponent<ParticleSystem>().Play();
 

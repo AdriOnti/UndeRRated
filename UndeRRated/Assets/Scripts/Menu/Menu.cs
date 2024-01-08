@@ -34,6 +34,7 @@ public class Menu : MonoBehaviour
         }          
         RoadTileMove.speed = -1;
         RoadTileMove.deadRat = false;
+        RatController.Instance.isDead = false;
         Time.timeScale = GameManager.Instance.ActualTime();
         GameManager.Instance.ResumeGame();
 

@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     private GameObject[] canvas;
-    private float actualTime = 1.0f;
+    [SerializeField] private float actualTime = 1.0f;
     public GameObject player;
     public int cheeseSaved;
     private int highScore;
@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
         GetSavedMoney();
         GetHighScore();
     }
-
     public float ActualTime()
     {
         return actualTime;

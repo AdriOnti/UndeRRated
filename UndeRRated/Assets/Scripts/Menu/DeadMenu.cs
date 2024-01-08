@@ -30,10 +30,6 @@ public class DeadMenu : InGameMenu
         if (GetComponent<Canvas>().enabled == true)
         {
             RoadTileMove.deadRat = true;
-            if (Input.GetKeyUp(KeyCode.Escape))
-            {
-                Debug.LogWarning("NO PUEDES PAUSAR *golpea el baston en el suelo*");
-            }
         }
     }
 
@@ -46,7 +42,7 @@ public class DeadMenu : InGameMenu
     public void Respawn()
     {
         //Debug.LogWarning("FALTA AÑADIRLE EL COSTE");
-        Debug.LogWarning("Se han quitado 50 quesitos");
+        //Debug.LogWarning("Se han quitado 50 quesitos");
         
         GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text) - 50);
         Resume();

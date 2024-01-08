@@ -23,7 +23,7 @@ public class RainbowRun : Ability
         light.enabled = true;
         rainbowEffect.enabled = true;
         RatController.Instance.CallInvincibility(invincibleTime);
-        saveTime = GameManager.Instance.ActualTime();
+        saveTime = Time.timeScale;
         Time.timeScale = 8f;
     }
 
