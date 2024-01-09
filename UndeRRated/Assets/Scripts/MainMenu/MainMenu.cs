@@ -36,6 +36,7 @@ public class MainMenu : Menu
     public void RatShop()
     {
         Debug.LogWarning("FALTA LA TIENDA, FALTA LA TIENDA, FALTA LA TIENDA");
+        // X: 3.23f     Y: 104.54f      Z: 36.61f
     }
 
     public void ControlSewer() { StartCoroutine(CntrlIn()); }
