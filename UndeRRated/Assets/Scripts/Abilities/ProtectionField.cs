@@ -53,5 +53,6 @@ public class ProtectionField : Ability
         if(isActive) return; 
         isActive = true;
         renderer.enabled = true;
+        SoundManager.Instance.PlayEffect("EnergyShield");
     }
 }

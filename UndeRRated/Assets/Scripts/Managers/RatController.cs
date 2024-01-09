@@ -108,15 +108,19 @@ public class RatController : MonoBehaviour
         // CALCULATE THE RIGHT PATH
         if (Input.GetKeyDown(kright) || Input.GetKeyDown(kd))
         {
+
             desiredPath++;
             if (desiredPath >= 3) desiredPath = 2;
+           // else SoundManager.Instance.PlayEffect("RatHit");
         }
 
         // CALCULATE THE LEFT PATH
         if (Input.GetKeyDown(kleft) || Input.GetKeyDown(ka))
         {
+
             desiredPath--;
             if (desiredPath <= -1) desiredPath = 0;
+           // else SoundManager.Instance.PlayEffect("RatHit");
         }
 
         // MOVE TO THE PATH
@@ -208,6 +212,7 @@ public class RatController : MonoBehaviour
             Score.AddCheese(1);
             other.transform.SetParent(ObjectsPool.instance.transform);
             other.gameObject.SetActive(false);
+            SoundManager.Instance.PlayEffect("munch");
         }
 
         if (other.gameObject.CompareTag("MegaCheese"))
@@ -215,6 +220,7 @@ public class RatController : MonoBehaviour
             Score.AddCheese(5);
             other.transform.SetParent(ObjectsPool.instance.transform);
             other.gameObject.SetActive(false);
+            SoundManager.Instance.PlayEffect("munch");
         }
         //Time.timeScale = 0;
     }
