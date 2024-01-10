@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,22 +11,23 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     private GameObject[] canvas;
     [SerializeField] private float actualTime = 1.0f;
-    public GameObject player;
+    private GameObject player;
     public int cheeseSaved;
-    private int highScore;
+    public int highScore;
+    public int RespawnCost = 50;
     public bool stopCooldowns;
-
 
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else if (Instance != this) Destroy(gameObject);
 
-        CanvasController();
         player = GetPlayer();
+        CanvasController();
         GetSavedMoney();
         GetHighScore();
     }
+
     public float ActualTime()
     {
         return actualTime;
@@ -74,10 +77,10 @@ public class GameManager : MonoBehaviour
 
 
     /// <summary>
-    /// Olav: Cuando se implemento el GameManager el antiguo bug de que en el menu de muerte podias abrir el de pausa, reapareció.
+    /// Olav: Cuando se implemento el GameManager el antiguo bug de que en el menu de muerte podias abrir el de pausa, reapareciÃ³.
     /// No tengo ni idea de como funciona esto, simplemente funciona y punto
     /// </summary>
-    /// <returns>Si el menu de pausa esta desactivado o no ¿creo?</returns>
+    /// <returns>Si el menu de pausa esta desactivado o no Â¿creo?</returns>
     public bool DeadMenuActive()
     {
         foreach (GameObject menu in canvas)
@@ -121,6 +124,35 @@ public class GameManager : MonoBehaviour
         return ui;
     }
 
+    public List<TextMeshProUGUI> ResumedAndPausedAssets(string activeMenu)
+    {
+        List<TextMeshProUGUI> result = new List<TextMeshProUGUI>();
+        foreach (GameObject menu in canvas)
+        {
+            if (menu.name == "HUD")
+            {
+                for (int i = 0; i < menu.transform.childCount; i++)
+                {
+                    if (menu.transform.GetChild(i).gameObject.name == "Score") result.Add(menu.transform.GetChild(i).GetComponent<TextMeshProUGUI>());
+                    if (menu.transform.GetChild(i).gameObject.name == "Quesitos") result.Add(menu.transform.GetChild(i).GetComponent<TextMeshProUGUI>());
+                }
+            }
+
+            if (menu.name == activeMenu)
+            {
+                for (int i = 0; i < menu.transform.childCount; i++)
+                {
+                    if (menu.transform.GetChild(i).gameObject.name == "PuntuacionPaused") result.Add(menu.transform.GetChild(i).GetComponent<TextMeshProUGUI>());
+                    if (menu.transform.GetChild(i).gameObject.name == "CheeseCollected") result.Add(menu.transform.GetChild(i).GetComponent<TextMeshProUGUI>());
+                    if(menu.transform.GetChild(i).gameObject.name == "HighScore") result.Add(menu.transform.GetChild(i).GetComponent<TextMeshProUGUI>());
+                    if(menu.transform.GetChild(i).gameObject.name == "SavedCheese") result.Add(menu.transform.GetChild(i).GetComponent<TextMeshProUGUI>());
+                }
+            }
+        }
+
+        return result;
+    }
+
     // Obtener todos los objetivos que la rata puede disparar
     public Transform[] RatShotTarget()
     {
@@ -149,7 +181,7 @@ public class GameManager : MonoBehaviour
         return targets;
     }
 
-    private void GetSavedMoney()
+    public void GetSavedMoney()
     {
         string path = Path.Combine(Application.persistentDataPath, "Files/data.rat");
         StreamReader sr = File.OpenText(path);
@@ -168,7 +200,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SaveMoney(int cheeseCollected)
+    public void SaveMoney(int cheeseCollected, bool respawn)
     {
         string path = Path.Combine(Application.persistentDataPath, "Files/data.rat");
         StreamReader sr = File.OpenText(path);
@@ -181,14 +213,28 @@ public class GameManager : MonoBehaviour
             string[] sections = fileLines[i].Split(';');
             if (sections[0] == "Quesitos")
             {
-                int cheeseTmp = cheeseSaved + cheeseCollected;
-                sections[1] = cheeseTmp.ToString();
-                fileLines[i] = string.Join(";", sections);
+                if (!respawn)
+                {
+                    int cheeseTmp = cheeseSaved + cheeseCollected;
+                    sections[1] = cheeseTmp.ToString();
+                    fileLines[i] = string.Join(";", sections);
+                }
+                else
+                {
+                    cheeseCollected -= RespawnCost;
+                    int cheeseTmp = cheeseSaved + cheeseCollected;
+                    sections[1] = cheeseTmp.ToString();
+                    fileLines[i] = string.Join(";", sections);
+                    Debug.Log(fileLines[i]);
+
+
+                    File.WriteAllText(path, string.Empty);
+                    string modifiedContent = string.Join("\n", fileLines.Where(line => !string.IsNullOrWhiteSpace(line)));
+                    File.WriteAllText(path, modifiedContent);
+                }
             }
         }
-        File.WriteAllText(path, string.Empty);
-        string modifiedContent = string.Join("\n", fileLines.Where(line => !string.IsNullOrWhiteSpace(line)));
-        File.WriteAllText(path, modifiedContent);
+        
 
     }
 
@@ -232,6 +278,8 @@ public class GameManager : MonoBehaviour
         File.WriteAllText(path, string.Empty);
         string modifiedContent = string.Join("\n", fileLines.Where(line => !string.IsNullOrWhiteSpace(line)));
         File.WriteAllText(path, modifiedContent);
+
+        GetHighScore();
 
     }
 }

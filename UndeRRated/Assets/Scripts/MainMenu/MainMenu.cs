@@ -6,14 +6,18 @@ public class MainMenu : Menu
 {
     //private Animation animation;
     private Animator animatorParent;
+    public GameObject mainCanvas;
     public GameObject cntrlCanvas;
+    public GameObject shopCanvas;
 
     private void OnEnable()
     {
         Time.timeScale = 1.0f;
         try
         {
+            mainCanvas.GetComponent<Canvas>().enabled = true;
             cntrlCanvas.GetComponent<Canvas>().enabled = false;
+            shopCanvas.GetComponent<Canvas>().enabled = false;
         }
         catch { }
     }
@@ -24,47 +28,63 @@ public class MainMenu : Menu
     public void StartGame()
     {
  
-        CameraInStart.animIsStart = true;
+        CameraInStart.Instance.animIsStart = true;
         animatorParent = rat.GetComponent<Animator>();
-
-
-        GameObject canvas = GameObject.Find("MainCanvas");
-        canvas.GetComponent<Canvas>().enabled = false;
+        mainCanvas.GetComponent<Canvas>().enabled = false;
         animatorParent.SetBool("start", true);
     }
 
-    public void RatShop()
-    {
-        Debug.LogWarning("FALTA LA TIENDA, FALTA LA TIENDA, FALTA LA TIENDA");
-    }
+    public void RatShop() {  StartCoroutine(ShopIn()); }
 
     public void ControlSewer() { StartCoroutine(CntrlIn()); }
 
-    public void MainSewer() { StartCoroutine(CntrlOut()); }
+    public void MainSewer() { StartCoroutine(MainIn()); }
 
     IEnumerator CntrlIn()
     {
-        FadeController.instance.FadeOut();
-        GameObject canvas = GameObject.Find("MainCanvas");
-        canvas.GetComponent<Canvas>().enabled = false;
+        DisableMainCanvas();
         yield return new WaitForSeconds(0.5f);
-        CameraInStart.ControlSectionIn = true;
-        CameraInStart.ControlSectionOut = false;
+        CameraInStart.Instance.ControlSectionIn = true;
+        CameraInStart.Instance.MainSectionIn = false;
+        CameraInStart.Instance.ShopSectionIn = false;
+
         yield return new WaitForSeconds(0.5f);
         cntrlCanvas.GetComponent<Canvas>().enabled = true;
         FadeController.instance.FadeIn();
     }
 
-    IEnumerator CntrlOut()
+    IEnumerator MainIn()
     {
         FadeController.instance.FadeOut();
         cntrlCanvas.GetComponent<Canvas>().enabled = false;
+        shopCanvas.GetComponent<Canvas>().enabled = false;
+
         yield return new WaitForSeconds(0.5f);
-        CameraInStart.ControlSectionOut = true;
-        CameraInStart.ControlSectionIn = false;
+        CameraInStart.Instance.MainSectionIn = true;
+        CameraInStart.Instance.ControlSectionIn = false;
+        CameraInStart.Instance.ShopSectionIn = false;
+
         yield return new WaitForSeconds(0.5f);
-        GameObject canvas = GameObject.Find("MainCanvas");
-        canvas.GetComponent<Canvas>().enabled = true;
+        mainCanvas.GetComponent<Canvas>().enabled = true;
         FadeController.instance.FadeIn();
+    }
+
+    IEnumerator ShopIn()
+    {
+        DisableMainCanvas();
+        yield return new WaitForSeconds(0.5f);
+        CameraInStart.Instance.ShopSectionIn = true;
+        CameraInStart.Instance.ControlSectionIn = false;
+        CameraInStart.Instance.MainSectionIn = false;
+
+        yield return new WaitForSeconds(0.5f);
+        shopCanvas.GetComponent<Canvas>().enabled = true;
+        FadeController.instance.FadeIn();
+    }
+
+    private void DisableMainCanvas()
+    {
+        FadeController.instance.FadeOut();
+        mainCanvas.GetComponent<Canvas>().enabled = false;
     }
 }
