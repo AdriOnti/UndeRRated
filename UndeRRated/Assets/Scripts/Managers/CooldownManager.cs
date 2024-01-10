@@ -46,7 +46,7 @@ public class CooldownManager : MonoBehaviour
         while (CDability.cooldown > 0f)
         {
             ability.slider.UpdateSliderCooldown(CDability.cooldown, maxCooldown);
-            CDability.cooldown -= Time.deltaTime;
+            if(!GameManager.Instance.stopCooldowns) CDability.cooldown -= Time.deltaTime;
             yield return null;
         }
         abilitiesOnCooldown.Remove(CDability);

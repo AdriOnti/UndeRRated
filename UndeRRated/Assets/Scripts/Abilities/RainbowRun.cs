@@ -19,6 +19,7 @@ public class RainbowRun : Ability
     }
     public override void Cast()
     {
+        if (isInvincible) return;
         isInvincible = true;
         light.enabled = true;
         rainbowEffect.enabled = true;
@@ -30,13 +31,13 @@ public class RainbowRun : Ability
 
     public void EndInvincibleTime()
     {
+        CooldownManager.Instance.PutOnCooldown(this);
         isInvincible = false;
         rainbowEffect.enabled = false;
         light.enabled = false;
         Time.timeScale = saveTime;
- 
-        CooldownManager.Instance.PutOnCooldown(this);
         RatController.Instance.CallInvincibility(1f);
+       
     }
 
 

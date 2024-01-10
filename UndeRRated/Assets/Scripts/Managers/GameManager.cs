@@ -4,16 +4,18 @@ using System.IO;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     private GameObject[] canvas;
-    private float actualTime = 1.0f;
+    [SerializeField] private float actualTime = 1.0f;
     private GameObject player;
     public int cheeseSaved;
     public int highScore;
     public int RespawnCost = 50;
+    public bool stopCooldowns;
 
     private void Awake()
     {
@@ -75,10 +77,10 @@ public class GameManager : MonoBehaviour
 
 
     /// <summary>
-    /// Olav: Cuando se implemento el GameManager el antiguo bug de que en el menu de muerte podias abrir el de pausa, reapareció.
+    /// Olav: Cuando se implemento el GameManager el antiguo bug de que en el menu de muerte podias abrir el de pausa, reapareciÃ³.
     /// No tengo ni idea de como funciona esto, simplemente funciona y punto
     /// </summary>
-    /// <returns>Si el menu de pausa esta desactivado o no ¿creo?</returns>
+    /// <returns>Si el menu de pausa esta desactivado o no Â¿creo?</returns>
     public bool DeadMenuActive()
     {
         foreach (GameObject menu in canvas)
@@ -94,8 +96,17 @@ public class GameManager : MonoBehaviour
     {
         foreach (GameObject menu in canvas)
         {
-            if (menu.name != ui) menu.gameObject.SetActive(false);
-            else menu.gameObject.SetActive(true);
+            if (menu.name != ui)
+            {
+                menu.gameObject.SetActive(false);
+                if (menu.name == "HUD") stopCooldowns = true;
+            }
+            else
+            {
+                menu.gameObject.SetActive(true);
+                if (ui == "HUD") stopCooldowns = false;
+
+            }
         }
     }
 
