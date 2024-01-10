@@ -48,9 +48,7 @@ public class MainMenu : Menu
 
     IEnumerator CntrlIn()
     {
-        FadeController.instance.FadeOut();
-        GameObject canvas = GameObject.Find("MainCanvas");
-        canvas.GetComponent<Canvas>().enabled = false;
+        DisableMainCanvas();
 
         yield return new WaitForSeconds(0.5f);
         CameraInStart.ControlSectionIn = true;
@@ -81,10 +79,8 @@ public class MainMenu : Menu
 
     IEnumerator ShopIn()
     {
-        FadeController.instance.FadeOut();
-        GameObject canvas = GameObject.Find("MainCanvas");
-        canvas.GetComponent<Canvas>().enabled = false;
-
+        
+        DisableMainCanvas();
         yield return new WaitForSeconds(0.5f);
         CameraInStart.ShopSectionIn = true;
         CameraInStart.ControlSectionIn = false;
@@ -93,5 +89,12 @@ public class MainMenu : Menu
         yield return new WaitForSeconds(0.5f);
         shopCanvas.GetComponent<Canvas>().enabled = true;
         FadeController.instance.FadeIn();
+    }
+
+    private void DisableMainCanvas()
+    {
+        FadeController.instance.FadeOut();
+        GameObject canvas = GameObject.Find("MainCanvas");
+        canvas.GetComponent<Canvas>().enabled = false;
     }
 }
