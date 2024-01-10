@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -12,6 +13,9 @@ public class ProtectionField : Ability
     public float invincibleTime = 5f;
     public static ProtectionField Instance;
     public bool isActive;
+
+    // Sound events
+    public static Action ActivateShield;
 
     protected override void Awake()
     {
@@ -53,6 +57,6 @@ public class ProtectionField : Ability
         if(isActive) return; 
         isActive = true;
         renderer.enabled = true;
-        SoundManager.Instance.PlayEffect("EnergyShield");
+        ActivateShield?.Invoke();
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.Processors;
@@ -32,7 +33,7 @@ public class RatController : MonoBehaviour
     private BoxCollider ratCol;
     private float defaultSizeCollider;
     private float slideableYsize = 0.1f;
-    
+
 
     KeyCode kright = KeyCode.RightArrow;
     KeyCode kleft = KeyCode.LeftArrow;
@@ -47,6 +48,11 @@ public class RatController : MonoBehaviour
     SkinnedMeshRenderer ratRenderer;
     Color initialColor;
     public static RatController Instance;
+
+    // SOUND EVENTS
+
+    public static Action RatAteCheese;
+    public static Action RatTookDamage;
 
 
     private void Awake()
@@ -111,7 +117,7 @@ public class RatController : MonoBehaviour
 
             desiredPath++;
             if (desiredPath >= 3) desiredPath = 2;
-           // else SoundManager.Instance.PlayEffect("RatHit");
+            // else SoundManager.Instance.PlayEffect("RatHit");
         }
 
         // CALCULATE THE LEFT PATH
@@ -120,7 +126,7 @@ public class RatController : MonoBehaviour
 
             desiredPath--;
             if (desiredPath <= -1) desiredPath = 0;
-           // else SoundManager.Instance.PlayEffect("RatHit");
+            // else SoundManager.Instance.PlayEffect("RatHit");
         }
 
         // MOVE TO THE PATH
@@ -172,7 +178,7 @@ public class RatController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        if (!ProtectionField.Instance.isActive && !RainbowRun.Instance.isInvincible) 
+        if (!ProtectionField.Instance.isActive && !RainbowRun.Instance.isInvincible)
         {
             if (other.gameObject.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat"))
             {
@@ -188,7 +194,7 @@ public class RatController : MonoBehaviour
                 if (breakableCount == 0)
                 {
                     isDizzy = true;
-                    dizzyRat.gameObject.SetActive(true);
+                    dizzyRat.SetActive(true);
                     StartCoroutine(WaitAfterBreakable(0.5f, meshBreakable));
                     StartCoroutine(TimeDizzy(5f));
                 }
@@ -206,26 +212,17 @@ public class RatController : MonoBehaviour
             ProtectionField.Instance.Protect();
         }
 
-
-        if (other.gameObject.CompareTag("Cheese"))
-        {
-            Score.AddCheese(1);
-            other.transform.SetParent(ObjectsPool.instance.transform);
-            other.gameObject.SetActive(false);
-            SoundManager.Instance.PlayEffect("munch");
-        }
-
-        if (other.gameObject.CompareTag("MegaCheese"))
-        {
-            Score.AddCheese(5);
-            other.transform.SetParent(ObjectsPool.instance.transform);
-            other.gameObject.SetActive(false);
-            SoundManager.Instance.PlayEffect("munch");
-        }
-        //Time.timeScale = 0;
+        EatCheese(other.gameObject.CompareTag("Cheese") ? 1 : other.gameObject.CompareTag("MegaCheese") ? 5 : 0, other);
     }
 
-
+    private void EatCheese(int cheeseValue, Collider other)
+    {
+        if (cheeseValue == 0) return;
+        Score.AddCheese(1);
+        other.transform.SetParent(ObjectsPool.instance.transform);
+        other.gameObject.SetActive(false);
+        RatAteCheese?.Invoke();
+    }
 
 
     // JUMP FUNCTION
@@ -281,6 +278,7 @@ public class RatController : MonoBehaviour
         animatorRat.SetBool("isDead", true);
         RoadTileMove.speed = 0;
         GameManager.Instance.DeadCharacter();
+        RatTookDamage?.Invoke();
     }
 
     private IEnumerator WaitAfterBreakable(float segs, MeshRenderer mesh)

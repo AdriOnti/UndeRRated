@@ -58,7 +58,6 @@ public class Ratatatata : Ability
             isShooting = true;
             animatorRat.SetBool("isShooting", true);
             StartCoroutine(EndShootingAnimation());
-            SoundManager.Instance.PlayEffect("RatHit");
         }
     }
     public IEnumerator EndShootingAnimation()

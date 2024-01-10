@@ -4,38 +4,34 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-
-    AudioSource musicManager;
     AudioSource effectManager;
 
-    public List<AudioClip> audioClips = new List<AudioClip>();
-    public List<string> audioNames = new List<string>();
-    public static SoundManager Instance;
+    [SerializeField] private AudioClip energyField_SFX;
+    [SerializeField] private AudioClip eatCheese_SFX;
+    [SerializeField] private AudioClip ratDamage_SFX;
 
     // Start is called before the first frame update
     void Awake()
     {
-        if (Instance == null) Instance = this;
-        else if (Instance != this) Destroy(gameObject);
-
-
-        AudioSource[] soundManagers = GetComponentsInChildren<AudioSource>();
-
-        if (soundManagers[0].name == "musicSource") musicManager = soundManagers[0]; 
-        if (soundManagers[1].name == "effectsSource") effectManager = soundManagers[1];
-
+        effectManager = GetComponent<AudioSource>();    
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        for (int i = 0; i < audioClips.Count; i++)
-        {
-            audioNames.Add(audioClips[i].name);
-        }
+        RatController.RatAteCheese += EatCheeseSFX;
+        RatController.RatTookDamage += RatTookDamageSFX;
+        ProtectionField.ActivateShield += ActivatedShieldSFX;
     }
-
-    public void PlayEffect(string clipName)
+    private void EatCheeseSFX()
     {
-        effectManager.PlayOneShot(audioClips[audioNames.IndexOf(clipName)]);
+        effectManager.PlayOneShot(eatCheese_SFX);
+    }
+    private void RatTookDamageSFX()
+    {
+        effectManager.PlayOneShot(ratDamage_SFX);
+    }
+    private void ActivatedShieldSFX()
+    {
+        effectManager.PlayOneShot(energyField_SFX);
     }
 }
