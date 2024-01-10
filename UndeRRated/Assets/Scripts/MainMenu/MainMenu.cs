@@ -6,6 +6,7 @@ public class MainMenu : Menu
 {
     //private Animation animation;
     private Animator animatorParent;
+    public GameObject mainCanvas;
     public GameObject cntrlCanvas;
     public GameObject shopCanvas;
 
@@ -14,6 +15,7 @@ public class MainMenu : Menu
         Time.timeScale = 1.0f;
         try
         {
+            mainCanvas.GetComponent<Canvas>().enabled = true;
             cntrlCanvas.GetComponent<Canvas>().enabled = false;
             shopCanvas.GetComponent<Canvas>().enabled = false;
         }
@@ -35,12 +37,7 @@ public class MainMenu : Menu
         animatorParent.SetBool("start", true);
     }
 
-    public void RatShop()
-    {
-        //Debug.LogWarning("FALTA LA TIENDA, FALTA LA TIENDA, FALTA LA TIENDA");
-        // X:      Y:       Z: 
-        StartCoroutine(ShopIn());
-    }
+    public void RatShop() {  StartCoroutine(ShopIn()); }
 
     public void ControlSewer() { StartCoroutine(CntrlIn()); }
 
@@ -49,7 +46,6 @@ public class MainMenu : Menu
     IEnumerator CntrlIn()
     {
         DisableMainCanvas();
-
         yield return new WaitForSeconds(0.5f);
         CameraInStart.ControlSectionIn = true;
         CameraInStart.ControlSectionOut = false;
@@ -72,14 +68,12 @@ public class MainMenu : Menu
         CameraInStart.ShopSectionIn = false;
 
         yield return new WaitForSeconds(0.5f);
-        GameObject canvas = GameObject.Find("MainCanvas");
-        canvas.GetComponent<Canvas>().enabled = true;
+        mainCanvas.GetComponent<Canvas>().enabled = true;
         FadeController.instance.FadeIn();
     }
 
     IEnumerator ShopIn()
     {
-        
         DisableMainCanvas();
         yield return new WaitForSeconds(0.5f);
         CameraInStart.ShopSectionIn = true;
@@ -94,7 +88,6 @@ public class MainMenu : Menu
     private void DisableMainCanvas()
     {
         FadeController.instance.FadeOut();
-        GameObject canvas = GameObject.Find("MainCanvas");
-        canvas.GetComponent<Canvas>().enabled = false;
+        mainCanvas.GetComponent<Canvas>().enabled = false;
     }
 }
