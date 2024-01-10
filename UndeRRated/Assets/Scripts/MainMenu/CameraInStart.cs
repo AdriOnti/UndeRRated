@@ -7,6 +7,7 @@ public class CameraInStart : MonoBehaviour
     public static bool animIsStart;
     public static bool ControlSectionIn;
     public static bool ControlSectionOut;
+    public static bool ShopSectionIn;
     public GameObject player;
 
     private void Update()
@@ -19,6 +20,7 @@ public class CameraInStart : MonoBehaviour
 
         if(ControlSectionIn) { StartCoroutine(CntrSectIn()); }
         if(ControlSectionOut) { StartCoroutine(CntrSectOut()); }
+        if (ShopSectionIn) StartCoroutine(ShopSectIn());
     }
 
     IEnumerator CntrSectIn()
@@ -32,5 +34,11 @@ public class CameraInStart : MonoBehaviour
         transform.position = new Vector3(2.22795f, 8f, 32.13271f);
         yield return new WaitForSeconds(0.5f);
         ControlSectionOut = false;
+    }
+
+    IEnumerator ShopSectIn()
+    {
+        transform.position = new Vector3(3.23f, 104.54f, 36.61f);
+        yield return new WaitForSeconds(0.5f);
     }
 }
