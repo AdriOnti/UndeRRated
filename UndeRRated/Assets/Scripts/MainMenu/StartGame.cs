@@ -11,7 +11,7 @@ public class StartGame : MonoBehaviour
 
     IEnumerator Comienza()
     {
-        CameraInStart.animIsStart = false;
+        CameraInStart.Instance.animIsStart = false;
         FadeController.instance.FadeOut();
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("UndeRRated");
