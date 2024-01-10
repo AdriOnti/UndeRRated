@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public int cheeseSaved;
     private int highScore;
+    public bool stopCooldowns;
+
 
     private void Awake()
     {
@@ -90,8 +93,17 @@ public class GameManager : MonoBehaviour
     {
         foreach (GameObject menu in canvas)
         {
-            if (menu.name != ui) menu.gameObject.SetActive(false);
-            else menu.gameObject.SetActive(true);
+            if (menu.name != ui)
+            {
+                menu.gameObject.SetActive(false);
+                if (menu.name == "HUD") stopCooldowns = true;
+            }
+            else
+            {
+                menu.gameObject.SetActive(true);
+                if (ui == "HUD") stopCooldowns = false;
+
+            }
         }
     }
 
@@ -101,9 +113,9 @@ public class GameManager : MonoBehaviour
         GameObject father = GameObject.Find("UI");
         GameObject[] ui = new GameObject[father.transform.childCount - 1];
 
-        for(int i=0;i<ui.Length;i++)
+        for (int i = 0; i < ui.Length; i++)
         {
-            if(father.transform.GetChild(i).gameObject.name != "EventSystem") ui[i] = father.transform.GetChild(i).gameObject;
+            if (father.transform.GetChild(i).gameObject.name != "EventSystem") ui[i] = father.transform.GetChild(i).gameObject;
         }
 
         return ui;

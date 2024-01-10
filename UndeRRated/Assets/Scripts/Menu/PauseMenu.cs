@@ -7,6 +7,7 @@ public class PauseMenu : InGameMenu
     private void Awake()
     {
         canvas = GameManager.Instance.GetUI();
+        
     }
 
     private void Update()

@@ -23,12 +23,10 @@ public class Ratatatata : Ability
     {
         if (isShooting)
         {
-            // projectile.transform.SetParent(parent);
             bullet.transform.position = Vector3.MoveTowards(bullet.transform.position, shootTarget.position, shootForce * Time.deltaTime);
             if (Vector3.Distance(bullet.transform.position, shootTarget.position) < 0.01f)
             {
                 isShooting = false;
-                //bullet.transform.SetParent(parentRoad);
             }
         }
     }
