@@ -1,6 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class ProtectionField : Ability
@@ -11,9 +10,12 @@ public class ProtectionField : Ability
     Material redMat;
 
 
-    public float invincibleTime = 5f;
+    public float invincibleTime = 2f;
     public static ProtectionField Instance;
     public bool isActive;
+
+    // Sound events
+    public static Action ActivateShield;
 
     protected override void Awake()
     {
@@ -27,12 +29,6 @@ public class ProtectionField : Ability
         renderer.sharedMaterial = blueMat;
         renderer.enabled = false;
     }
-    private void Start()
-    {
-
-    }
-
-
     public void Protect()
     {
         for (int i = 0; i < materials.Length; i++)
@@ -61,5 +57,6 @@ public class ProtectionField : Ability
         if(isActive) return; 
         isActive = true;
         renderer.enabled = true;
+        ActivateShield?.Invoke();
     }
 }

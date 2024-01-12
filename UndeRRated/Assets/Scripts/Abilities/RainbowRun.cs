@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RainbowRun : Ability
@@ -18,30 +16,28 @@ public class RainbowRun : Ability
         rainbowEffect = GetComponentInChildren<RainbowEffect>();
         light = GetComponentInChildren<Light>();
         base.Awake();
-
-
-
     }
     public override void Cast()
     {
+        if (isInvincible || RatController.Instance.ratInvincible) return;
         isInvincible = true;
         light.enabled = true;
         rainbowEffect.enabled = true;
         RatController.Instance.CallInvincibility(invincibleTime);
-        saveTime = GameManager.Instance.ActualTime();
+        saveTime = Time.timeScale;
         Time.timeScale = 8f;
     }
 
 
     public void EndInvincibleTime()
     {
+        CooldownManager.Instance.PutOnCooldown(this);
         isInvincible = false;
         rainbowEffect.enabled = false;
         light.enabled = false;
         Time.timeScale = saveTime;
- 
-        CooldownManager.Instance.PutOnCooldown(this);
         RatController.Instance.CallInvincibility(1f);
+       
     }
 
 

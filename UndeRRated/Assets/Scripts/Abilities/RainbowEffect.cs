@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Profiling;
 using UnityEngine;
 
 public class RainbowEffect : MonoBehaviour

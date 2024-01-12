@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +11,7 @@ public class StartGame : MonoBehaviour
 
     IEnumerator Comienza()
     {
-        CameraInStart.animIsStart = false;
+        CameraInStart.Instance.animIsStart = false;
         FadeController.instance.FadeOut();
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("UndeRRated");

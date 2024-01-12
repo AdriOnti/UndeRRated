@@ -23,7 +23,7 @@ public class Score : MonoBehaviour
     void FixedUpdate()
     {
         score.text = Convert.ToInt32(scoreAmount).ToString();
-        scoreAmount += pointIncreastedPerSec * Time.deltaTime*2;
+        scoreAmount += pointIncreastedPerSec * Time.deltaTime * 2;
         cheese.text = cheeseAmount.ToString();
     }
     private void Update()

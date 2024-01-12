@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
     protected GameObject[] canvas;
-    public GameObject rat;
+    public GameObject rat; // No se puede poner como protected por el MainMenu, si se quiere poner en protected es necesario ponerle GameManager a la escena Main
 
     private CharacterController characterController;
     private BoxCollider boxCollider;
@@ -32,7 +31,7 @@ public class Menu : MonoBehaviour
         {
             RatController.Instance.CallInvincibility(2f);
             rat.GetComponentInChildren<Animator>().SetBool("isDead", false);
-        }          
+        }
         RoadTileMove.speed = -1;
         RoadTileMove.deadRat = false;
         Time.timeScale = GameManager.Instance.ActualTime();
@@ -43,11 +42,11 @@ public class Menu : MonoBehaviour
 
     public IEnumerator DisableRatController()
     {
-        
+
         yield return new WaitForSeconds(2f);
         boxCollider.enabled = true;
         Debug.Log("HAN PASADO 2 SEGUNDOS");
-        
+
     }
 
     // RESTART FUNCTION
@@ -60,6 +59,7 @@ public class Menu : MonoBehaviour
         RoadTileMove.speed = -1;
         if (SceneManager.GetActiveScene().name != "UndeRRated") SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         else SceneManager.LoadScene("UndeRRated");
+        Physics.IgnoreLayerCollision(6, 7, false);
     }
 
     // QUIT FUNCTION

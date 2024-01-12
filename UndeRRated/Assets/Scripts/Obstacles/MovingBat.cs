@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEditor;
 
 public class MovingBat : ObstacleRespawner
 {
@@ -13,16 +12,6 @@ public class MovingBat : ObstacleRespawner
     Light lightWarning;
     float flashDuration = 0.5f;
     int flashNumber = 4;
-
-
-    // AWAKE FUNCTION
-    /// <summary>
-    /// Generamos un numero aleatorio que sera el punto al que atacara
-    /// </summary>
-    //void Awake()
-    //{
-
-    //}
 
     private void Start()
     {
@@ -38,18 +27,9 @@ public class MovingBat : ObstacleRespawner
     {
         if (isMoving)
         {
-            //transform.SetParent(parent);
-            transform.position = Vector3.MoveTowards(transform.position, attackingPositions[targetIndex].position, speed * Time.deltaTime);
-           
-            if (Vector3.Distance(transform.position, attackingPositions[targetIndex].position) < 0.01f)
-            {
-
-                isMoving = false;
-                //transform.SetParent(parentRoad);
-
-            }
+            transform.position = Vector3.MoveTowards(transform.position, attackingPositions[targetIndex].position, speed * Time.deltaTime);   
+            if (Vector3.Distance(transform.position, attackingPositions[targetIndex].position) < 0.01f) isMoving = false;
         }
-       
     }
 
     /// <summary>
@@ -82,11 +62,6 @@ public class MovingBat : ObstacleRespawner
        
 
     }
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    //Animation of death
-        
-    //}
 
     // EXECUTE FLASH
     /// <summary>

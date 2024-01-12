@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -44,7 +42,7 @@ public abstract class Ability : MonoBehaviour
 
     protected virtual void StartAbility(InputAction.CallbackContext context)
     {
-        if (CooldownManager.Instance.IsOnCooldown(this)) { return; }
+        if (CooldownManager.Instance.IsOnCooldown(this) || RatController.Instance.isDead || Time.timeScale == 0) { return; }
      
         Cast();
 

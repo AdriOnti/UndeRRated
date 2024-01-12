@@ -10,4 +10,3 @@ public class CooldownSlider : MonoBehaviour
         cdSlider.value = currentValue / maxValue;
     }
 }
-

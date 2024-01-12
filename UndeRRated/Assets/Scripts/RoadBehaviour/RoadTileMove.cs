@@ -24,9 +24,7 @@ public class RoadTileMove : MonoBehaviour
     }
     private void Update()
     {
-        if (Time.timeScale!=0 && !deadRat) Time.timeScale += 0.000005f;
-
-    }
-       
+        if (Time.timeScale!=0 && !deadRat && !(Time.timeScale > 2f)) Time.timeScale += 0.000005f;
+    }       
 
 }
