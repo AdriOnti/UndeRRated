@@ -33763,7 +33763,7 @@ MonoBehaviour:
   abilityName: RainbowRun
   abilityDescription: New Ability Description
   abilityCooldown: 180
-  slider: {fileID: 0}
+  slider: {fileID: 711723563}
   invincibleTime: 15
   isInvincible: 0
 --- !u!114 &1821671635
@@ -33781,7 +33781,7 @@ MonoBehaviour:
   abilityName: Ratatata
   abilityDescription: New Ability Description
   abilityCooldown: 0.5
-  slider: {fileID: 0}
+  slider: {fileID: 1955832671}
   bullet: {fileID: 4851871078913365826}
   shootForce: 150
 --- !u!114 &1821671636
@@ -33804,6 +33804,7 @@ MonoBehaviour:
   Gravity: -35
   ratParticles: {fileID: 1970192996}
   shootForce: 150
+  ratInvincible: 0
 --- !u!1 &1822286180
 GameObject:
   m_ObjectHideFlags: 0
@@ -43680,11 +43681,11 @@ MonoBehaviour:
   abilityName: ForceField
   abilityDescription: New Ability Description
   abilityCooldown: 9
-  slider: {fileID: 0}
+  slider: {fileID: 15651488}
   materials:
   - {fileID: 2100000, guid: 0960f507df40faa4ea033d24d5327f61, type: 2}
   - {fileID: 2100000, guid: 383350809ebe1f642a18c24cc7c02b7d, type: 2}
-  invincibleTime: 5
+  invincibleTime: 2
   isActive: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

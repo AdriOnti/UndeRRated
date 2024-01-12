@@ -10,7 +10,7 @@ public class ProtectionField : Ability
     Material redMat;
 
 
-    public float invincibleTime = 5f;
+    public float invincibleTime = 2f;
     public static ProtectionField Instance;
     public bool isActive;
 

@@ -74,16 +74,20 @@ public class DeadMenu : InGameMenu
     /// </summary>
     public void Respawn()
     {
+        Resume();
+        RatController.Instance.isDead = false;
+        /*
         if (GameManager.Instance.cheeseSaved >= GameManager.Instance.RespawnCost)
         {
-            Debug.LogWarning($"Se han quitado {GameManager.Instance.RespawnCost} quesitos de los {GameManager.Instance.cheeseSaved} guardados");
+           Debug.LogWarning($"Se han quitado {GameManager.Instance.RespawnCost} quesitos de los {GameManager.Instance.cheeseSaved} guardados");
 
 
             
             GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text), true);
             GameManager.Instance.GetSavedMoney();
-            Resume();
+           
         }
         else { Debug.LogError($"Tu numero de quesitos es inferior a {GameManager.Instance.RespawnCost}"); }
+    */
     }
 }

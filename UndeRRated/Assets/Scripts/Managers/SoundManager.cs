@@ -22,6 +22,12 @@ public class SoundManager : MonoBehaviour
         RatController.RatTookDamage += RatTookDamageSFX;
         ProtectionField.ActivateShield += ActivatedShieldSFX;
     }
+    private void OnDisable()
+    {
+        RatController.RatAteCheese -= EatCheeseSFX;
+        RatController.RatTookDamage -= RatTookDamageSFX;
+        ProtectionField.ActivateShield -= ActivatedShieldSFX;
+    }
     private void EatCheeseSFX()
     {
         effectManager.PlayOneShot(eatCheese_SFX);

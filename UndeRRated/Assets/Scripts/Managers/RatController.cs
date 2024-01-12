@@ -34,6 +34,7 @@ public class RatController : MonoBehaviour
     private float defaultSizeCollider;
     private float slideableYsize = 0.1f;
 
+    public bool ratInvincible = false;
 
     KeyCode kright = KeyCode.RightArrow;
     KeyCode kleft = KeyCode.LeftArrow;
@@ -147,6 +148,7 @@ public class RatController : MonoBehaviour
 
     public IEnumerator Invincibility(float invTime)
     {
+        ratInvincible = true;
         //Debug.Log("Soy invencible");
         Physics.IgnoreLayerCollision(6, 7, true);
 
@@ -164,10 +166,13 @@ public class RatController : MonoBehaviour
 
         if (RainbowRun.Instance.isInvincible)
         {
-            RainbowRun.Instance.EndInvincibleTime();
+           RainbowRun.Instance.EndInvincibleTime();
         }
-
+        ratInvincible = false;
     }
+
+  
+
 
     public void CallInvincibility(float invisTime)
     {
@@ -208,8 +213,8 @@ public class RatController : MonoBehaviour
         else if (other.CompareTag("ObstacleGeneric") || other.gameObject.CompareTag("Bat") || other.gameObject.CompareTag("ObstacleBreakable"))
         {
 
-            StartCoroutine(Invincibility(ProtectionField.Instance.invincibleTime));
             ProtectionField.Instance.Protect();
+            StartCoroutine(Invincibility(ProtectionField.Instance.invincibleTime));
         }
 
         EatCheese(other.gameObject.CompareTag("Cheese") ? 1 : other.gameObject.CompareTag("MegaCheese") ? 5 : 0, other);

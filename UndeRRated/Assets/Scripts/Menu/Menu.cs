@@ -59,6 +59,7 @@ public class Menu : MonoBehaviour
         RoadTileMove.speed = -1;
         if (SceneManager.GetActiveScene().name != "UndeRRated") SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         else SceneManager.LoadScene("UndeRRated");
+        Physics.IgnoreLayerCollision(6, 7, false);
     }
 
     // QUIT FUNCTION

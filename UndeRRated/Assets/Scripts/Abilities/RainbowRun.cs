@@ -19,7 +19,7 @@ public class RainbowRun : Ability
     }
     public override void Cast()
     {
-        if (isInvincible) return;
+        if (isInvincible || RatController.Instance.ratInvincible) return;
         isInvincible = true;
         light.enabled = true;
         rainbowEffect.enabled = true;
