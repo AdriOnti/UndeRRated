@@ -1,15 +1,18 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraInStart : MonoBehaviour
 {
     private Vector3 newPos;
     public static CameraInStart Instance;
-    public bool animIsStart;
-    public bool ControlSectionIn;
+    [SerializeField] public bool animIsStart;
+    public bool HowToPlaySectionIn;
     public bool MainSectionIn;
-    public bool ShopSectionIn;
+    public bool RatShopIn;
     public GameObject player;
+    public float timeBetweenFades;
+    public List<CameraPosition> cameraPositions;
 
     private void Awake()
     {
@@ -24,27 +27,28 @@ public class CameraInStart : MonoBehaviour
             transform.position = newPos;
         }
 
-        if(ControlSectionIn) { StartCoroutine(CntrSectIn()); }
-        if(MainSectionIn) { StartCoroutine(MainSectIn()); }
-        if(ShopSectionIn) StartCoroutine(ShopSectIn());
+        if (MainSectionIn) StartCoroutine(SectIn(cameraPositions[0].name));
+        if (HowToPlaySectionIn) StartCoroutine(SectIn(cameraPositions[1].name));
+        if (RatShopIn) StartCoroutine(SectIn(cameraPositions[2].name));
     }
 
-    IEnumerator CntrSectIn()
+    IEnumerator SectIn(string name)
     {
-        transform.position = new Vector3(-52.37f, 4.62f, 36.18f);
-        yield return new WaitForSeconds(0.5f);
+        foreach (CameraPosition position in cameraPositions)
+        {
+            if(position.name == name)
+            {
+                transform.position = position.cameraPos;
+                yield return new WaitForSeconds(timeBetweenFades);
+                ModifyBools("mrh");
+            }
+        }
     }
 
-    IEnumerator MainSectIn()
+    public void ModifyBools(string boolName)
     {
-        transform.position = new Vector3(2.22795f, 8f, 32.13271f);
-        yield return new WaitForSeconds(0.5f);
-        MainSectionIn = false;
-    }
-
-    IEnumerator ShopSectIn()
-    {
-        transform.position = new Vector3(3.23f, 104.54f, 36.61f);
-        yield return new WaitForSeconds(0.5f);
+        MainSectionIn = (boolName == "MainSectionIn");
+        RatShopIn = (boolName == "RatShopIn");
+        HowToPlaySectionIn = (boolName == "HowToPlayIn");
     }
 }
