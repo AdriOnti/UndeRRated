@@ -9,6 +9,7 @@ public class MainMenu : Menu
     public GameObject mainCanvas;
     public GameObject howToPlayCanvas;
     public GameObject shopCanvas;
+    public GameObject achievementCanvas;
 
     private void OnEnable()
     {
@@ -18,6 +19,7 @@ public class MainMenu : Menu
             mainCanvas.GetComponent<Canvas>().enabled = true;
             howToPlayCanvas.GetComponent<Canvas>().enabled = false;
             shopCanvas.GetComponent<Canvas>().enabled = false;
+            achievementCanvas.GetComponent<Canvas>().enabled = false;
         }
         catch { }
     }
@@ -40,6 +42,8 @@ public class MainMenu : Menu
 
     public void MainSewer() { StartCoroutine(MainIn()); }
 
+    public void AchievementSewer() { StartCoroutine(AchievementIn()); }
+
     IEnumerator CntrlIn()
     {
         DisableMainCanvas();
@@ -56,6 +60,7 @@ public class MainMenu : Menu
         FadeController.instance.FadeOut();
         howToPlayCanvas.GetComponent<Canvas>().enabled = false;
         shopCanvas.GetComponent<Canvas>().enabled = false;
+        achievementCanvas.GetComponent<Canvas>().enabled = false;
 
         yield return new WaitForSeconds(0.5f);
         CameraInStart.Instance.ModifyBools("MainSectionIn");
@@ -73,6 +78,17 @@ public class MainMenu : Menu
 
         yield return new WaitForSeconds(0.5f);
         shopCanvas.GetComponent<Canvas>().enabled = true;
+        FadeController.instance.FadeIn();
+    }
+
+    IEnumerator AchievementIn()
+    {
+        DisableMainCanvas();
+        yield return new WaitForSeconds(0.5f);
+        CameraInStart.Instance.ModifyBools("AchievementIn");
+
+        yield return new WaitForSeconds(0.5f);
+        achievementCanvas.GetComponent<Canvas>().enabled = true;
         FadeController.instance.FadeIn();
     }
 

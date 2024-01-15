@@ -10,6 +10,7 @@ public class CameraInStart : MonoBehaviour
     public bool HowToPlaySectionIn;
     public bool MainSectionIn;
     public bool RatShopIn;
+    public bool AchievementIn;
     public GameObject player;
     public float timeBetweenFades;
     public List<CameraPosition> cameraPositions;
@@ -30,6 +31,7 @@ public class CameraInStart : MonoBehaviour
         if (MainSectionIn) StartCoroutine(SectIn(cameraPositions[0].name));
         if (HowToPlaySectionIn) StartCoroutine(SectIn(cameraPositions[1].name));
         if (RatShopIn) StartCoroutine(SectIn(cameraPositions[2].name));
+        if (AchievementIn) StartCoroutine(SectIn(cameraPositions[3].name));
     }
 
     IEnumerator SectIn(string name)
@@ -40,7 +42,7 @@ public class CameraInStart : MonoBehaviour
             {
                 transform.position = position.cameraPos;
                 yield return new WaitForSeconds(timeBetweenFades);
-                ModifyBools("mrh");
+                ModifyBools("mrha");
             }
         }
     }
@@ -50,5 +52,6 @@ public class CameraInStart : MonoBehaviour
         MainSectionIn = (boolName == "MainSectionIn");
         RatShopIn = (boolName == "RatShopIn");
         HowToPlaySectionIn = (boolName == "HowToPlayIn");
+        AchievementIn = (boolName == "AchievementIn");
     }
 }
