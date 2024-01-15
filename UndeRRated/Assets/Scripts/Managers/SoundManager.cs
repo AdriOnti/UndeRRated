@@ -1,43 +1,89 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+
+public enum Audios {
+    AbilityShieldEnable,
+    AbilityShieldBreak,
+    AbilityShieldDisable,
+    AbilityStar,
+    AbilityStarMario,
+    AchievementNew_1,
+    AchievementNew_2,
+    AchievementNew_3,
+    AmbientCriatureScary_1,
+    AmbientSewer_1,
+    AmbientSewer_2,
+    AmbientSewer_3, 
+    AmbientSewerWater_1,
+    BatDie,
+    BatIdle_1,
+    BatIdle_2,
+    EatQuesito_2,
+    ButtonHover,
+    GameOverDie,
+    GameplayMusic_1,
+    GameplayMusic_2,
+    MenuTap_1,
+    RatIdle_1,
+    RatIdle_2,
+    RatJumpGoofy,
+    RatMove_1,
+    RatMove_2,
+    RatMove_3,
+    RatMove_4, 
+    RatMove_5,
+    RatMove_6,
+    RatMove_7,
+    RatRespawn,
+    RatSlideWater_1,
+    RatSlideWater_2,
+    RatSlideWater_3,
+    RatSlideWater_4,
+    RatWalkIdle_1,
+    RatWalkIdle_2,
+    RatWalkIdle_3,
+    ShopBuy,
+    StartCountDown,
+    WallHit_1,
+    WallHit_2,
+    Music,
+    AbilityShieldBreak_2,
+    BatPoisonBall
+}
 
 public class SoundManager : MonoBehaviour
 {
     AudioSource effectManager;
 
-    [SerializeField] private AudioClip energyField_SFX;
-    [SerializeField] private AudioClip eatCheese_SFX;
-    [SerializeField] private AudioClip ratDamage_SFX;
+    public static SoundManager Instance;
+
+    public List<AudioClip> audios = new();  
+
+    private readonly Dictionary<Audios, AudioClip> soundsDatabase = new();
 
     // Start is called before the first frame update
     void Awake()
     {
-        effectManager = GetComponent<AudioSource>();    
+        if (Instance != null && Instance != this) Destroy(Instance);
+        else Instance = this;
+        effectManager = GetComponent<AudioSource>();      
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        RatController.RatAteCheese += EatCheeseSFX;
-        RatController.RatTookDamage += RatTookDamageSFX;
-        ProtectionField.ActivateShield += ActivatedShieldSFX;
+        bool sucess;
+        foreach(AudioClip clip in audios)
+        {
+            if (sucess = Enum.TryParse(clip.name, out Audios value))
+            {         
+                soundsDatabase.Add(value, clip);
+            }
+            Debug.Assert(sucess, "Tried adding: " +clip.name);
+        }
     }
-    private void OnDisable()
+    public void PlaySound(Audios clip)
     {
-        RatController.RatAteCheese -= EatCheeseSFX;
-        RatController.RatTookDamage -= RatTookDamageSFX;
-        ProtectionField.ActivateShield -= ActivatedShieldSFX;
-    }
-    private void EatCheeseSFX()
-    {
-        effectManager.PlayOneShot(eatCheese_SFX);
-    }
-    private void RatTookDamageSFX()
-    {
-        effectManager.PlayOneShot(ratDamage_SFX);
-    }
-    private void ActivatedShieldSFX()
-    {
-        effectManager.PlayOneShot(energyField_SFX);
+        if (soundsDatabase.TryGetValue(clip, out AudioClip value)) effectManager.PlayOneShot(value);  
     }
 }

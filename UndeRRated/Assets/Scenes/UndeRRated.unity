@@ -33529,9 +33529,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b056ce2243db640a78c60a50dfb13c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energyField_SFX: {fileID: 8300000, guid: e1a33070e684a3542bbca00112bc09e4, type: 3}
-  eatCheese_SFX: {fileID: 8300000, guid: 4f861d8c78e5875458f65b312b6ec313, type: 3}
-  ratDamage_SFX: {fileID: 8300000, guid: 04d2612394e12784c8b083d990370ce6, type: 3}
+  audios:
+  - {fileID: 8300000, guid: e1a33070e684a3542bbca00112bc09e4, type: 3}
+  - {fileID: 8300000, guid: 9dec44254d72dbe4f82fc1f5a3f01ecd, type: 3}
 --- !u!82 &1809622185
 AudioSource:
   m_ObjectHideFlags: 0
@@ -36471,7 +36471,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1970192997
 Transform:
   m_ObjectHideFlags: 0

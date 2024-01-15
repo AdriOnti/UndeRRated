@@ -78,10 +78,4 @@ public class MovingBat : ObstacleRespawner
             yield return new WaitForSeconds(flashDuration / 2);
         }
     }
-
-    public IEnumerator Die()
-    {
-        yield return new WaitForSeconds(0.5f);
-        this.gameObject.SetActive(false);
-    }
 }

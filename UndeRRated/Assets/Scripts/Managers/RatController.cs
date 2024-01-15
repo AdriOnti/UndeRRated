@@ -50,11 +50,6 @@ public class RatController : MonoBehaviour
     Color initialColor;
     public static RatController Instance;
 
-    // SOUND EVENTS
-
-    public static Action RatAteCheese;
-    public static Action RatTookDamage;
-
 
     private void Awake()
     {
@@ -169,6 +164,7 @@ public class RatController : MonoBehaviour
            RainbowRun.Instance.EndInvincibleTime();
         }
         ratInvincible = false;
+    
     }
 
   
@@ -226,7 +222,7 @@ public class RatController : MonoBehaviour
         Score.AddCheese(1);
         other.transform.SetParent(ObjectsPool.instance.transform);
         other.gameObject.SetActive(false);
-        RatAteCheese?.Invoke();
+        SoundManager.Instance.PlaySound(Audios.EatQuesito_2);
     }
 
 
@@ -238,7 +234,7 @@ public class RatController : MonoBehaviour
         animatorRat.SetBool("isSliding", false);
         direction.y = jumpForce;
         StartCoroutine(StopJumpAnimation());
-
+        SoundManager.Instance.PlaySound(Audios.RatJumpGoofy);
     }
 
     // MOVEMENT TO THE DESIRED PATH FUNCTION
@@ -248,6 +244,7 @@ public class RatController : MonoBehaviour
 
         if (desiredPath == 0) targetPosition += Vector3.left * pathDistance;
         if (desiredPath == 2) targetPosition += Vector3.right * pathDistance;
+        SoundManager.Instance.PlaySound(Audios.RatMove_1);
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, 0.25f);
     }
@@ -283,7 +280,7 @@ public class RatController : MonoBehaviour
         animatorRat.SetBool("isDead", true);
         RoadTileMove.speed = 0;
         GameManager.Instance.DeadCharacter();
-        RatTookDamage?.Invoke();
+        SoundManager.Instance.PlaySound(Audios.WallHit_2);
     }
 
     private IEnumerator WaitAfterBreakable(float segs, MeshRenderer mesh)

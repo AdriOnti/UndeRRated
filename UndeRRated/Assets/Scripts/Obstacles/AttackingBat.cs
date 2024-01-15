@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class AttackingBat : ObstacleRespawner
 {
@@ -26,7 +25,6 @@ public class AttackingBat : ObstacleRespawner
     {
         projectile.transform.position = transform.position;
         shootTargets = GameManager.Instance.BatTarget();
-
     }
 
     // UPDATE FUNCTION
@@ -61,12 +59,11 @@ public class AttackingBat : ObstacleRespawner
             int rnd = Random.Range(0, shootTargets.Length);
             targetIndex = rnd;
             Shoot();
-
+            SoundManager.Instance.PlaySound(Audios.BatPoisonBall);
         }
         else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player") || other.CompareTag("RatBullet"))
         {
             projectile.SetActive(false);
-            //StartCoroutine(Die());
         }
 
     }
@@ -85,12 +82,5 @@ public class AttackingBat : ObstacleRespawner
             projectile.SetActive(true);
             isShooting = true;
         }
-
-    }
-
-    public IEnumerator Die()
-    {
-        yield return new WaitForSeconds(0.5f);
-        this.gameObject.SetActive(false);
     }
 }

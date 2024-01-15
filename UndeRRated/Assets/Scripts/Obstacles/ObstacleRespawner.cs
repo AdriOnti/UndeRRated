@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ObstacleRespawner : MonoBehaviour
@@ -13,7 +14,5 @@ public class ObstacleRespawner : MonoBehaviour
             gameObject.transform.SetParent(objectPool);
             gameObject.SetActive(false);
         }
-
     }
-
 }
