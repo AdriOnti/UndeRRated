@@ -138,6 +138,7 @@ public class RatController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Escape) && GameManager.Instance.DeadMenuActive())
         {
             GameManager.Instance.PauseGame();
+            SoundManager.Instance.PlaySound(Audios.MenuTab);
         }
     }
 
@@ -198,6 +199,7 @@ public class RatController : MonoBehaviour
                     dizzyRat.SetActive(true);
                     StartCoroutine(WaitAfterBreakable(0.5f, meshBreakable));
                     StartCoroutine(TimeDizzy(5f));
+
                 }
                 else if (breakableCount == 1)
                 {

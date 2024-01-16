@@ -49,7 +49,10 @@ public enum Audios {
     WallHit_2,
     Music,
     AbilityShieldBreak_2,
-    BatPoisonBall
+    BatPoisonBall,
+    MenuTab,
+    ButtonClick_1,
+    ButtonClick_2,
 }
 
 public class SoundManager : MonoBehaviour
@@ -85,5 +88,8 @@ public class SoundManager : MonoBehaviour
     public void PlaySound(Audios clip)
     {
         if (soundsDatabase.TryGetValue(clip, out AudioClip value)) effectManager.PlayOneShot(value);  
+    }
+    public void StopSound() {
+        effectManager.Stop();
     }
 }

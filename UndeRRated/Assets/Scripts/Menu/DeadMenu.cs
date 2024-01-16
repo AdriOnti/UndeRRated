@@ -45,10 +45,6 @@ public class DeadMenu : InGameMenu
         if (GetComponent<Canvas>().enabled == true)
         {
             RoadTileMove.deadRat = true;
-            if (Input.GetKeyUp(KeyCode.Escape))
-            {
-                Debug.LogWarning("NO PUEDES PAUSAR *golpea el baston en el suelo*");
-            }
         }
     }
 

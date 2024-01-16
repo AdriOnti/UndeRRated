@@ -44,12 +44,14 @@ public class MovingBat : ObstacleRespawner
         if (other.CompareTag("AttackTrigger"))
         {
             isMoving = true;
+            SoundManager.Instance.PlaySound(Audios.BatIdle_1);
         }
         else if (other.CompareTag("WarningTrigger"))
         {
             lightWarning = attackingPositions[targetIndex].GetComponent<Light>();
-            StartCoroutine(flashNow());
+            StartCoroutine(FlashNow());
             lightWarning.enabled = false;
+
         }
         else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player") || other.CompareTag("RatBullet"))  
         {
@@ -68,7 +70,7 @@ public class MovingBat : ObstacleRespawner
     /// Cuando se ejecute esta Corrutina encendera y apagara la luz durante lo que indique la variable flashNumber
     /// </summary>
     /// <returns>Devuelve un WaitForSeconds</returns>
-    public IEnumerator flashNow()
+    public IEnumerator FlashNow()
     {
         for(int i = 0; i < flashNumber; i++)
         {
