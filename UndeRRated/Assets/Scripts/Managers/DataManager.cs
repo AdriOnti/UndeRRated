@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    private static DataManager instance;
+    public static DataManager instance;
 
     private void Awake()
     {
@@ -40,6 +40,21 @@ public class DataManager : MonoBehaviour
 
             if (!File.Exists(targetFile)) { File.Copy(file, targetFile); }
         }
+    }
+
+    public string[] ReadData()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "Files/data.rat");
+        StreamReader sr = File.OpenText(path);
+        string file = sr.ReadToEnd();
+        sr.Close();
+
+        return file.Split('\r', '\n');
+    }
+
+    public string GetPathData()
+    {
+        return Path.Combine(Application.persistentDataPath, "Files/data.rat");
     }
 
 }
