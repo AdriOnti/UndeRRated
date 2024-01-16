@@ -4,10 +4,13 @@ using UnityEngine;
 
 public enum Audios {
     AbilityShieldEnable,
+    AbilityShieldBreak_1,
+    AbilityShieldStatic_1,
+    AbilityShieldDisable_1,
     AbilityShieldBreak,
     AbilityShieldDisable,
     AbilityStar,
-    AbilityStarMario,
+    AbilityStarMario_1,
     AchievementNew_1,
     AchievementNew_2,
     AchievementNew_3,
@@ -17,6 +20,7 @@ public enum Audios {
     AmbientSewer_3, 
     AmbientSewerWater_1,
     BatDie,
+    BatDie_1,
     BatIdle_1,
     BatIdle_2,
     EatQuesito_2,
@@ -27,7 +31,7 @@ public enum Audios {
     MenuTap_1,
     RatIdle_1,
     RatIdle_2,
-    RatJumpGoofy,
+    RatJumpGoofy_1,
     RatMove_1,
     RatMove_2,
     RatMove_3,
@@ -71,6 +75,7 @@ public class SoundManager : MonoBehaviour
         if (Instance != null && Instance != this) Destroy(Instance);
         else Instance = this;
         effectManager = GetComponent<AudioSource>();      
+        
     }
 
     private void Start()

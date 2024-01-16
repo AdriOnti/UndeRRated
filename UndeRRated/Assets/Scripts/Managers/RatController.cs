@@ -18,7 +18,7 @@ public class RatController : MonoBehaviour
     private float jumpDuration = 0.5f;
     //private RatInputs ratInputs;
 
-
+    AudioSource ratIdleSource;
     [Header("Rat Parameters")]
     public float jumpForce;
     public float pathDistance = 9;
@@ -56,16 +56,19 @@ public class RatController : MonoBehaviour
         ratRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         initialColor = ratRenderer.material.color;
         Instance = this;
+        ratIdleSource = GetComponent<AudioSource>();
     }
 
 
     // METHOD START
     void Start()
     {
+        //ratIdleSource.volume = 0.6f;
         controller = GetComponent<CharacterController>();
         animatorRat = GetComponentInChildren<Animator>();
         ratCol = GetComponent<BoxCollider>();
         defaultSizeCollider = ratCol.size.y;
+
     }
 
     // METHOD UPDATE
@@ -110,7 +113,7 @@ public class RatController : MonoBehaviour
         // CALCULATE THE RIGHT PATH
         if (Input.GetKeyDown(kright) || Input.GetKeyDown(kd))
         {
-
+            SoundManager.Instance.PlaySound(Audios.RatMove_5);
             desiredPath++;
             if (desiredPath >= 3) desiredPath = 2;
             // else SoundManager.Instance.PlayEffect("RatHit");
@@ -119,7 +122,7 @@ public class RatController : MonoBehaviour
         // CALCULATE THE LEFT PATH
         if (Input.GetKeyDown(kleft) || Input.GetKeyDown(ka))
         {
-
+            SoundManager.Instance.PlaySound(Audios.RatMove_5);
             desiredPath--;
             if (desiredPath <= -1) desiredPath = 0;
             // else SoundManager.Instance.PlayEffect("RatHit");
@@ -138,7 +141,7 @@ public class RatController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Escape) && GameManager.Instance.DeadMenuActive())
         {
             GameManager.Instance.PauseGame();
-            SoundManager.Instance.PlaySound(Audios.MenuTab);
+           // SoundManager.Instance.PlaySound(Audios.MenuTab);
         }
     }
 
@@ -231,12 +234,12 @@ public class RatController : MonoBehaviour
     // JUMP FUNCTION
     private void Jump()
     {
-
+        ratIdleSource.Stop();
         animatorRat.SetBool("isJumping", true);
         animatorRat.SetBool("isSliding", false);
         direction.y = jumpForce;
         StartCoroutine(StopJumpAnimation());
-        SoundManager.Instance.PlaySound(Audios.RatJumpGoofy);
+        SoundManager.Instance.PlaySound(Audios.RatJumpGoofy_1);
     }
 
     // MOVEMENT TO THE DESIRED PATH FUNCTION
@@ -246,7 +249,6 @@ public class RatController : MonoBehaviour
 
         if (desiredPath == 0) targetPosition += Vector3.left * pathDistance;
         if (desiredPath == 2) targetPosition += Vector3.right * pathDistance;
-        SoundManager.Instance.PlaySound(Audios.RatMove_1);
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, 0.25f);
     }
@@ -258,6 +260,7 @@ public class RatController : MonoBehaviour
 
         yield return new WaitForSeconds(jumpDuration);
         animatorRat.SetBool("isJumping", false);
+        ratIdleSource.Play();
     }
     private IEnumerator StopSlideAnimation()
     {

@@ -13,6 +13,7 @@ public class ObstacleRespawner : MonoBehaviour
         {
             gameObject.transform.SetParent(objectPool);
             gameObject.SetActive(false);
+
         }
     }
 }

@@ -59,6 +59,7 @@ public class AttackingBat : ObstacleRespawner
             int rnd = Random.Range(0, shootTargets.Length);
             targetIndex = rnd;
             Shoot();
+            SoundManager.Instance.PlaySound(Audios.BatIdle_2);
             SoundManager.Instance.PlaySound(Audios.BatPoisonBall);
         }
         else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player") || other.CompareTag("RatBullet"))
