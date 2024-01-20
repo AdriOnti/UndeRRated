@@ -4,6 +4,8 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     public static DataManager instance;
+    //private int keyValue = 38;      // R + A + T == 18 + 0 + 20     | Existiendo la Ñ
+    private int keyValue = 36;        // R + A + T == 17 + 0 + 19     | Sin la Ñ 
 
     private void Awake()
     {
@@ -56,5 +58,39 @@ public class DataManager : MonoBehaviour
     {
         return Path.Combine(Application.persistentDataPath, "Files/data.rat");
     }
+
+    public string Encrypt(string msg, bool isDec)
+    {
+        if (isDec) keyValue = -keyValue;
+        //string alphabet = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+        string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        char[] originalCharacters = msg.ToCharArray();
+        char[] ciphedCharacters = new char[originalCharacters.Length];
+
+        for (int i = 0; i < originalCharacters.Length; i++)
+        {
+            char originalChar = originalCharacters[i];
+
+            if (char.IsLetter(originalChar))
+            {
+                // Differences between Upper & Lower
+                string actualLetter = char.IsUpper(originalChar) ? alphabet : alphabet.ToLower();
+
+                int originalIndex = actualLetter.IndexOf(originalChar);
+
+                int ciphedIndex = (originalIndex + keyValue) % alphabet.Length;      // Apply scrolling and handle overflow
+
+                if (ciphedIndex < 0) ciphedIndex += alphabet.Length;
+
+                ciphedCharacters[i] = actualLetter[ciphedIndex];
+            }
+            else ciphedCharacters[i] = originalChar;    // Keep non-alphabetic characters unchanged
+        }
+
+        return new string(ciphedCharacters);
+    }
+
+    public string Decrypt(string ciphedText) { return Encrypt(ciphedText, true); }
 
 }

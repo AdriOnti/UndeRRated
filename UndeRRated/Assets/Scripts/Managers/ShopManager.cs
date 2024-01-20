@@ -11,10 +11,10 @@ public class ShopManager : MonoBehaviour
     private string path;
     private int spentCheeses;
 
-    private void Awake()
-    {
-        path = DataManager.instance.GetPathData();
-    }
+    //private void Awake()
+    //{
+    //    path = DataManager.instance.GetPathData();
+    //}
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +34,7 @@ public class ShopManager : MonoBehaviour
         for (int i = 0; i < fileLines.Length; i++)
         {
             string[] sections = fileLines[i].Split(';');
-            if (sections[0] == "Quesitos") cheeseSaved = Convert.ToInt32(sections[1]);
+            if (sections[0] == DataManager.instance.Encrypt("Quesitos", false)) cheeseSaved = Convert.ToInt32(sections[1]);
 
         }
     }
@@ -45,7 +45,7 @@ public class ShopManager : MonoBehaviour
         for (int i = 0; i < fileLines.Length; i++)
         {
             string[] sections = fileLines[i].Split(';');
-            if (sections[0] == "Quesitos")
+            if (sections[0] == DataManager.instance.Encrypt("Quesitos", false))
             {
                 int cheeseTmp = cheeseSaved - spentCheeses;
                 sections[1] = cheeseTmp.ToString();
