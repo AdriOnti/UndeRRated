@@ -25,6 +25,21 @@ public class Score : MonoBehaviour
         score.text = Convert.ToInt32(scoreAmount).ToString();
         scoreAmount += pointIncreastedPerSec * Time.deltaTime * 2;
         cheese.text = cheeseAmount.ToString();
+
+        if (scoreAmount >= 100 && !GameManager.Instance.achievements[0])
+        {
+            GameManager.Instance.achievements[0] = true;
+        }
+
+        if (scoreAmount >= 500 && !GameManager.Instance.achievements[1])
+        {
+            GameManager.Instance.achievements[1] = true;
+        }
+
+        if (scoreAmount >= 1000 && !GameManager.Instance.achievements[2])
+        {
+            GameManager.Instance.achievements[2] = true;
+        }
     }
     private void Update()
     {

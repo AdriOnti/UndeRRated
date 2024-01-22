@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,6 +17,9 @@ public class GameManager : MonoBehaviour
     public int highScore;
     public int RespawnCost = 50;
     public bool stopCooldowns;
+
+    // [0]100 points  [1]500 points  [2]1000 points  [3]100 bats  [4]Secret
+    public bool[] achievements = new bool[5];
 
     private void Awake()
     {
@@ -281,5 +285,11 @@ public class GameManager : MonoBehaviour
 
         GetHighScore();
 
+    }
+
+    public IEnumerator ShowAchievement(int achievementId)
+    {
+
+        yield return new WaitForSeconds(5f);
     }
 }
