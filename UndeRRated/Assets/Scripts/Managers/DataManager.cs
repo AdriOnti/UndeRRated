@@ -46,7 +46,7 @@ public class DataManager : MonoBehaviour
 
     public string[] ReadData()
     {
-        string path = Path.Combine(Application.persistentDataPath, "Files/data.rat");
+        string path = GetPathData();
         StreamReader sr = File.OpenText(path);
         string file = sr.ReadToEnd();
         sr.Close();

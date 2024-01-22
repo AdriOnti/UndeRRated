@@ -5,27 +5,25 @@ using UnityEngine;
 
 public class ShopManager : MonoBehaviour
 {
-    private int cheeseSaved;
-    public int rainbowCost;
-    public int shieldCost;
+    public static ShopManager Instance;
+    public int cheeseSaved;
+    //public int rainbowCost;
+    //public int shieldCost;
     private string path;
     private int spentCheeses;
 
-    //private void Awake()
-    //{
-    //    path = DataManager.instance.GetPathData();
-    //}
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        
-    }
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(this.gameObject);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        path = DataManager.instance.GetPathData();
+        GetSavedMoney();
     }
 
     public void GetSavedMoney()
@@ -34,7 +32,7 @@ public class ShopManager : MonoBehaviour
         for (int i = 0; i < fileLines.Length; i++)
         {
             string[] sections = fileLines[i].Split(';');
-            if (sections[0] == DataManager.instance.Encrypt("Quesitos", false)) cheeseSaved = Convert.ToInt32(sections[1]);
+            if (DataManager.instance.Decrypt(sections[0]) == "Quesitos") cheeseSaved = Convert.ToInt32(sections[1]);
 
         }
     }
@@ -45,7 +43,7 @@ public class ShopManager : MonoBehaviour
         for (int i = 0; i < fileLines.Length; i++)
         {
             string[] sections = fileLines[i].Split(';');
-            if (sections[0] == DataManager.instance.Encrypt("Quesitos", false))
+            if (DataManager.instance.Decrypt(sections[0]) == "Quesitos")
             {
                 int cheeseTmp = cheeseSaved - spentCheeses;
                 sections[1] = cheeseTmp.ToString();

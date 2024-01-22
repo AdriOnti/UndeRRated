@@ -192,7 +192,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < fileLines.Length; i++)
         {
             string[] sections = fileLines[i].Split(';');
-            if (sections[0] == DataManager.instance.Encrypt("Quesitos", false))
+            if (DataManager.instance.Decrypt(sections[0]) == "Quesitos")
             {
                 cheeseSaved = Convert.ToInt32(sections[1]);
             }
@@ -211,7 +211,8 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < fileLines.Length; i++)
         {
             string[] sections = fileLines[i].Split(';');
-            if (sections[0] == DataManager.instance.Encrypt("Quesitos", false))
+            //if (sections[0] == DataManager.instance.Encrypt("Quesitos", false))
+            if (DataManager.instance.Decrypt(sections[0]) == "Quesitos")
             {
                 if (!respawn)
                 {
@@ -226,12 +227,12 @@ public class GameManager : MonoBehaviour
                     sections[1] = cheeseTmp.ToString();
                     fileLines[i] = string.Join(";", sections);
                     Debug.Log(fileLines[i]);
-
-
-                    File.WriteAllText(path, string.Empty);
-                    string modifiedContent = string.Join("\n", fileLines.Where(line => !string.IsNullOrWhiteSpace(line)));
-                    File.WriteAllText(path, modifiedContent);
                 }
+
+
+                File.WriteAllText(path, string.Empty);
+                string modifiedContent = string.Join("\n", fileLines.Where(line => !string.IsNullOrWhiteSpace(line)));
+                File.WriteAllText(path, modifiedContent);
             }
         }
         
@@ -249,7 +250,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < fileLines.Length; i++)
         {
             string[] sections = fileLines[i].Split(';');
-            if (sections[0] == DataManager.instance.Encrypt("Score", false))
+            if (DataManager.instance.Decrypt(sections[0]) == "Score")
             {
                 highScore = Convert.ToInt32(sections[1]);
             }
@@ -268,7 +269,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < fileLines.Length; i++)
         {
             string[] sections = fileLines[i].Split(';');
-            if (sections[0] == DataManager.instance.Encrypt("Score", false) && score > highScore)
+            if (DataManager.instance.Decrypt(sections[0]) == "Score" && score > highScore)
             {
                 highScore = score;
                 sections[1] = highScore.ToString();
