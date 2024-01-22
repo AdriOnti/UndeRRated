@@ -7,6 +7,7 @@ public class MouseSensitive : MonoBehaviour, IPointerClickHandler, IPointerEnter
 {
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log("Button clicked");
         SoundManager.Instance.PlaySound(Audios.ButtonClick_1);
     }
 

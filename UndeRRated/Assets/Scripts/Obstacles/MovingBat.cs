@@ -44,7 +44,7 @@ public class MovingBat : ObstacleRespawner
         if (other.CompareTag("AttackTrigger"))
         {
             isMoving = true;
-          
+            SoundManager.Instance.PlaySound(Audios.MovingBatAttack);
         }
         else if (other.CompareTag("WarningTrigger"))
         {
@@ -79,5 +79,6 @@ public class MovingBat : ObstacleRespawner
             lightWarning.enabled = false;
             yield return new WaitForSeconds(flashDuration / 2);
         }
+
     }
 }

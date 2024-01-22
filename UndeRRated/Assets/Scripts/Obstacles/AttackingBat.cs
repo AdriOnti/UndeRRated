@@ -60,7 +60,7 @@ public class AttackingBat : ObstacleRespawner
             targetIndex = rnd;
             Shoot();
             SoundManager.Instance.PlaySound(Audios.BatIdle_2);
-            SoundManager.Instance.PlaySound(Audios.BatPoisonBall);
+            SoundManager.Instance.PlaySound(Audios.BatPoisonball_1);
         }
         else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player") || other.CompareTag("RatBullet"))
         {

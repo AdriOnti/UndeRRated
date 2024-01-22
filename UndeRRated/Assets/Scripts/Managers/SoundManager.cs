@@ -53,10 +53,13 @@ public enum Audios {
     WallHit_2,
     Music,
     AbilityShieldBreak_2,
-    BatPoisonBall,
-    MenuTab,
+    BatPoisonball,
+    BatPoisonball_1,
+    Menu_Tab,
     ButtonClick_1,
     ButtonClick_2,
+    RatShot,
+    MovingBatAttack
 }
 
 public class SoundManager : MonoBehaviour
