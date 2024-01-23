@@ -70,6 +70,7 @@ public class DeadMenu : InGameMenu
     /// </summary>
     public void Respawn()
     {
+        SoundManager.Instance.PlaySound(Audios.RatRespawn_1);
         Resume();
         RatController.Instance.isDead = false;
         /*

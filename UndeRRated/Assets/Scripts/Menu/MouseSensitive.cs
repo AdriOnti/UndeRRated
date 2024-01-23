@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,12 +7,14 @@ public class MouseSensitive : MonoBehaviour, IPointerClickHandler, IPointerEnter
     {
         Debug.Log("Button clicked");
         SoundManager.Instance.PlaySound(Audios.ButtonClick_1);
+        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        SoundManager.Instance.PlaySound(Audios.ButtonClick_2);
         this.transform.localScale = new Vector3(1.12f, 1.12f, 1.12f);
-        SoundManager.Instance.PlaySound(Audios.ButtonHover);
+       
     }
 
     public void OnPointerExit(PointerEventData eventData)

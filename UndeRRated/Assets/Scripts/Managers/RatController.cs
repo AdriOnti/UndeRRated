@@ -285,7 +285,8 @@ public class RatController : MonoBehaviour
         animatorRat.SetBool("isDead", true);
         RoadTileMove.speed = 0;
         GameManager.Instance.DeadCharacter();
-        SoundManager.Instance.PlaySound(Audios.WallHit_2);
+        SoundManager.Instance.PlaySound(Audios.WallHit_1);
+        SoundManager.Instance.PlaySound(Audios.GameoverDie);
     }
 
     private IEnumerator WaitAfterBreakable(float segs, MeshRenderer mesh)

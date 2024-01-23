@@ -27,6 +27,7 @@ public class Menu : MonoBehaviour
     // RESUME FUNCTION
     public void Resume()
     {
+   
         if (rat.GetComponentInChildren<Animator>().GetBool("isDead"))
         {
             RatController.Instance.CallInvincibility(2f);
