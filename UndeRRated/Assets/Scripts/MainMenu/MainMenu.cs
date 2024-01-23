@@ -142,6 +142,7 @@ public class MainMenu : Menu
 
     private void DisableMainCanvas()
     {
+        // ¿Tienes el GameObject Fade desactivado?
         FadeController.instance.FadeOut();
         mainCanvas.GetComponent<Canvas>().enabled = false;
     }

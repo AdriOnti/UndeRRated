@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -92,5 +93,57 @@ public class DataManager : MonoBehaviour
     }
 
     public string Decrypt(string ciphedText) { return Encrypt(ciphedText, true); }
+
+    public string[] ReadAchievement()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "Files/achievement.rat");
+        StreamReader sr = File.OpenText(path);
+        string file = sr.ReadToEnd();
+        sr.Close();
+
+        return file.Split('\r', '\n');
+    }
+
+    public string ShowAchievementDesc(int id)
+    {
+        string[] fileLines = ReadAchievement();
+        for (int i = 0; i < fileLines.Length; i++)
+        {
+            string[] sections = fileLines[i].Split('=');
+            if (sections[0] == $"{id}" && sections[1] == "true")
+            {
+                return sections[3];
+            }
+        }
+        
+        foreach(string line in fileLines)
+        {
+            string[] sections = line.Split('=');
+            if (sections[0] == "0") return sections[3];
+        }
+
+        return null;
+    }
+
+    public string ShowAchievementName(int id)
+    {
+        string[] fileLines = ReadAchievement();
+        for (int i = 0; i < fileLines.Length; i++)
+        {
+            string[] sections = fileLines[i].Split('=');
+            if (sections[0] == $"{id}" && sections[1] == "true")
+            {
+                return sections[2];
+            }
+        }
+
+        foreach (string line in fileLines)
+        {
+            string[] sections = line.Split('=');
+            if (sections[0] == "0") return sections[2];
+        }
+
+        return null;
+    }
 
 }
