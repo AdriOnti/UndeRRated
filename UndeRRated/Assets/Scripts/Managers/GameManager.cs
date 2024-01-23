@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
@@ -18,8 +19,9 @@ public class GameManager : MonoBehaviour
     public int RespawnCost = 50;
     public bool stopCooldowns;
 
+    public List<GameObject> achievements;
     // [0]100 points  [1]500 points  [2]1000 points  [3]100 bats  [4]Secret
-    public bool[] achievements = new bool[5];
+    [HideInInspector] public bool[] achievementsBool = new bool[5];
 
     private void Awake()
     {
@@ -287,9 +289,15 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public IEnumerator ShowAchievement(int achievementId)
+    public void ShowAchievement(int achievementId)
     {
+        StartCoroutine(AchievementCanvas(achievementId));
+    }
 
+    private IEnumerator AchievementCanvas(int id)
+    {
+        achievements[id].SetActive(true);
         yield return new WaitForSeconds(5f);
+        achievements[id].SetActive(false);
     }
 }

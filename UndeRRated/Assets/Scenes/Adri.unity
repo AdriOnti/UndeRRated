@@ -14571,7 +14571,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705731039}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1.9989, y: 1.9989, z: 1.9989}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23994,7 +23994,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1087767189}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1.9989, y: 1.9989, z: 1.9989}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25909,7 +25909,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1250220993}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1.9989, y: 1.9989, z: 1.9989}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41294,7 +41294,13 @@ MonoBehaviour:
   highScore: 0
   RespawnCost: 100
   stopCooldowns: 0
-  achievements: 
+  achievements:
+  - {fileID: 548269553}
+  - {fileID: 1250220993}
+  - {fileID: 705731039}
+  - {fileID: 1087767189}
+  - {fileID: 1990433820}
+  achievementsBool: 0000000000
 --- !u!114 &1978701441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41583,7 +41589,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1990433820}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -4}
   m_LocalScale: {x: 1.9989, y: 1.9989, z: 1.9989}
   m_ConstrainProportionsScale: 0
   m_Children: []
