@@ -14,8 +14,10 @@ public class GameManager : MonoBehaviour
     private GameObject player;
     public int cheeseSaved;
     public int highScore;
-    public int RespawnCost = 50;
+    private int RespawnCost = 100;
     public bool stopCooldowns;
+
+    public int GetRespawnCost() { return RespawnCost; }
 
     private void Awake()
     {
@@ -224,6 +226,7 @@ public class GameManager : MonoBehaviour
                 {
                     cheeseCollected -= RespawnCost;
                     int cheeseTmp = cheeseSaved + cheeseCollected;
+                    //cheeseCollected -= RespawnCost;
                     sections[1] = cheeseTmp.ToString();
                     fileLines[i] = string.Join(";", sections);
                     Debug.Log(fileLines[i]);
