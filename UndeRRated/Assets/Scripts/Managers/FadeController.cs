@@ -8,7 +8,8 @@ public class FadeController : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null) instance = this;
+
         GameObject fadeFather = GameObject.Find("Fade");
         GameObject[] fades = new GameObject[fadeFather.transform.childCount];
 
@@ -20,7 +21,7 @@ public class FadeController : MonoBehaviour
         foreach (GameObject f in fades)
         {
             if (f.name == "PanelOut") fadeOut = f.gameObject;
-            if(f.name == "PanelIn") fadeIn = f.gameObject;
+            if (f.name == "PanelIn") fadeIn = f.gameObject;
         }
 
     }

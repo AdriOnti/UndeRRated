@@ -1,9 +1,12 @@
+using System;
 using System.IO;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    private static DataManager instance;
+    public static DataManager instance;
+    //private int keyValue = 38;      // R + A + T == 18 + 0 + 20     | Existiendo la Ñ
+    private int keyValue = 36;        // R + A + T == 17 + 0 + 19     | Sin la Ñ 
 
     private void Awake()
     {
@@ -40,6 +43,107 @@ public class DataManager : MonoBehaviour
 
             if (!File.Exists(targetFile)) { File.Copy(file, targetFile); }
         }
+    }
+
+    public string[] ReadData()
+    {
+        string path = GetPathData();
+        StreamReader sr = File.OpenText(path);
+        string file = sr.ReadToEnd();
+        sr.Close();
+
+        return file.Split('\r', '\n');
+    }
+
+    public string GetPathData()
+    {
+        return Path.Combine(Application.persistentDataPath, "Files/data.rat");
+    }
+
+    public string Encrypt(string msg, bool isDec)
+    {
+        if (isDec) keyValue = -keyValue;
+        //string alphabet = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+        string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        char[] originalCharacters = msg.ToCharArray();
+        char[] ciphedCharacters = new char[originalCharacters.Length];
+
+        for (int i = 0; i < originalCharacters.Length; i++)
+        {
+            char originalChar = originalCharacters[i];
+
+            if (char.IsLetter(originalChar))
+            {
+                // Differences between Upper & Lower
+                string actualLetter = char.IsUpper(originalChar) ? alphabet : alphabet.ToLower();
+
+                int originalIndex = actualLetter.IndexOf(originalChar);
+
+                int ciphedIndex = (originalIndex + keyValue) % alphabet.Length;      // Apply scrolling and handle overflow
+
+                if (ciphedIndex < 0) ciphedIndex += alphabet.Length;
+
+                ciphedCharacters[i] = actualLetter[ciphedIndex];
+            }
+            else ciphedCharacters[i] = originalChar;    // Keep non-alphabetic characters unchanged
+        }
+
+        return new string(ciphedCharacters);
+    }
+
+    public string Decrypt(string ciphedText) { return Encrypt(ciphedText, true); }
+
+    public string[] ReadAchievement()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "Files/achievement.rat");
+        StreamReader sr = File.OpenText(path);
+        string file = sr.ReadToEnd();
+        sr.Close();
+
+        return file.Split('\r', '\n');
+    }
+
+    public string ShowAchievementDesc(int id)
+    {
+        string[] fileLines = ReadAchievement();
+        for (int i = 0; i < fileLines.Length; i++)
+        {
+            string[] sections = fileLines[i].Split('=');
+            if (sections[0] == $"{id}" && sections[1] == "true")
+            {
+                return sections[3];
+            }
+        }
+        
+        foreach(string line in fileLines)
+        {
+            string[] sections = line.Split('=');
+            if (sections[0] == "0") return sections[3];
+        }
+
+        return null;
+    }
+
+    public string ShowAchievementName(int id)
+    {
+        string[] fileLines = ReadAchievement();
+        for (int i = 0; i < fileLines.Length; i++)
+        {
+            string[] sections = fileLines[i].Split('=');
+            if (sections[0] == $"{id}" && sections[1] == "true")
+            {
+                return sections[2];
+            }
+        }
+
+        foreach (string line in fileLines)
+        {
+            string[] sections = line.Split('=');
+            if (sections[0] == "0") return sections[2];
+        }
+
+        return null;
     }
 
 }
