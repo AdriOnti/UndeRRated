@@ -33,7 +33,7 @@ public class DeadMenu : InGameMenu
         pausedScore.text = $"{resumedScore.text}";
         int tmp = Convert.ToInt32(resumedCheese.text)/* + GameManager.Instance.cheeseSaved*/;
         pausedCheese.text = $"Quesitos: {tmp}";
-        GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text), false);
+        //GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text), false);
 
         //string[] splitScore = pausedScore.GetParsedText().Split(' ');
         GameManager.Instance.SaveHighScore(Convert.ToInt32(pausedScore.text));
@@ -76,18 +76,16 @@ public class DeadMenu : InGameMenu
     {
         Resume();
         RatController.Instance.isDead = false;
-        /*
-        if (GameManager.Instance.cheeseSaved >= GameManager.Instance.RespawnCost)
+
+        if (GameManager.Instance.cheeseSaved >= GameManager.Instance.GetRespawnCost())
         {
-           Debug.LogWarning($"Se han quitado {GameManager.Instance.RespawnCost} quesitos de los {GameManager.Instance.cheeseSaved} guardados");
+            Debug.LogWarning($"Se han quitado {GameManager.Instance.GetRespawnCost()} quesitos de los {GameManager.Instance.cheeseSaved} guardados");
 
-
-            
             GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text), true);
             GameManager.Instance.GetSavedMoney();
-           
+
         }
-        else { Debug.LogError($"Tu numero de quesitos es inferior a {GameManager.Instance.RespawnCost}"); }
-    */
+        else { Debug.LogError($"Tu numero de quesitos es inferior a {GameManager.Instance.GetRespawnCost()}"); }
+
     }
 }
