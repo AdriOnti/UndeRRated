@@ -10,16 +10,10 @@ public class AchievementName : MonoBehaviour
     public Image image;
     public int id;
 
-    private void Start()
+    private void Update()
     {
         name.text = $"{DataManager.instance.ShowAchievementName(id)}";
-        image = GetComponent<Image>();
-        if (image != null)
-        {
-            if (name.text != "???") { Debug.Log(name.text); CambiarAlphaImagen(255f); }
-        else CambiarAlphaImagen(80f);
-        }
-        else Debug.LogError("No se encontró el componente Image en el GameObject o sus hijos.");
+        if (name.text != "???") CambiarAlphaImagen(255f);
     }
 
     void CambiarAlphaImagen(float alpha)
