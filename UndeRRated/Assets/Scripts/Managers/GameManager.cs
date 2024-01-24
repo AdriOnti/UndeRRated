@@ -19,9 +19,9 @@ public class GameManager : MonoBehaviour
     public int RespawnCost = 50;
     public bool stopCooldowns;
 
-    public List<GameObject> achievements;
     // [0]100 points  [1]500 points  [2]1000 points  [3]100 bats  [4]Secret
     [HideInInspector] public bool[] achievementsBool = new bool[5];
+    public List<GameObject> achievements;
 
     private void Awake()
     {
@@ -289,6 +289,10 @@ public class GameManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Llama a una corrutina para mostrar un achievement en directo 
+    /// </summary>
+    /// <param name="achievementId"></param>
     public void ShowAchievement(int achievementId)
     {
         StartCoroutine(AchievementCanvas(achievementId));
@@ -296,8 +300,11 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator AchievementCanvas(int id)
     {
+        //SoundManager.Instance.PlaySound(Audios.AchievementsNew_1);
+        achievements[achievements.Count -1].SetActive(true);
         achievements[id].SetActive(true);
         yield return new WaitForSeconds(5f);
+        achievements[achievements.Count - 1].SetActive(false);
         achievements[id].SetActive(false);
     }
 }

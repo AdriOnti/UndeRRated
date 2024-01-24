@@ -20,7 +20,7 @@ public class Score : MonoBehaviour
         pointIncreastedPerSec = 1;
     }
 
-    // Update is called once per frame
+    // Aumento de puntos y comprovación de achievements
     void FixedUpdate()
     {
         score.text = Convert.ToInt32(scoreAmount).ToString();
