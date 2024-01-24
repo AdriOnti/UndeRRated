@@ -45,10 +45,6 @@ public class DeadMenu : InGameMenu
         if (GetComponent<Canvas>().enabled == true)
         {
             RoadTileMove.deadRat = true;
-            if (Input.GetKeyUp(KeyCode.Escape))
-            {
-                Debug.LogWarning("NO PUEDES PAUSAR *golpea el baston en el suelo*");
-            }
         }
     }
 
@@ -74,6 +70,7 @@ public class DeadMenu : InGameMenu
     /// </summary>
     public void Respawn()
     {
+        SoundManager.Instance.PlaySound(Audios.RatRespawn_1);
         Resume();
         RatController.Instance.isDead = false;
 

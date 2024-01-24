@@ -17,7 +17,6 @@ public class InGameMenu : Menu
 
     public void ReturnMainMenu()
     {
-
         StartCoroutine(BackMain());
     }
 
@@ -37,4 +36,5 @@ public class InGameMenu : Menu
         SceneManager.LoadScene("Main");
 
     }
+
 }

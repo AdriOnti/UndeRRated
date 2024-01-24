@@ -1,13 +1,11 @@
 using UnityEngine;
 using System;
-using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using TMPro;
 
 public class PauseMenu : InGameMenu
 {
     public static float pausedTime;
-
     private void Awake()
     {
         canvas = GameManager.Instance.GetUI();
@@ -19,6 +17,7 @@ public class PauseMenu : InGameMenu
         pausedCheese = list[3];
         highscore = list[4];
         savedCheese = list[5];
+       // 
     }
 
     private void Update()
@@ -38,9 +37,11 @@ public class PauseMenu : InGameMenu
         pausedTime = Time.timeScale;
         if (GetComponent<Canvas>().enabled == true)
         {
+           
+
             Time.timeScale = 0;
             if (Input.GetKeyUp(KeyCode.Escape))
-            {
+            {             
                 Resume();
             }
         }
