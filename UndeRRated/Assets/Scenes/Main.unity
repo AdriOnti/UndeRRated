@@ -1808,6 +1808,7 @@ MonoBehaviour:
   Gravity: 0
   ratParticles: {fileID: 0}
   shootForce: 0
+  ratInvincible: 0
 --- !u!65 &204868859
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15977,6 +15978,7 @@ MonoBehaviour:
   Gravity: 0
   ratParticles: {fileID: 0}
   shootForce: 0
+  ratInvincible: 0
 --- !u!114 &1940570268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18049,6 +18051,7 @@ GameObject:
   - component: {fileID: 7202193382011225720}
   - component: {fileID: 7370277068627524251}
   - component: {fileID: 7370277068627524252}
+  - component: {fileID: 7370277068627524253}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -18580,7 +18583,7 @@ GameObject:
   - component: {fileID: 3469287838394444536}
   - component: {fileID: 1711813854331510322}
   m_Layer: 0
-  m_Name: COMP_Einkaufswagen
+  m_Name: CARRITO DE LA COMPRA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22090,6 +22093,67 @@ Transform:
   - {fileID: 6961290858891993254}
   m_Father: {fileID: 1445006705522415861}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &6899105357335211133
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 941834592330470979, guid: b44372ff6c0af4d41866cbe3f58bf1c7, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240127239266420900, guid: b44372ff6c0af4d41866cbe3f58bf1c7, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233448791613889148, guid: b44372ff6c0af4d41866cbe3f58bf1c7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.0066454
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233448791613889148, guid: b44372ff6c0af4d41866cbe3f58bf1c7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -14.561207
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233448791613889148, guid: b44372ff6c0af4d41866cbe3f58bf1c7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 79.57293
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233448791613889148, guid: b44372ff6c0af4d41866cbe3f58bf1c7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233448791613889148, guid: b44372ff6c0af4d41866cbe3f58bf1c7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233448791613889148, guid: b44372ff6c0af4d41866cbe3f58bf1c7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233448791613889148, guid: b44372ff6c0af4d41866cbe3f58bf1c7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233448791613889148, guid: b44372ff6c0af4d41866cbe3f58bf1c7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233448791613889148, guid: b44372ff6c0af4d41866cbe3f58bf1c7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233448791613889148, guid: b44372ff6c0af4d41866cbe3f58bf1c7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b44372ff6c0af4d41866cbe3f58bf1c7, type: 3}
 --- !u!4 &6925618529959013117
 Transform:
   m_ObjectHideFlags: 0
@@ -22380,6 +22444,14 @@ MonoBehaviour:
   MainSectionIn: 0
   ShopSectionIn: 0
   player: {fileID: 1940570262}
+--- !u!81 &7370277068627524253
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65702495714986077}
+  m_Enabled: 1
 --- !u!1 &7415401758977762376
 GameObject:
   m_ObjectHideFlags: 0
@@ -23204,3 +23276,4 @@ SceneRoots:
   - {fileID: 1673508518}
   - {fileID: 72551985}
   - {fileID: 1967262976}
+  - {fileID: 6899105357335211133}

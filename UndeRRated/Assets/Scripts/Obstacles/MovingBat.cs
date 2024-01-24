@@ -51,7 +51,7 @@ public class MovingBat : ObstacleRespawner
             lightWarning = attackingPositions[targetIndex].GetComponent<Light>();
             StartCoroutine(FlashNow());
             lightWarning.enabled = false;
-            SoundManager.Instance.PlaySound(Audios.BatIdle_2);
+            SoundManager.Instance.PlaySound(Audios.BatIdle);
         }
         else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player") || other.CompareTag("RatBullet"))  
         {

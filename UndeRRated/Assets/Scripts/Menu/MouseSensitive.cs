@@ -12,7 +12,7 @@ public class MouseSensitive : MonoBehaviour, IPointerClickHandler, IPointerEnter
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        SoundManager.Instance.PlaySound(Audios.ButtonClick_2);
+        SoundManager.Instance.PlaySound(Audios.ButtonHover);
         this.transform.localScale = new Vector3(1.12f, 1.12f, 1.12f);
        
     }

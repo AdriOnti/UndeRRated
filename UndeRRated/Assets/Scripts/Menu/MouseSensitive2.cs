@@ -14,6 +14,7 @@ public class MouseSensitive2 : MonoBehaviour, IPointerClickHandler, IPointerEnte
     {
         this.transform.localScale = new Vector3(1.12f, 1.12f, 1.12f);
         SoundManager.Instance.PlaySound(Audios.ButtonClick_1);
+        Debug.Log("Button hovered");
     }
 
     public void OnPointerExit(PointerEventData eventData)

@@ -135,6 +135,7 @@ public class RatController : MonoBehaviour
         if (controller.isGrounded && (Input.GetKeyUp(kdown) || Input.GetKeyUp(ks)))
         {
             animatorRat.SetBool("isSliding", true);
+            SoundManager.Instance.PlaySound(Audios.RatSlideWater_1);
             ratCol.size = new Vector3(ratCol.size.x, slideableYsize, ratCol.size.z);
             StartCoroutine(StopSlideAnimation());
         }

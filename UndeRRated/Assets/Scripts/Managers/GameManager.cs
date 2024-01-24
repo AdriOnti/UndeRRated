@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     private void CanvasController()
     {
         canvas = GetUI();
-        ActiveCanvas();
+        //ActiveCanvas();
         ResumeGame();
     }
 
@@ -98,12 +98,12 @@ public class GameManager : MonoBehaviour
         {
             if (menu.name != ui)
             {
-                menu.gameObject.SetActive(false);
+                menu.SetActive(false);
                 if (menu.name == "HUD") stopCooldowns = true;
             }
             else
             {
-                menu.gameObject.SetActive(true);
+                menu.SetActive(true);
                 if (ui == "HUD") stopCooldowns = false;
 
             }
