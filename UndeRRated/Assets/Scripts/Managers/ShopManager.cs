@@ -2,13 +2,15 @@ using System.IO;
 using System.Linq;
 using System;
 using UnityEngine;
+using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
     public static ShopManager Instance;
     public int cheeseSaved;
-    //public int rainbowCost;
-    //public int shieldCost;
+    public TextMeshProUGUI shopperTxt;
+    public int rainbowCost;
+    public int shieldCost;
     private string path;
     private int spentCheeses;
 
@@ -24,6 +26,8 @@ public class ShopManager : MonoBehaviour
 
         path = DataManager.instance.GetPathData();
         GetSavedMoney();
+
+        shopperTxt.text = "Welcome to the shop";
     }
 
     public void GetSavedMoney()
