@@ -11,7 +11,10 @@ public class ObstaclesPlacementGround : MonoBehaviour
 
     public static Transform[] parentsCheese;
 
-
+    /// <summary>
+    /// Coloca los obstáculos en la road
+    /// </summary>
+    /// <param name="road"></param>
     public static void PlaceObjects1(Transform road)
     {
         SetPositionsRoad(road);
@@ -35,6 +38,11 @@ public class ObstaclesPlacementGround : MonoBehaviour
             selectedObject.transform.SetParent(road);
         }
     }
+
+    /// <summary>
+    /// Coge las posiciones donde irán los objetos deseados en la road
+    /// </summary>
+    /// <param name="road"></param>
     private static void SetPositionsRoad(Transform road)
     {
         positionObsX[0] = road.position.x - road.localScale.x / 3.3f;
@@ -48,6 +56,10 @@ public class ObstaclesPlacementGround : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Coloca quesos en road
+    /// </summary>
+    /// <param name="road"></param>
     public static void CheesePLacement(Transform road)
     {
         SetPositionsRoad(road);

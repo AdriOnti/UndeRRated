@@ -1,9 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
@@ -16,6 +18,10 @@ public class GameManager : MonoBehaviour
     public int highScore;
     private int RespawnCost = 100;
     public bool stopCooldowns;
+
+    // [0]100 points  [1]500 points  [2]1000 points  [3]100 bats  [4]Secret
+    [HideInInspector] public bool[] achievementsBool = new bool[5];
+    public List<GameObject> achievements;
 
     public int GetRespawnCost() { return RespawnCost; }
 
@@ -285,5 +291,24 @@ public class GameManager : MonoBehaviour
 
         GetHighScore();
 
+    }
+
+    /// <summary>
+    /// Llama a una corrutina para mostrar un achievement en directo 
+    /// </summary>
+    /// <param name="achievementId"></param>
+    public void ShowAchievement(int achievementId)
+    {
+        StartCoroutine(AchievementCanvas(achievementId));
+    }
+
+    private IEnumerator AchievementCanvas(int id)
+    {
+        //SoundManager.Instance.PlaySound(Audios.AchievementsNew_1);
+        achievements[achievements.Count -1].SetActive(true);
+        achievements[id].SetActive(true);
+        yield return new WaitForSeconds(5f);
+        achievements[achievements.Count - 1].SetActive(false);
+        achievements[id].SetActive(false);
     }
 }

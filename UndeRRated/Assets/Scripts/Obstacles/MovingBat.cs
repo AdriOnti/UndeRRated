@@ -19,7 +19,7 @@ public class MovingBat : ObstacleRespawner
         System.Random rnd = new System.Random();
         targetIndex = rnd.Next(attackingPositions.Length);
     }
-    // UPDATE FUNCTION
+    
     /// <summary>
     /// Si el murciélago tiene su booleano de moverse en true, cada frame se ira moviendo poco a poco hasta llegar a una distancia minima
     /// </summary>
