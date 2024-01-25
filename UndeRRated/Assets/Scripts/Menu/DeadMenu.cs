@@ -68,21 +68,40 @@ public class DeadMenu : InGameMenu
     /// collectedCheese = 50;
     /// Resultado: 50 quesitos guardados
     /// </summary>
+    //public void Respawn()
+    //{
+    //    SoundManager.Instance.PlayEffect(Audios.RatRespawn_1);
+    //    Resume();
+    //    RatController.Instance.isDead = false;
+
+    //    if (GameManager.Instance.cheeseSaved >= GameManager.Instance.GetRespawnCost())
+    //    {
+    //        Debug.LogWarning($"Se han quitado {GameManager.Instance.GetRespawnCost()} quesitos de los {GameManager.Instance.cheeseSaved} guardados");
+
+    //        GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text), true);
+    //        GameManager.Instance.GetSavedMoney();
+
+    //    }
+    //  //  else //{ //Debug.LogError($"Tu numero de quesitos es inferior a {GameManager.Instance.GetRespawnCost()}"); }
+
+    //}
     public void Respawn()
     {
-        SoundManager.Instance.PlayEffect(Audios.RatRespawn_1);
-        Resume();
         RatController.Instance.isDead = false;
+      
 
         if (GameManager.Instance.cheeseSaved >= GameManager.Instance.GetRespawnCost())
         {
             Debug.LogWarning($"Se han quitado {GameManager.Instance.GetRespawnCost()} quesitos de los {GameManager.Instance.cheeseSaved} guardados");
 
-            GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text), true);
+            //GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text), true);
+            GameManager.Instance.Respawn();
             GameManager.Instance.GetSavedMoney();
-
+            Resume();
+            SoundManager.Instance.PlayEffect(Audios.RatRespawn_1);
         }
-      //  else //{ //Debug.LogError($"Tu numero de quesitos es inferior a {GameManager.Instance.GetRespawnCost()}"); }
+        else { Debug.LogError($"Tu numero de quesitos es inferior a {GameManager.Instance.GetRespawnCost()}"); }
 
     }
+
 }
