@@ -16,7 +16,7 @@ public class Score : MonoBehaviour
     void Start()
     {
         cheeseAmount = 0;
-        scoreAmount = 450;
+        scoreAmount = 0;
         pointIncreastedPerSec = 1;
     }
 
