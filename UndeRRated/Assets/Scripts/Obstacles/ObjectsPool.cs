@@ -108,6 +108,11 @@ public class ObjectsPool : MonoBehaviour
         }
 
     }
+
+    /// <summary>
+    /// Recursivamente busca una poison ball libre en la pool
+    /// </summary>
+    /// <returns>Poison Ball</returns>
     public GameObject GetPooledPoisonBall()
     {
         int rndNum = rnd.Next(0, pooledPoisonBalls.Count);
@@ -119,6 +124,10 @@ public class ObjectsPool : MonoBehaviour
         else return GetPooledPoisonBall();
     }
 
+    /// <summary>
+    /// Recursivamente busca un obstáculo libre en la pool
+    /// </summary>
+    /// <returns>Obstacle</returns>
     public GameObject GetPooledObstacle()
     {
         int rndNum = rnd.Next(0, pooledObstacles.Count);
@@ -130,6 +139,10 @@ public class ObjectsPool : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Recursivamente busca una bullet libre en la pool
+    /// </summary>
+    /// <returns>Rat bullet</returns>
     public GameObject GetPooledRatBullet()
     {
         int rndNum = rnd.Next(0, pooledRatBullets.Count);
@@ -141,6 +154,10 @@ public class ObjectsPool : MonoBehaviour
         else return GetPooledRatBullet();
     }
 
+    /// <summary>
+    /// Recursivamente busca un quesito libre en la pool
+    /// </summary>
+    /// <returns>Quesito</returns>
     public GameObject GetPooledCheese()
     {
         int rndNum = rnd.Next(0, pooledCheese.Count);
@@ -152,6 +169,10 @@ public class ObjectsPool : MonoBehaviour
         else return GetPooledCheese();
     }
 
+    /// <summary>
+    /// Recursivamente busca un mega quesito libre en la pool
+    /// </summary>
+    /// <returns>Mega quesito</returns>
     public GameObject GetPooledMegaCheese()
     {
         int rndNum = rnd.Next(0, pooledMegaCheese.Count);

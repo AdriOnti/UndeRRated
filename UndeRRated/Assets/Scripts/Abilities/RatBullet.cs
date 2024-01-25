@@ -13,11 +13,12 @@ public class RatBullet : ObstacleRespawner
         base.OnTriggerEnter(other);
         if (other.CompareTag("Bat") || other.CompareTag("ObstacleBreakable"))
         {
+            if (other.CompareTag("Bat"))SoundManager.Instance.PlayEffect(Audios.BatDie_1);
             Score.ExtraPoints();
             ParticleSystem particles = other.gameObject.GetComponentInChildren<ParticleSystem>();
             //particles.Play();
-            Die(other.gameObject);
-            Die(gameObject);
+            Kill(other.gameObject);
+            Kill(gameObject);
         }
     }
 
@@ -28,9 +29,8 @@ public class RatBullet : ObstacleRespawner
         gameObject.SetActive(false);
     }
 
-    public void Die(GameObject obj)
+    protected void Kill(GameObject obj)
     {
-
         obj.SetActive(false);
     }
 }

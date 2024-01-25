@@ -1,9 +1,11 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
@@ -14,8 +16,14 @@ public class GameManager : MonoBehaviour
     private GameObject player;
     public int cheeseSaved;
     public int highScore;
-    public int RespawnCost = 50;
+    private int RespawnCost = 100;
     public bool stopCooldowns;
+
+    // [0]100 points  [1]500 points  [2]1000 points  [3]100 bats  [4]Secret
+    [HideInInspector] public bool[] achievementsBool = new bool[5];
+    public List<GameObject> achievements;
+
+    public int GetRespawnCost() { return RespawnCost; }
 
     private void Awake()
     {
@@ -26,6 +34,8 @@ public class GameManager : MonoBehaviour
         CanvasController();
         GetSavedMoney();
         GetHighScore();
+
+        FadeController.instance.FadeIn();
     }
 
     public float ActualTime()
@@ -41,7 +51,7 @@ public class GameManager : MonoBehaviour
     private void CanvasController()
     {
         canvas = GetUI();
-        ActiveCanvas();
+        //ActiveCanvas();
         ResumeGame();
     }
 
@@ -98,12 +108,12 @@ public class GameManager : MonoBehaviour
         {
             if (menu.name != ui)
             {
-                menu.gameObject.SetActive(false);
+                menu.SetActive(false);
                 if (menu.name == "HUD") stopCooldowns = true;
             }
             else
             {
-                menu.gameObject.SetActive(true);
+                menu.SetActive(true);
                 if (ui == "HUD") stopCooldowns = false;
 
             }
@@ -192,7 +202,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < fileLines.Length; i++)
         {
             string[] sections = fileLines[i].Split(';');
-            if (sections[0] == "Quesitos")
+            if (DataManager.instance.Decrypt(sections[0]) == "Quesitos")
             {
                 cheeseSaved = Convert.ToInt32(sections[1]);
             }
@@ -211,7 +221,8 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < fileLines.Length; i++)
         {
             string[] sections = fileLines[i].Split(';');
-            if (sections[0] == "Quesitos")
+            //if (sections[0] == DataManager.instance.Encrypt("Quesitos", false))
+            if (DataManager.instance.Decrypt(sections[0]) == "Quesitos")
             {
                 if (!respawn)
                 {
@@ -223,15 +234,16 @@ public class GameManager : MonoBehaviour
                 {
                     cheeseCollected -= RespawnCost;
                     int cheeseTmp = cheeseSaved + cheeseCollected;
+                    //cheeseCollected -= RespawnCost;
                     sections[1] = cheeseTmp.ToString();
                     fileLines[i] = string.Join(";", sections);
                     Debug.Log(fileLines[i]);
-
-
-                    File.WriteAllText(path, string.Empty);
-                    string modifiedContent = string.Join("\n", fileLines.Where(line => !string.IsNullOrWhiteSpace(line)));
-                    File.WriteAllText(path, modifiedContent);
                 }
+
+
+                File.WriteAllText(path, string.Empty);
+                string modifiedContent = string.Join("\n", fileLines.Where(line => !string.IsNullOrWhiteSpace(line)));
+                File.WriteAllText(path, modifiedContent);
             }
         }
         
@@ -249,7 +261,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < fileLines.Length; i++)
         {
             string[] sections = fileLines[i].Split(';');
-            if (sections[0] == "Score")
+            if (DataManager.instance.Decrypt(sections[0]) == "Score")
             {
                 highScore = Convert.ToInt32(sections[1]);
             }
@@ -268,7 +280,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < fileLines.Length; i++)
         {
             string[] sections = fileLines[i].Split(';');
-            if (sections[0] == "Score" && score > highScore)
+            if (DataManager.instance.Decrypt(sections[0]) == "Score" && score > highScore)
             {
                 highScore = score;
                 sections[1] = highScore.ToString();
@@ -281,5 +293,24 @@ public class GameManager : MonoBehaviour
 
         GetHighScore();
 
+    }
+
+    /// <summary>
+    /// Llama a una corrutina para mostrar un achievement en directo 
+    /// </summary>
+    /// <param name="achievementId"></param>
+    public void ShowAchievement(int achievementId)
+    {
+        StartCoroutine(AchievementCanvas(achievementId));
+    }
+
+    private IEnumerator AchievementCanvas(int id)
+    {
+        SoundManager.Instance.PlayEffect(Audios.AchievementNew);
+        achievements[^1].SetActive(true);
+        achievements[id].SetActive(true);
+        yield return new WaitForSeconds(5f);
+        achievements[^1].SetActive(false);
+        achievements[id].SetActive(false);
     }
 }

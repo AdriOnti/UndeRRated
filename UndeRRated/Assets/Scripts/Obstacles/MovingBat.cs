@@ -19,7 +19,7 @@ public class MovingBat : ObstacleRespawner
         System.Random rnd = new System.Random();
         targetIndex = rnd.Next(attackingPositions.Length);
     }
-    // UPDATE FUNCTION
+    
     /// <summary>
     /// Si el murciélago tiene su booleano de moverse en true, cada frame se ira moviendo poco a poco hasta llegar a una distancia minima
     /// </summary>
@@ -44,12 +44,14 @@ public class MovingBat : ObstacleRespawner
         if (other.CompareTag("AttackTrigger"))
         {
             isMoving = true;
+            SoundManager.Instance.PlayEnvironment(Audios.MovingBatAttack);
         }
         else if (other.CompareTag("WarningTrigger"))
         {
             lightWarning = attackingPositions[targetIndex].GetComponent<Light>();
-            StartCoroutine(flashNow());
+            StartCoroutine(FlashNow());
             lightWarning.enabled = false;
+            SoundManager.Instance.PlayEnvironment(Audios.BatIdle);
         }
         else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player") || other.CompareTag("RatBullet"))  
         {
@@ -68,7 +70,7 @@ public class MovingBat : ObstacleRespawner
     /// Cuando se ejecute esta Corrutina encendera y apagara la luz durante lo que indique la variable flashNumber
     /// </summary>
     /// <returns>Devuelve un WaitForSeconds</returns>
-    public IEnumerator flashNow()
+    public IEnumerator FlashNow()
     {
         for(int i = 0; i < flashNumber; i++)
         {
@@ -77,11 +79,6 @@ public class MovingBat : ObstacleRespawner
             lightWarning.enabled = false;
             yield return new WaitForSeconds(flashDuration / 2);
         }
-    }
 
-    public IEnumerator Die()
-    {
-        yield return new WaitForSeconds(0.5f);
-        this.gameObject.SetActive(false);
     }
 }

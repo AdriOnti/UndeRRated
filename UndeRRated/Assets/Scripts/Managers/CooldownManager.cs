@@ -50,6 +50,7 @@ public class CooldownManager : MonoBehaviour
             yield return null;
         }
         abilitiesOnCooldown.Remove(CDability);
+        if (ability.AbilityName != "Ratatata") SoundManager.Instance.PlayEffect(Audios.AbilityCooldownEnd);
     }
     public bool IsOnCooldown(Ability ability)
     {

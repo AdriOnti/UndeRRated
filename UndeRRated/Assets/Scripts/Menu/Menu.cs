@@ -20,13 +20,19 @@ public class Menu : MonoBehaviour
         {
             rat = GameManager.Instance.GetPlayer();
             //rat.GetComponent<RatController>().enabled = false;
+            SoundManager.Instance.PlayEnvironment(Audios.ButtonClick_1);
         }
         catch { /* Para el menu principal */ }
+    }
+    private void OnDisable()
+    {
+         SoundManager.Instance.PlayEnvironment(Audios.ButtonClick_1); 
     }
 
     // RESUME FUNCTION
     public void Resume()
     {
+   
         if (rat.GetComponentInChildren<Animator>().GetBool("isDead"))
         {
             RatController.Instance.CallInvincibility(2f);

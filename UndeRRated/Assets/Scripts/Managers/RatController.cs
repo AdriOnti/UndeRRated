@@ -18,7 +18,7 @@ public class RatController : MonoBehaviour
     private float jumpDuration = 0.5f;
     //private RatInputs ratInputs;
 
-
+    AudioSource ratIdleSource;
     [Header("Rat Parameters")]
     public float jumpForce;
     public float pathDistance = 9;
@@ -50,11 +50,6 @@ public class RatController : MonoBehaviour
     Color initialColor;
     public static RatController Instance;
 
-    // SOUND EVENTS
-
-    public static Action RatAteCheese;
-    public static Action RatTookDamage;
-
 
     private void Awake()
     {
@@ -67,10 +62,12 @@ public class RatController : MonoBehaviour
     // METHOD START
     void Start()
     {
+        //ratIdleSource.volume = 0.6f;
         controller = GetComponent<CharacterController>();
         animatorRat = GetComponentInChildren<Animator>();
         ratCol = GetComponent<BoxCollider>();
         defaultSizeCollider = ratCol.size.y;
+
     }
 
     // METHOD UPDATE
@@ -115,19 +112,19 @@ public class RatController : MonoBehaviour
         // CALCULATE THE RIGHT PATH
         if (Input.GetKeyDown(kright) || Input.GetKeyDown(kd))
         {
-
+            SoundManager.Instance.PlayEffect(Audios.RatMove_5);
             desiredPath++;
             if (desiredPath >= 3) desiredPath = 2;
-            // else SoundManager.Instance.PlayEffect("RatHit");
+
         }
 
         // CALCULATE THE LEFT PATH
         if (Input.GetKeyDown(kleft) || Input.GetKeyDown(ka))
         {
-
+            SoundManager.Instance.PlayEffect(Audios.RatMove_5);
             desiredPath--;
             if (desiredPath <= -1) desiredPath = 0;
-            // else SoundManager.Instance.PlayEffect("RatHit");
+
         }
 
         // MOVE TO THE PATH
@@ -137,12 +134,13 @@ public class RatController : MonoBehaviour
         if (controller.isGrounded && (Input.GetKeyUp(kdown) || Input.GetKeyUp(ks)))
         {
             animatorRat.SetBool("isSliding", true);
+            SoundManager.Instance.PlayEffect(Audios.RatSlideWater_1);
             ratCol.size = new Vector3(ratCol.size.x, slideableYsize, ratCol.size.z);
             StartCoroutine(StopSlideAnimation());
         }
         if (Input.GetKeyUp(KeyCode.Escape) && GameManager.Instance.DeadMenuActive())
         {
-            GameManager.Instance.PauseGame();
+            GameManager.Instance.PauseGame();     
         }
     }
 
@@ -169,6 +167,7 @@ public class RatController : MonoBehaviour
            RainbowRun.Instance.EndInvincibleTime();
         }
         ratInvincible = false;
+    
     }
 
   
@@ -202,6 +201,7 @@ public class RatController : MonoBehaviour
                     dizzyRat.SetActive(true);
                     StartCoroutine(WaitAfterBreakable(0.5f, meshBreakable));
                     StartCoroutine(TimeDizzy(5f));
+
                 }
                 else if (breakableCount == 1)
                 {
@@ -223,22 +223,21 @@ public class RatController : MonoBehaviour
     private void EatCheese(int cheeseValue, Collider other)
     {
         if (cheeseValue == 0) return;
-        Score.AddCheese(1);
+        Score.AddCheese(cheeseValue);
         other.transform.SetParent(ObjectsPool.instance.transform);
         other.gameObject.SetActive(false);
-        RatAteCheese?.Invoke();
+        SoundManager.Instance.PlayEnvironment(Audios.EatQuesito_2);
     }
 
 
     // JUMP FUNCTION
     private void Jump()
     {
-
         animatorRat.SetBool("isJumping", true);
         animatorRat.SetBool("isSliding", false);
         direction.y = jumpForce;
         StartCoroutine(StopJumpAnimation());
-
+        SoundManager.Instance.PlayEffect(Audios.RatJumpGoofy_1);
     }
 
     // MOVEMENT TO THE DESIRED PATH FUNCTION
@@ -283,7 +282,8 @@ public class RatController : MonoBehaviour
         animatorRat.SetBool("isDead", true);
         RoadTileMove.speed = 0;
         GameManager.Instance.DeadCharacter();
-        RatTookDamage?.Invoke();
+        SoundManager.Instance.PlayEnvironment(Audios.WallHit_1);
+        SoundManager.Instance.PlayEnvironment(Audios.GameoverDie);
     }
 
     private IEnumerator WaitAfterBreakable(float segs, MeshRenderer mesh)

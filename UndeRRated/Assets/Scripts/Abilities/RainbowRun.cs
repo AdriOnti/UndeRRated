@@ -9,6 +9,7 @@ public class RainbowRun : Ability
     private float saveTime;
     public float invincibleTime;
     public bool isInvincible;
+    
 
     protected override void Awake()
     {
@@ -24,6 +25,7 @@ public class RainbowRun : Ability
         light.enabled = true;
         rainbowEffect.enabled = true;
         RatController.Instance.CallInvincibility(invincibleTime);
+        SoundManager.Instance.PlayEffect(Audios.AbilityStarMario);
         saveTime = Time.timeScale;
         Time.timeScale = 8f;
     }

@@ -45,10 +45,6 @@ public class DeadMenu : InGameMenu
         if (GetComponent<Canvas>().enabled == true)
         {
             RoadTileMove.deadRat = true;
-            if (Input.GetKeyUp(KeyCode.Escape))
-            {
-                Debug.LogWarning("NO PUEDES PAUSAR *golpea el baston en el suelo*");
-            }
         }
     }
 
@@ -74,20 +70,19 @@ public class DeadMenu : InGameMenu
     /// </summary>
     public void Respawn()
     {
+        SoundManager.Instance.PlayEffect(Audios.RatRespawn_1);
         Resume();
         RatController.Instance.isDead = false;
-        /*
-        if (GameManager.Instance.cheeseSaved >= GameManager.Instance.RespawnCost)
+
+        if (GameManager.Instance.cheeseSaved >= GameManager.Instance.GetRespawnCost())
         {
-           Debug.LogWarning($"Se han quitado {GameManager.Instance.RespawnCost} quesitos de los {GameManager.Instance.cheeseSaved} guardados");
+            Debug.LogWarning($"Se han quitado {GameManager.Instance.GetRespawnCost()} quesitos de los {GameManager.Instance.cheeseSaved} guardados");
 
-
-            
             GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text), true);
             GameManager.Instance.GetSavedMoney();
-           
+
         }
-        else { Debug.LogError($"Tu numero de quesitos es inferior a {GameManager.Instance.RespawnCost}"); }
-    */
+      //  else //{ //Debug.LogError($"Tu numero de quesitos es inferior a {GameManager.Instance.GetRespawnCost()}"); }
+
     }
 }
