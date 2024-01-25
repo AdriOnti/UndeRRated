@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public bool stopCooldowns;
 
     // [0]100 points  [1]500 points  [2]1000 points  [3]100 bats  [4]Secret
-    [HideInInspector] public bool[] achievementsBool = new bool[5];
+    /*[HideInInspector]*/ public bool[] achievementsBool = new bool[5];
     public List<GameObject> achievements;
 
     public int GetRespawnCost() { return RespawnCost; }
@@ -34,8 +34,14 @@ public class GameManager : MonoBehaviour
         CanvasController();
         GetSavedMoney();
         GetHighScore();
+        GetAchievements();
 
         FadeController.instance.FadeIn();
+    }
+
+    void GetAchievements()
+    {
+        achievementsBool = DataManager.instance.GetAchievement();
     }
 
     public float ActualTime()
@@ -246,9 +252,35 @@ public class GameManager : MonoBehaviour
                 File.WriteAllText(path, modifiedContent);
             }
         }
-        
+        //GetSavedMoney();
 
     }
+   
+    public void Respawn()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "Files/data.rat");
+        StreamReader sr = File.OpenText(path);
+        string file = sr.ReadToEnd();
+        sr.Close();
+
+        string[] fileLines = file.Split('\r', '\n');
+        for (int i = 0; i < fileLines.Length; i++)
+        {
+            string[] sections = fileLines[i].Split(';');
+            //if (sections[0] == DataManager.instance.Encrypt("Quesitos", false))
+            if (DataManager.instance.Decrypt(sections[0]) == "Quesitos")
+            {
+                cheeseSaved -= RespawnCost;
+                sections[1] = cheeseSaved.ToString();
+                fileLines[i] = string.Join(";", sections);
+
+                File.WriteAllText(path, string.Empty);
+                string modifiedContent = string.Join("\n", fileLines.Where(line => !string.IsNullOrWhiteSpace(line)));
+                File.WriteAllText(path, modifiedContent);
+            }
+        }
+    }
+
 
     private void GetHighScore()
     {

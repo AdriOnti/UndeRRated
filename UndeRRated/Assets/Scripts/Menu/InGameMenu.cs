@@ -37,4 +37,18 @@ public class InGameMenu : Menu
 
     }
 
+    // RESTART FUNCTION
+    /// <summary>
+    /// Carga la escena UndeRRated para comenzar una nueva partida
+    /// </summary>
+    public void Restart()
+    {
+        GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text), false);
+        Time.timeScale = 1f;
+        RoadTileMove.speed = -1;
+        if (SceneManager.GetActiveScene().name != "UndeRRated") SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        else SceneManager.LoadScene("UndeRRated");
+        Physics.IgnoreLayerCollision(6, 7, false);
+    }
+
 }

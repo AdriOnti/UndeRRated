@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
@@ -144,6 +145,50 @@ public class DataManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void SaveAchievement(int id)
+    {
+        id += 1;
+        string[] fileLines = ReadAchievement();
+        for(int i = 0; i < fileLines.Length;i++)
+        {
+            string[] sections = fileLines[i].Split('=');
+            if (sections[0] == $"{id}" && sections[1] == "false")
+            {
+                sections[1] = "true";
+                fileLines[i] = string.Join("=", sections);
+
+                string path = Path.Combine(Application.persistentDataPath, "Files/achievement.rat");
+                File.WriteAllText(path, string.Empty);
+                string modifiedContent = string.Join("\n", fileLines.Where(line => !string.IsNullOrWhiteSpace(line)));
+                File.WriteAllText(path, modifiedContent);
+            }
+        }
+    }
+
+    public bool[] GetAchievement()
+    {
+        string[] fileLines = ReadAchievement();
+        bool[] achievements = new bool[fileLines.Length];
+        for(int i = 0;  i < fileLines.Length;i++)
+        {
+            string[] sections = fileLines[i].Split('=');
+            if (sections[0] != "0")
+            {
+                if (sections[1] == "true")
+                {
+                    Debug.Log(sections[2]);
+                    achievements[i] = true;
+                }
+                else
+                {
+                    achievements[i] = false;
+                }
+            }
+        }
+
+        return achievements;
     }
 
 }

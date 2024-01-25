@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
@@ -14,7 +13,7 @@ public class Menu : MonoBehaviour
     /// Esto corresponde a la anecdota comentada en DeadMenu.cs
     /// <para>Esta funcion era un Awake() o un Start(), pero cuando lo cambiamos a OnEnable() todo se soluciono</para>
     /// </summary>
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         try
         {
@@ -53,19 +52,6 @@ public class Menu : MonoBehaviour
         boxCollider.enabled = true;
         Debug.Log("HAN PASADO 2 SEGUNDOS");
 
-    }
-
-    // RESTART FUNCTION
-    /// <summary>
-    /// Carga la escena UndeRRated para comenzar una nueva partida
-    /// </summary>
-    public void Restart()
-    {
-        Time.timeScale = 1f;
-        RoadTileMove.speed = -1;
-        if (SceneManager.GetActiveScene().name != "UndeRRated") SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        else SceneManager.LoadScene("UndeRRated");
-        Physics.IgnoreLayerCollision(6, 7, false);
     }
 
     // QUIT FUNCTION

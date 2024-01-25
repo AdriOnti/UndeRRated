@@ -27,28 +27,32 @@ public class Score : MonoBehaviour
         scoreAmount += pointIncreastedPerSec * Time.deltaTime * 2;
         cheese.text = cheeseAmount.ToString();
 
-        if (scoreAmount >= 100 && !GameManager.Instance.achievementsBool[0])
-        {
-            GameManager.Instance.achievementsBool[0] = true;
-            GameManager.Instance.ShowAchievement(0);
-        }
-
-        if (scoreAmount >= 500 && !GameManager.Instance.achievementsBool[1])
+        if (scoreAmount >= 100 && !GameManager.Instance.achievementsBool[1])
         {
             GameManager.Instance.achievementsBool[1] = true;
-            GameManager.Instance.ShowAchievement(1);
+            GameManager.Instance.ShowAchievement(0);
+            DataManager.instance.SaveAchievement(0);
         }
 
-        if (scoreAmount >= 1000 && !GameManager.Instance.achievementsBool[2])
+        if (scoreAmount >= 500 && !GameManager.Instance.achievementsBool[2])
         {
             GameManager.Instance.achievementsBool[2] = true;
-            GameManager.Instance.ShowAchievement(2);
+            GameManager.Instance.ShowAchievement(1);
+            DataManager.instance.SaveAchievement(1);
         }
 
-        if (scoreAmount >= 2147483646 && !GameManager.Instance.achievementsBool[2])
+        if (scoreAmount >= 1000 && !GameManager.Instance.achievementsBool[3])
         {
-            GameManager.Instance.achievementsBool[4] = true;
+            GameManager.Instance.achievementsBool[3] = true;
+            GameManager.Instance.ShowAchievement(2);
+            DataManager.instance.SaveAchievement(2);
+        }
+
+        if (scoreAmount >= 2147483646 && !GameManager.Instance.achievementsBool[5])
+        {
+            GameManager.Instance.achievementsBool[5] = true;
             GameManager.Instance.ShowAchievement(4);
+            DataManager.instance.SaveAchievement(4);
         }
     }
     public static void ExtraPoints()
@@ -56,10 +60,11 @@ public class Score : MonoBehaviour
         
         scoreAmount += killPoints;
         killCount++;
-        if (killCount >= 100 && !GameManager.Instance.achievementsBool[3])
+        if (killCount >= 100 && !GameManager.Instance.achievementsBool[4])
         {
-            GameManager.Instance.achievementsBool[3] = true;
+            GameManager.Instance.achievementsBool[4] = true;
             GameManager.Instance.ShowAchievement(3);
+            DataManager.instance.SaveAchievement(3);
         }
     }
 

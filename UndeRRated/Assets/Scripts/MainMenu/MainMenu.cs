@@ -33,7 +33,7 @@ public class MainMenu : Menu
         return ui;
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
         Time.timeScale = 1.0f;
         try

@@ -22,6 +22,12 @@ public class DeadMenu : InGameMenu
         isDeadMenu = true;
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        GameManager.Instance.GetSavedMoney();
+    }
+
     /// <summary>
     /// Anectoda sobre este script.
     /// <para>Cuando se empezaba el menu de pausa, al morir por primera todo iba bien, 
@@ -50,39 +56,33 @@ public class DeadMenu : InGameMenu
 
     // RESPAWN FUNCTION
     /// <summary>
-    /// FUNCION EN PROCESO.
-    /// Cuando este funcional, a cambio de una cantidad de monedas podras revivir, 
-    /// para entonces esto estara en la escena UndeRRated como un canvas y no en otra escena
-    /// 
-    /// ¡¡¡¡¡¡¡ATENCIÓN!!!!!!
-    /// REVIVIR FUNCIONA DE ESTA FORMA:
-    /// 0.- Comprueba si hay la misma o más quesitos guardados que los requeridos para respawn
-    /// 1.- Los quesitos guardados les resta el costo de respawn (variable del GameManager)
-    /// 2.- Se le suma los quesitos recogidos durante la partida.
-    /// En los menus se ven los quesitos guardados, puede parecer raro, lo de respawnear.
-    /// 
-    /// Olav: Dejo esto anotado, porque estoy 100% de que me olvidare de como funciona el respawn del juego.
-    /// 
-    /// Ejemplo: RespawnCost = 50;
-    /// savedCheese = 50
-    /// collectedCheese = 50;
-    /// Resultado: 50 quesitos guardados
+    /// A cambio de una determinada cantidad de quesitos se te permite revivir.
     /// </summary>
+    /* 
+     * ¡¡¡¡¡¡¡ATENCIÓN!!!!!!
+     * REVIVIR FUNCIONA DE ESTA FORMA:
+     * 0.- Comprueba si hay la misma o más quesitos guardados que los requeridos para respawn
+     * 1.- Si los hay directamente te quita lo que cueste el RespawnCost del GameManager.2.- Finalmente te revive
+     * 
+     * Esto tuvo multiples versiones pero parece que esta es la buena
+    */
     public void Respawn()
     {
-        SoundManager.Instance.PlayEffect(Audios.RatRespawn_1);
-        Resume();
         RatController.Instance.isDead = false;
+      
 
         if (GameManager.Instance.cheeseSaved >= GameManager.Instance.GetRespawnCost())
         {
             Debug.LogWarning($"Se han quitado {GameManager.Instance.GetRespawnCost()} quesitos de los {GameManager.Instance.cheeseSaved} guardados");
 
-            GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text), true);
+            //GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text), true);
+            GameManager.Instance.Respawn();
             GameManager.Instance.GetSavedMoney();
-
+            Resume();
+            SoundManager.Instance.PlayEffect(Audios.RatRespawn_1);
         }
-      //  else //{ //Debug.LogError($"Tu numero de quesitos es inferior a {GameManager.Instance.GetRespawnCost()}"); }
+        else { Debug.LogError($"Tu numero de quesitos es inferior a {GameManager.Instance.GetRespawnCost()}"); }
 
     }
+
 }
