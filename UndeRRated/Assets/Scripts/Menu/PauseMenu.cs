@@ -19,6 +19,11 @@ public class PauseMenu : InGameMenu
         savedCheese = list[5];
     }
 
+    //private void OnEnable()
+    //{
+    //    GameManager.Instance.GetSavedMoney();
+    //}
+
     private void Update()
     {
         pausedScore.text = $"Score: {resumedScore.text}";

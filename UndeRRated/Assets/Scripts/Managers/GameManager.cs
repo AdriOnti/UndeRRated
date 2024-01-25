@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public bool stopCooldowns;
 
     // [0]100 points  [1]500 points  [2]1000 points  [3]100 bats  [4]Secret
-    [HideInInspector] public bool[] achievementsBool = new bool[5];
+    /*[HideInInspector]*/ public bool[] achievementsBool = new bool[5];
     public List<GameObject> achievements;
 
     public int GetRespawnCost() { return RespawnCost; }
@@ -34,8 +34,14 @@ public class GameManager : MonoBehaviour
         CanvasController();
         GetSavedMoney();
         GetHighScore();
+        GetAchievements();
 
         FadeController.instance.FadeIn();
+    }
+
+    void GetAchievements()
+    {
+        achievementsBool = DataManager.instance.GetAchievement();
     }
 
     public float ActualTime()
@@ -246,7 +252,7 @@ public class GameManager : MonoBehaviour
                 File.WriteAllText(path, modifiedContent);
             }
         }
-        
+        //GetSavedMoney();
 
     }
    
