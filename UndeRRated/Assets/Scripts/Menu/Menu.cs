@@ -20,13 +20,13 @@ public class Menu : MonoBehaviour
         {
             rat = GameManager.Instance.GetPlayer();
             //rat.GetComponent<RatController>().enabled = false;
-            SoundManager.Instance.PlaySound(Audios.ButtonClick_1);
+            SoundManager.Instance.PlayEnvironment(Audios.ButtonClick_1);
         }
         catch { /* Para el menu principal */ }
     }
     private void OnDisable()
     {
-         SoundManager.Instance.PlaySound(Audios.ButtonClick_1); 
+         SoundManager.Instance.PlayEnvironment(Audios.ButtonClick_1); 
     }
 
     // RESUME FUNCTION

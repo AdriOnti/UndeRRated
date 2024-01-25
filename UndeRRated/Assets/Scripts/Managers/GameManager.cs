@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
         CanvasController();
         GetSavedMoney();
         GetHighScore();
+
+        FadeController.instance.FadeIn();
     }
 
     public float ActualTime()
@@ -304,11 +306,11 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator AchievementCanvas(int id)
     {
-        //SoundManager.Instance.PlaySound(Audios.AchievementsNew_1);
-        achievements[achievements.Count -1].SetActive(true);
+        SoundManager.Instance.PlayEffect(Audios.AchievementNew);
+        achievements[^1].SetActive(true);
         achievements[id].SetActive(true);
         yield return new WaitForSeconds(5f);
-        achievements[achievements.Count - 1].SetActive(false);
+        achievements[^1].SetActive(false);
         achievements[id].SetActive(false);
     }
 }

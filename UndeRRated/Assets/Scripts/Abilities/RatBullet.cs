@@ -13,7 +13,7 @@ public class RatBullet : ObstacleRespawner
         base.OnTriggerEnter(other);
         if (other.CompareTag("Bat") || other.CompareTag("ObstacleBreakable"))
         {
-            if (other.CompareTag("Bat"))SoundManager.Instance.PlaySound(Audios.BatDie_1);
+            if (other.CompareTag("Bat"))SoundManager.Instance.PlayEffect(Audios.BatDie_1);
             Score.ExtraPoints();
             ParticleSystem particles = other.gameObject.GetComponentInChildren<ParticleSystem>();
             //particles.Play();

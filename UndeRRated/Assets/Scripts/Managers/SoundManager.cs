@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum Audios {
+    AbilityCooldownEnd,
     AbilityShieldEnable,
     AbilityShieldBreak_1,
-    AbilityShieldStatic_1,
-    AbilityShieldBreak,
-    AbilityStar,
+    AbilityShieldBreak_2,
     AbilityStarMario,
-    AchievementNew_1,
-    AchievementNew_2,
-    AchievementNew_3,
+    AchievementNew,
     AmbientCriatureScary_1,
     AmbientSewer_1,
     AmbientSewer_2,
@@ -50,7 +47,6 @@ public enum Audios {
     WallHit_1,
     WallHit_2,
     Music,
-    AbilityShieldBreak_2,
     BatPoisonball,
     BatPoisonball_1,
     Menu_Tab,
@@ -62,12 +58,12 @@ public enum Audios {
 
 public class SoundManager : MonoBehaviour
 {
-    AudioSource effectManager;
-    AudioSource abilitiesManager;
+    private AudioSource effectManager;
+    private AudioSource abilitiesManager;
+    private AudioSource musicManager; 
 
     public static SoundManager Instance;
-
-    public List<AudioClip> audios = new();  
+    public AudiosContainer audiosDatabase;
 
     private readonly Dictionary<Audios, AudioClip> soundsDatabase = new();
 
@@ -77,38 +73,42 @@ public class SoundManager : MonoBehaviour
         if (Instance != null && Instance != this) Destroy(Instance);
         else Instance = this;
         effectManager = GetComponent<AudioSource>();
-        abilitiesManager = GetComponentInChildren<AudioSource>();
-       // DontDestroyOnLoad(this);
-
+        abilitiesManager = transform.GetChild(0).GetComponentInChildren<AudioSource>();
+        musicManager = transform.GetChild(1).GetComponentInChildren<AudioSource>();
     }
 
     private void Start()
     {
         bool sucess;
-        foreach(AudioClip clip in audios)
+        foreach (AudioClip clip in audiosDatabase.soundsDB)
         {
             if (sucess = Enum.TryParse(clip.name, out Audios value))
-            {         
                 soundsDatabase.Add(value, clip);
-            }
-       //     Debug.Assert(sucess, "Tried adding: " +clip.name);
-       //     Debug.Assert(sucess, "Tried adding: " +clip.name);
         }
     }
-    public void PlaySound(Audios clip)
+    public void PlayEnvironment(Audios clip)
     {
-        if (soundsDatabase.TryGetValue(clip, out AudioClip value)) effectManager.PlayOneShot(value);  
-    }
-    public void PlaySound2(Audios clip)
-    {
-        if (soundsDatabase.TryGetValue(clip, out AudioClip value)) abilitiesManager.PlayOneShot(value);
-    }
+        if (soundsDatabase.TryGetValue(clip, out AudioClip value))
+        {
+            try
+            {
+                effectManager.PlayOneShot(value);
+            }
+            catch (ArgumentNullException)
+            {
 
-    public void StopSound() {
-        effectManager.Stop();
-    }
-    public static void ChangeVolume()
-    {
+                //NO IDEA
+            }
+        
+        }
 
+    }
+    public void PlayEffect(Audios clip)
+    {
+        if (soundsDatabase.TryGetValue(clip, out AudioClip value)) 
+        {
+            //if (clip == Audios.AbilityStarMario) musicManager.mute = true;
+            abilitiesManager.PlayOneShot(value);
+        }   
     }
 }

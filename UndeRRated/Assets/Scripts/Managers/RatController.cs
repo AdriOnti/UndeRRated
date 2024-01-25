@@ -56,7 +56,6 @@ public class RatController : MonoBehaviour
         ratRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         initialColor = ratRenderer.material.color;
         Instance = this;
-        ratIdleSource = GetComponent<AudioSource>();
     }
 
 
@@ -113,19 +112,19 @@ public class RatController : MonoBehaviour
         // CALCULATE THE RIGHT PATH
         if (Input.GetKeyDown(kright) || Input.GetKeyDown(kd))
         {
-            SoundManager.Instance.PlaySound(Audios.RatMove_5);
+            SoundManager.Instance.PlayEffect(Audios.RatMove_5);
             desiredPath++;
             if (desiredPath >= 3) desiredPath = 2;
-            // else SoundManager.Instance.PlayEffect("RatHit");
+
         }
 
         // CALCULATE THE LEFT PATH
         if (Input.GetKeyDown(kleft) || Input.GetKeyDown(ka))
         {
-            SoundManager.Instance.PlaySound(Audios.RatMove_5);
+            SoundManager.Instance.PlayEffect(Audios.RatMove_5);
             desiredPath--;
             if (desiredPath <= -1) desiredPath = 0;
-            // else SoundManager.Instance.PlayEffect("RatHit");
+
         }
 
         // MOVE TO THE PATH
@@ -135,14 +134,13 @@ public class RatController : MonoBehaviour
         if (controller.isGrounded && (Input.GetKeyUp(kdown) || Input.GetKeyUp(ks)))
         {
             animatorRat.SetBool("isSliding", true);
-            SoundManager.Instance.PlaySound(Audios.RatSlideWater_1);
+            SoundManager.Instance.PlayEffect(Audios.RatSlideWater_1);
             ratCol.size = new Vector3(ratCol.size.x, slideableYsize, ratCol.size.z);
             StartCoroutine(StopSlideAnimation());
         }
         if (Input.GetKeyUp(KeyCode.Escape) && GameManager.Instance.DeadMenuActive())
         {
-            GameManager.Instance.PauseGame();
-           // SoundManager.Instance.PlaySound(Audios.MenuTab);
+            GameManager.Instance.PauseGame();     
         }
     }
 
@@ -225,22 +223,21 @@ public class RatController : MonoBehaviour
     private void EatCheese(int cheeseValue, Collider other)
     {
         if (cheeseValue == 0) return;
-        Score.AddCheese(1);
+        Score.AddCheese(cheeseValue);
         other.transform.SetParent(ObjectsPool.instance.transform);
         other.gameObject.SetActive(false);
-        SoundManager.Instance.PlaySound(Audios.EatQuesito_2);
+        SoundManager.Instance.PlayEnvironment(Audios.EatQuesito_2);
     }
 
 
     // JUMP FUNCTION
     private void Jump()
     {
-        ratIdleSource.Stop();
         animatorRat.SetBool("isJumping", true);
         animatorRat.SetBool("isSliding", false);
         direction.y = jumpForce;
         StartCoroutine(StopJumpAnimation());
-        SoundManager.Instance.PlaySound(Audios.RatJumpGoofy_1);
+        SoundManager.Instance.PlayEffect(Audios.RatJumpGoofy_1);
     }
 
     // MOVEMENT TO THE DESIRED PATH FUNCTION
@@ -261,7 +258,6 @@ public class RatController : MonoBehaviour
 
         yield return new WaitForSeconds(jumpDuration);
         animatorRat.SetBool("isJumping", false);
-        ratIdleSource.Play();
     }
     private IEnumerator StopSlideAnimation()
     {
@@ -286,8 +282,8 @@ public class RatController : MonoBehaviour
         animatorRat.SetBool("isDead", true);
         RoadTileMove.speed = 0;
         GameManager.Instance.DeadCharacter();
-        SoundManager.Instance.PlaySound(Audios.WallHit_1);
-        SoundManager.Instance.PlaySound(Audios.GameoverDie);
+        SoundManager.Instance.PlayEnvironment(Audios.WallHit_1);
+        SoundManager.Instance.PlayEnvironment(Audios.GameoverDie);
     }
 
     private IEnumerator WaitAfterBreakable(float segs, MeshRenderer mesh)

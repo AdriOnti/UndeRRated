@@ -44,14 +44,14 @@ public class MovingBat : ObstacleRespawner
         if (other.CompareTag("AttackTrigger"))
         {
             isMoving = true;
-            SoundManager.Instance.PlaySound(Audios.MovingBatAttack);
+            SoundManager.Instance.PlayEnvironment(Audios.MovingBatAttack);
         }
         else if (other.CompareTag("WarningTrigger"))
         {
             lightWarning = attackingPositions[targetIndex].GetComponent<Light>();
             StartCoroutine(FlashNow());
             lightWarning.enabled = false;
-            SoundManager.Instance.PlaySound(Audios.BatIdle);
+            SoundManager.Instance.PlayEnvironment(Audios.BatIdle);
         }
         else if (/*other.CompareTag("Ground") ||*/ other.CompareTag("Player") || other.CompareTag("RatBullet"))  
         {

@@ -5,8 +5,8 @@ public class Score : MonoBehaviour
 {
     public TextMeshProUGUI score;
     public TextMeshProUGUI cheese;
-    static float scoreAmount;
-    static int cheeseAmount;
+    public static float scoreAmount;
+    public static int cheeseAmount;
     public int pointIncreastedPerSec;
     static int killPoints = 10;
     protected bool enemyKilled;
@@ -51,14 +51,6 @@ public class Score : MonoBehaviour
             GameManager.Instance.ShowAchievement(4);
         }
     }
-    private void Update()
-    {
-        //if (Input.GetKeyUp(KeyCode.Space))
-        //{
-        //    scoreAmount += ExtraPoints();
-        //    enemyKilled = false;    
-        //}
-    }
     public static void ExtraPoints()
     {
         
@@ -74,5 +66,6 @@ public class Score : MonoBehaviour
     public static void AddCheese(int points)
     {
         cheeseAmount += points;
+        //GameManager.Instance.SaveMoney(points, false);
     }
 }

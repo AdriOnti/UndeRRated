@@ -5,14 +5,13 @@ public class MouseSensitive : MonoBehaviour, IPointerClickHandler, IPointerEnter
 {
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Button clicked");
-        SoundManager.Instance.PlaySound(Audios.ButtonClick_1);
+        SoundManager.Instance.PlayEnvironment(Audios.ButtonClick_1);
         
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        SoundManager.Instance.PlaySound(Audios.ButtonHover);
+        SoundManager.Instance.PlayEnvironment(Audios.ButtonHover);
         this.transform.localScale = new Vector3(1.12f, 1.12f, 1.12f);
        
     }
@@ -20,6 +19,5 @@ public class MouseSensitive : MonoBehaviour, IPointerClickHandler, IPointerEnter
     public void OnPointerExit(PointerEventData eventData)
     {
         this.transform.localScale = new Vector3(1, 1, 1);
-        //SoundManager.Instance.StopSound();
     }
 }

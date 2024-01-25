@@ -25,7 +25,7 @@ public class RainbowRun : Ability
         light.enabled = true;
         rainbowEffect.enabled = true;
         RatController.Instance.CallInvincibility(invincibleTime);
-        SoundManager.Instance.PlaySound2(Audios.AbilityStarMario);
+        SoundManager.Instance.PlayEffect(Audios.AbilityStarMario);
         saveTime = Time.timeScale;
         Time.timeScale = 8f;
     }

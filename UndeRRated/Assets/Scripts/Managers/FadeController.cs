@@ -8,6 +8,7 @@ public class FadeController : MonoBehaviour
 
     private void Awake()
     {
+       
         if (instance == null) instance = this;
 
         GameObject fadeFather = GameObject.Find("Fade");
@@ -23,7 +24,6 @@ public class FadeController : MonoBehaviour
             if (f.name == "PanelOut") fadeOut = f.gameObject;
             if (f.name == "PanelIn") fadeIn = f.gameObject;
         }
-
     }
 
     public void FadeIn() { fadeIn.SetActive(true); fadeOut.SetActive(false); }

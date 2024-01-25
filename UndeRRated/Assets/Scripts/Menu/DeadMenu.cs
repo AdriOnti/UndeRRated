@@ -33,7 +33,7 @@ public class DeadMenu : InGameMenu
         pausedScore.text = $"{resumedScore.text}";
         int tmp = Convert.ToInt32(resumedCheese.text)/* + GameManager.Instance.cheeseSaved*/;
         pausedCheese.text = $"Quesitos: {tmp}";
-        //GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text), false);
+        GameManager.Instance.SaveMoney(Convert.ToInt32(resumedCheese.text), false);
 
         //string[] splitScore = pausedScore.GetParsedText().Split(' ');
         GameManager.Instance.SaveHighScore(Convert.ToInt32(pausedScore.text));
@@ -70,7 +70,7 @@ public class DeadMenu : InGameMenu
     /// </summary>
     public void Respawn()
     {
-        SoundManager.Instance.PlaySound(Audios.RatRespawn_1);
+        SoundManager.Instance.PlayEffect(Audios.RatRespawn_1);
         Resume();
         RatController.Instance.isDead = false;
 
@@ -82,7 +82,7 @@ public class DeadMenu : InGameMenu
             GameManager.Instance.GetSavedMoney();
 
         }
-        else { Debug.LogError($"Tu numero de quesitos es inferior a {GameManager.Instance.GetRespawnCost()}"); }
+      //  else //{ //Debug.LogError($"Tu numero de quesitos es inferior a {GameManager.Instance.GetRespawnCost()}"); }
 
     }
 }

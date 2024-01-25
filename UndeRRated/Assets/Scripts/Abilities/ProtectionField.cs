@@ -35,7 +35,7 @@ public class ProtectionField : Ability
         {
             StartCoroutine(Disapear());
         }
-        SoundManager.Instance.PlaySound(Audios.AbilityShieldBreak_1);
+        SoundManager.Instance.PlayEffect(Audios.AbilityShieldBreak_1);
         StartCoroutine(DisableShield());
         CooldownManager.Instance.PutOnCooldown(this);
     }
@@ -48,7 +48,7 @@ public class ProtectionField : Ability
     }
     IEnumerator DisableShield()
     {
-        SoundManager.Instance.PlaySound(Audios.AbilityShieldBreak_2);
+        SoundManager.Instance.PlayEffect(Audios.AbilityShieldBreak_2);
         yield return new WaitForSeconds(1.1f);
         isActive = false;
         renderer.enabled = false;   
@@ -60,6 +60,6 @@ public class ProtectionField : Ability
         isActive = true;
         renderer.enabled = true;
         ActivateShield?.Invoke();
-        SoundManager.Instance.PlaySound(Audios.AbilityShieldEnable);
+        SoundManager.Instance.PlayEffect(Audios.AbilityShieldEnable);
     }
 }

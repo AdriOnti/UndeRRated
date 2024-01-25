@@ -38,7 +38,7 @@ public class Ratatatata : Ability
     // Update is called once per frame
     public override void Cast()
     {
-        SoundManager.Instance.PlaySound(Audios.RatShot);
+        SoundManager.Instance.PlayEffect(Audios.RatShot);
         shootTarget = ShotTarget();
         try
         {

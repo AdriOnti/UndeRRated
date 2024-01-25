@@ -8,13 +8,13 @@ public class ClickeableObj : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        SoundManager.Instance.PlaySound(Audios.ButtonClick_1);
+        SoundManager.Instance.PlayEnvironment(Audios.ButtonClick_1);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         clickeableObj.GetComponentInChildren<Light>().enabled = true;
-        SoundManager.Instance.PlaySound(Audios.ButtonHover);
+        SoundManager.Instance.PlayEnvironment(Audios.ButtonHover);
     }
 
     public void OnPointerExit(PointerEventData eventData)

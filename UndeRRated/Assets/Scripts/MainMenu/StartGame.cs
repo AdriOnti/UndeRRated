@@ -1,12 +1,15 @@
 using System.Collections;
+using System.Diagnostics.Contracts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour
 {
+    public ClickeableObj clickableRat;
     public void LoadUndeRRated()
     {
         StartCoroutine(Comienza());
+        clickableRat.enabled = false;
     }
 
     IEnumerator Comienza()

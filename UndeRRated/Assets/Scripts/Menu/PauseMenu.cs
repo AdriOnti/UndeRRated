@@ -17,7 +17,6 @@ public class PauseMenu : InGameMenu
         pausedCheese = list[3];
         highscore = list[4];
         savedCheese = list[5];
-       // 
     }
 
     private void Update()

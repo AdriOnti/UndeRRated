@@ -37,6 +37,6 @@ public class ShopMouseSensitive : MonoBehaviour, IPointerClickHandler, IPointerE
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        shopperTxt.text = "Welcome to the shop";
+        shopperTxt.text = "welcome to the shop";
     }
 }
