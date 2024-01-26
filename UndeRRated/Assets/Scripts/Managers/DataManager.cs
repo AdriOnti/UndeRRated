@@ -102,7 +102,7 @@ public class DataManager : MonoBehaviour
         string file = sr.ReadToEnd();
         sr.Close();
 
-        return file.Split('\r', '\n');
+        return file.Split('\n');
     }
 
     public string ShowAchievementDesc(int id)
