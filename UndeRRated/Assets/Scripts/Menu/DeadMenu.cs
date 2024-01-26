@@ -81,7 +81,7 @@ public class DeadMenu : InGameMenu
             Resume();
             SoundManager.Instance.PlayEffect(Audios.RatRespawn_1);
         }
-        else { Debug.LogError($"Tu numero de quesitos es inferior a {GameManager.Instance.GetRespawnCost()}"); }
+        else { Debug.LogWarning($"Tu numero de quesitos es inferior a {GameManager.Instance.GetRespawnCost()}"); }
 
     }
 
