@@ -178,7 +178,6 @@ public class DataManager : MonoBehaviour
             {
                 if (sections[1] == "true")
                 {
-                    Debug.Log(sections[2]);
                     achievements[i] = true;
                 }
                 else
