@@ -7,7 +7,7 @@ public class RatController : MonoBehaviour
 {
     // PRIVATE PARAMETERS
     private CharacterController controller;
-    private Vector3 direction;
+    [SerializeField] private Vector3 direction;
     public int desiredPath = 1;
     private Animator animatorRat;
     public GameObject dizzyRat;
@@ -100,11 +100,14 @@ public class RatController : MonoBehaviour
             ks = KeyCode.S;
         }
 
+
         controller.Move(direction * Time.deltaTime);
 
         // JUMP
         if (controller.isGrounded && (Input.GetKeyDown(kup) || Input.GetKeyDown(kw))) Jump();
-        else direction.y += Gravity * 2 * Time.deltaTime;
+        else if (!controller.isGrounded) direction.y += Gravity * 2 * Time.deltaTime;
+
+
 
         // FORCE TO GO TO THE GROUND IF IS JUMPING
         if (!controller.isGrounded && (Input.GetKeyDown(kdown) || Input.GetKeyDown(ks))) direction.y -= jumpForce;
